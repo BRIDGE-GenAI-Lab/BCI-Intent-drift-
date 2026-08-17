@@ -1,0 +1,127 @@
+{
+  "labeled_path": "output/intermediate/attempts_v3_labeled.parquet",
+  "exposure_path": "output/intermediate/exposure_v3_full.parquet",
+  "n_rows": 1701000,
+  "primary_slope_adjusted": {
+    "est": 5.408133519826372,
+    "se": 0.2049182286036183,
+    "ci_lo": 5.0065011719875345,
+    "ci_hi": 5.809765867665209,
+    "formula": "realized_cer + n_errors + char_len + corrupted_negation + corrupted_numeral + C(family)",
+    "engine": "clustered_logit_fallback (idrift.analysis.mixed_models._fit_clustered_fallback, the same call idrift.analysis.run_v3 uses to produce stats_v3_digest.json's mixed_model.drift.coefficients.realized_cer)",
+    "n_obs": 1701000
+  },
+  "slope_no_mediators": {
+    "est": 5.414553363890366,
+    "se": 0.2056024186416636,
+    "ci_lo": 5.011580028218378,
+    "ci_hi": 5.817526699562353,
+    "formula": "realized_cer + n_errors + char_len + C(family)",
+    "n_obs": 1701000,
+    "adjusted_est_for_comparison": 5.408133519826372,
+    "delta_vs_adjusted": 0.006419844063993985,
+    "note": "corrupted_negation and corrupted_numeral are downstream consequences of realized_cer (a negation/numeral token can only be corrupted if the corruption process, whose intensity IS realized_cer, happens to hit one), not confounders of it, so the ADJUSTED 5.41 estimates the DIRECT effect of realized_cer net of those two mediated pathways, while this no-mediators refit estimates the TOTAL effect of realized_cer on drift, including any part routed through flipping a negation or numeral."
+  },
+  "per_model_slopes": {
+    "method": "message-clustered cluster-robust logit (drift ~ realized_cer), univariate, fit SEPARATELY within each model (idrift.analysis.dependence_sensitivity.per_model_pooled_slope's per-model fits) -- reported directly as the primary model-level summary, replacing the DerSimonian-Laird pooled figure",
+    "models": {
+      "gemma4:12b": {
+        "slope": 9.636212385345031,
+        "se": 0.11580000913142707,
+        "ci": [
+          9.409244367447434,
+          9.863180403242628
+        ],
+        "n": 243000,
+        "n_messages": 2299
+      },
+      "gemma4:31b": {
+        "slope": 10.781453578886506,
+        "se": 0.11674222829428983,
+        "ci": [
+          10.552638811429699,
+          11.010268346343313
+        ],
+        "n": 243000,
+        "n_messages": 2299
+      },
+      "gemma4:e4b": {
+        "slope": 6.718667436011122,
+        "se": 0.08034354914057959,
+        "ci": [
+          6.5611940796955865,
+          6.876140792326658
+        ],
+        "n": 243000,
+        "n_messages": 2299
+      },
+      "mistral-small:24b": {
+        "slope": 9.636703619571543,
+        "se": 0.11667014798584868,
+        "ci": [
+          9.408030129519279,
+          9.865377109623807
+        ],
+        "n": 243000,
+        "n_messages": 2299
+      },
+      "phi4:14b": {
+        "slope": 10.393406263681294,
+        "se": 0.11301881978504418,
+        "ci": [
+          10.171889376902607,
+          10.614923150459981
+        ],
+        "n": 243000,
+        "n_messages": 2299
+      },
+      "phi4:mini": {
+        "slope": 8.527880883130695,
+        "se": 0.0971668715112555,
+        "ci": [
+          8.337433814968634,
+          8.718327951292757
+        ],
+        "n": 243000,
+        "n_messages": 2299
+      },
+      "qwen3.5:27b-q4": {
+        "slope": 10.219431425462849,
+        "se": 0.12208954912029012,
+        "ci": [
+          9.98013590918708,
+          10.458726941738618
+        ],
+        "n": 243000,
+        "n_messages": 2299
+      }
+    },
+    "range": {
+      "min": 6.718667436011122,
+      "max": 10.781453578886506
+    },
+    "all_positive": true,
+    "k_models": 7,
+    "n_models_dropped": 0,
+    "dl_pooled_descriptive_only": {
+      "slope": 9.414974258669432,
+      "se": 0.6095338742999022,
+      "ci": [
+        8.220287865041623,
+        10.60966065229724
+      ],
+      "tau2": 2.5886914799466845,
+      "i2": 99.56338645712621,
+      "note": "kept only as a SUPPLEMENTARY descriptive number, not the primary model-level estimator: the DerSimonian-Laird pool and its I^2 heterogeneity decomposition assume the 7 models are exchangeable draws from a population of studies, but these 7 are a convenience sample of whichever open-weight checkpoints fit the compute budget, not an inferential population of 'LLMs in general.' The per-model slopes and their descriptive min-max range above are the primary model-level summary."
+    }
+  },
+  "vif": {
+    "realized_cer": 4.795810081645754,
+    "n_errors": 6.240233718809053,
+    "char_len": 2.4408230670004114,
+    "n_obs": 1701000,
+    "note": "VIF for the 3 predictors the reviewer flagged as algebraically related (realized_cer is approximately n_errors / char_len by construction of the corruption process). Rule of thumb: VIF > 5 warrants attention, VIF > 10 indicates severe collinearity; none here reaches 10, so the adjusted model's realized_cer coefficient is estimable, though n_errors and realized_cer share meaningful variance as expected."
+  },
+  "family_checkpoint_confound_note": "family (the C(family) fixed effect in the adjusted model) is derived from model_id by stripping the size/tag suffix. Of the 4 families in this study's 7-checkpoint matrix, mistral-small and qwen3.5 each contribute exactly ONE checkpoint (mistral-small:24b; qwen3.5:27b-q4), so for those two families the family fixed effect is perfectly confounded with the checkpoint/model effect -- it cannot be attributed to 'being a Mistral-Small model' versus 'being specifically this 24b checkpoint.' Only gemma4 (3 checkpoints: 12b/31b/e4b) and phi4 (2 checkpoints: 14b/mini) let the design distinguish a within-family size/checkpoint effect from a between-family effect at all.",
+  "notes": "Task A5 (reviewer #5): (a) per-model slopes + descriptive min-max range replace the DerSimonian-Laird pool as the primary model-level summary (7 convenience-selected checkpoints is not an inferential population for random-effects pooling); (b) VIF for realized_cer/n_errors/char_len answers the collinearity objection; (c) a no-mediators refit (dropping corrupted_negation/corrupted_numeral) reports the TOTAL corruption effect alongside the adjusted (direct) effect. primary_slope_adjusted reproduces output/stats_v3_digest.json's mixed_model.drift.coefficients.realized_cer (5.41 headline)."
+}

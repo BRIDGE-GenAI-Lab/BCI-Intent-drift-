@@ -1,0 +1,256 @@
+{
+  "beta": 8.311123812402498,
+  "pooled_or_per_10pp": 2.295871204402178,
+  "se_message_only": 0.04760973759436975,
+  "se_twoway": 0.3319030693814108,
+  "ci_message_only": [
+    2.274547301249701,
+    2.317395019354865
+  ],
+  "ci_twoway": [
+    2.1512747534189,
+    2.45018660625574
+  ],
+  "n_obs": 4252326,
+  "n_message_clusters": 2299,
+  "n_model_clusters": 20,
+  "n_intersection_clusters": 45971,
+  "twoway_fallback": false,
+  "note": "Two-way (message x model) Cameron-Gelbach-Miller cluster-robust SE for the target-CER slope; wider than the message-only SE because it adds the model-level dependence axis that message clustering alone cannot see.",
+  "validation": {
+    "one_way_matches_statsmodels_uncorrected": true,
+    "se_message_one_way_sandwich": 0.04760973759436975,
+    "se_message_statsmodels_default": 0.04762010101770264,
+    "rel_diff_vs_statsmodels_default": 0.00021762707578136563,
+    "note": "The one-way message meat, sandwiched, reproduces statsmodels' cov_cluster(use_correction=False) exactly and its finite-sample-corrected default clustered SE to within a small relative tolerance. This validates the sandwich algebra reused from multiway_cluster for the two-way SE here."
+  },
+  "per_model": [
+    {
+      "model": "command-r:latest",
+      "slope_log_odds": 7.971630712160766,
+      "or_per_10pp": 2.2192361746698994,
+      "se": 0.09306638507042012,
+      "ci": [
+        7.789223949251406,
+        8.154037475070126
+      ],
+      "n": 243000
+    },
+    {
+      "model": "deepseek-r1:32b",
+      "slope_log_odds": 5.426178217040689,
+      "or_per_10pp": 1.720504947216551,
+      "se": 0.1124375066504345,
+      "ci": [
+        5.205804753494355,
+        5.646551680587023
+      ],
+      "n": 40500
+    },
+    {
+      "model": "gemma2:9b",
+      "slope_log_odds": 9.714257424690455,
+      "or_per_10pp": 2.641708171205196,
+      "se": 0.0847111869054062,
+      "ci": [
+        9.548226549268218,
+        9.880288300112692
+      ],
+      "n": 243000
+    },
+    {
+      "model": "gemma3:27b",
+      "slope_log_odds": 9.339894158017975,
+      "or_per_10pp": 2.544640584340737,
+      "se": 0.0737442748144934,
+      "ci": [
+        9.195358035315543,
+        9.484430280720407
+      ],
+      "n": 243000
+    },
+    {
+      "model": "gemma4:12b",
+      "slope_log_odds": 9.60940428385317,
+      "or_per_10pp": 2.614153742182101,
+      "se": 0.08897156550222854,
+      "ci": [
+        9.435023219820655,
+        9.783785347885685
+      ],
+      "n": 243000
+    },
+    {
+      "model": "gemma4:31b",
+      "slope_log_odds": 10.551137317960727,
+      "or_per_10pp": 2.8723018073689666,
+      "se": 0.06882040215480634,
+      "ci": [
+        10.416251808335744,
+        10.68602282758571
+      ],
+      "n": 243000
+    },
+    {
+      "model": "gemma4:e4b",
+      "slope_log_odds": 7.5734895084321545,
+      "or_per_10pp": 2.1326150524584615,
+      "se": 0.08045294180180562,
+      "ci": [
+        7.415804640050318,
+        7.731174376813991
+      ],
+      "n": 243000
+    },
+    {
+      "model": "gpt-oss:120b",
+      "slope_log_odds": 8.071643058557319,
+      "or_per_10pp": 2.2415426365202817,
+      "se": 0.11352505930787792,
+      "ci": [
+        7.849138030971105,
+        8.294148086143533
+      ],
+      "n": 40500
+    },
+    {
+      "model": "gpt-oss:20b",
+      "slope_log_odds": 6.340236140493744,
+      "or_per_10pp": 1.8851805787355844,
+      "se": 0.0935616152797678,
+      "ci": [
+        6.156858744210006,
+        6.523613536777481
+      ],
+      "n": 40326
+    },
+    {
+      "model": "granite3.3:8b",
+      "slope_log_odds": 8.411980005841144,
+      "or_per_10pp": 2.3191436486674784,
+      "se": 0.10477814601329877,
+      "ci": [
+        8.2066186132882,
+        8.617341398394089
+      ],
+      "n": 243000
+    },
+    {
+      "model": "llama3.1:8b",
+      "slope_log_odds": 7.473473861334876,
+      "or_per_10pp": 2.1113918744194833,
+      "se": 0.11183605138598979,
+      "ci": [
+        7.2542792284451645,
+        7.692668494224587
+      ],
+      "n": 243000
+    },
+    {
+      "model": "llama4:17b-scout-16e-instruct-q4_K_M",
+      "slope_log_odds": 8.214689687869331,
+      "or_per_10pp": 2.2738375818453838,
+      "se": 0.05488590266108754,
+      "ci": [
+        8.107115295394628,
+        8.322264080344034
+      ],
+      "n": 243000
+    },
+    {
+      "model": "mistral-small:24b",
+      "slope_log_odds": 9.447106672936181,
+      "or_per_10pp": 2.5720690872095955,
+      "se": 0.08982095509437159,
+      "ci": [
+        9.271060835894223,
+        9.623152509978139
+      ],
+      "n": 243000
+    },
+    {
+      "model": "phi3:mini",
+      "slope_log_odds": 7.974577207694949,
+      "or_per_10pp": 2.21989016796238,
+      "se": 0.08449931686286574,
+      "ci": [
+        7.808961589925494,
+        8.140192825464403
+      ],
+      "n": 243000
+    },
+    {
+      "model": "phi4:14b",
+      "slope_log_odds": 9.924013239715322,
+      "or_per_10pp": 2.6977047637244524,
+      "se": 0.07850765397349449,
+      "ci": [
+        9.77014106541654,
+        10.077885414014103
+      ],
+      "n": 243000
+    },
+    {
+      "model": "phi4:mini",
+      "slope_log_odds": 8.481450384074225,
+      "or_per_10pp": 2.335310919612714,
+      "se": 0.07727153781719458,
+      "ci": [
+        8.3300009529225,
+        8.63289981522595
+      ],
+      "n": 243000
+    },
+    {
+      "model": "qwen2.5:7b",
+      "slope_log_odds": 5.137172056792579,
+      "or_per_10pp": 1.6714929442811672,
+      "se": 0.06868432553661086,
+      "ci": [
+        5.002553252438397,
+        5.271790861146761
+      ],
+      "n": 243000
+    },
+    {
+      "model": "qwen3.5:27b-q4",
+      "slope_log_odds": 9.95376019055136,
+      "or_per_10pp": 2.7057415604055657,
+      "se": 0.09012977324225672,
+      "ci": [
+        9.777109081061775,
+        10.130411300040945
+      ],
+      "n": 243000
+    },
+    {
+      "model": "qwen3.6:27b",
+      "slope_log_odds": 10.032056533997178,
+      "or_per_10pp": 2.727009679602577,
+      "se": 0.0859384661413257,
+      "ci": [
+        9.863620235473565,
+        10.20049283252079
+      ],
+      "n": 243000
+    },
+    {
+      "model": "qwen3.6:35b-a3b",
+      "slope_log_odds": 9.230032456276849,
+      "or_per_10pp": 2.51683773291811,
+      "se": 0.08232824940168894,
+      "ci": [
+        9.068672052539307,
+        9.39139286001439
+      ],
+      "n": 243000
+    }
+  ],
+  "median_slope": 8.446715194957685,
+  "slope_range": [
+    5.137172056792579,
+    10.551137317960727
+  ],
+  "instability_note": "Only 16 model clusters -- far too few for the usual 30-50+ cluster rule of thumb that makes model-cluster inference trustworthy on its own. The message-by-model two-way clustered CI (ci_twoway) is reported for honesty and correctly widens relative to the message-only CI, but with 16 clusters that widened interval should be read as approximate, not a precise bound; the per-model slopes and their median/range are the more informative view of model-level heterogeneity.",
+  "n_rows": 4252326
+}

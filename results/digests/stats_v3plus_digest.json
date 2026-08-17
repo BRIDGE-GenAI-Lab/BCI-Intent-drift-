@@ -1,0 +1,2936 @@
+{
+  "_meta": {
+    "labeled": "output/intermediate/attempts_v3plus_labeled.parquet",
+    "exposure": "output/intermediate/exposure_v3_full.parquet",
+    "tau_primary": 0.5,
+    "tie_primary": "primary",
+    "corpus_version": "v3",
+    "n_rows": 3888000,
+    "n_auth_messages": 2168,
+    "generated_by": "idrift.analysis.run_v3",
+    "reused_unchanged_artifacts": [
+      "output/balance_digest.json (CRIT/CTRL SMD balance table -- unchanged, byte-identical corpora)",
+      "output/stratified_diag_digest.json (physician-panel stratified diagnostics -- unchanged)"
+    ]
+  },
+  "drift_curve": {
+    "drift_by_corpus_x_targetcer": {
+      "AUTH": {
+        "0.0": 1.91,
+        "0.1": 14.22,
+        "0.2": 31.62,
+        "0.3": 48.36,
+        "0.4": 60.24
+      },
+      "CRIT": {
+        "0.0": 2.93,
+        "0.1": 16.89,
+        "0.2": 35.21,
+        "0.3": 51.17,
+        "0.4": 61.32
+      },
+      "CTRL": {
+        "0.0": 1.45,
+        "0.1": 15.4,
+        "0.2": 32.09,
+        "0.3": 48.01,
+        "0.4": 59.78
+      }
+    },
+    "overall_by_corpus": {
+      "AUTH": {
+        "faithful": 0.56,
+        "degraded": 0.1273,
+        "drift": 0.3127
+      },
+      "CRIT": {
+        "faithful": 0.5105,
+        "degraded": 0.1545,
+        "drift": 0.3351
+      },
+      "CTRL": {
+        "faithful": 0.5341,
+        "degraded": 0.1524,
+        "drift": 0.3135
+      }
+    },
+    "per_model_auth_drift": {
+      "gemma4:31b": 0.2305,
+      "qwen2.5:7b": 0.2357,
+      "gemma4:e4b": 0.2413,
+      "gemma3:27b": 0.2706,
+      "llama4:17b-scout-16e-instruct-q4_K_M": 0.2735,
+      "qwen3.6:27b": 0.2802,
+      "command-r:latest": 0.2819,
+      "gemma4:12b": 0.2825,
+      "qwen3.5:27b-q4": 0.2867,
+      "qwen3.6:35b-a3b": 0.2896,
+      "gemma2:9b": 0.3172,
+      "mistral-small:24b": 0.3227,
+      "phi4:14b": 0.3637,
+      "llama3.1:8b": 0.401,
+      "phi4:mini": 0.4332,
+      "phi3:mini": 0.4925
+    },
+    "n_by_corpus": {
+      "AUTH": 3468800,
+      "CRIT": 209600,
+      "CTRL": 209600
+    }
+  },
+  "zero_cer_audit": {
+    "total_zero_cer_drift": 17971,
+    "by_cause": {
+      "critical_substitution": 7504,
+      "formatting": 279,
+      "paraphrase": 396,
+      "overgenerative": 964,
+      "other": 8828
+    },
+    "examples": {
+      "critical_substitution": [
+        "costello_1965",
+        "costello_1965",
+        "costello_1965",
+        "probe_0048",
+        "probe_0048",
+        "probe_0048",
+        "probe_0050",
+        "probe_0050",
+        "probe_0050",
+        "costello_1965"
+      ],
+      "formatting": [
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056"
+      ],
+      "paraphrase": [
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751"
+      ],
+      "overgenerative": [
+        "costello_0620",
+        "costello_0620",
+        "costello_0620",
+        "costello_0620",
+        "costello_0620",
+        "costello_0296",
+        "costello_0296",
+        "costello_0296",
+        "costello_0620",
+        "costello_0620"
+      ],
+      "other": [
+        "costello_1119",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "costello_0882",
+        "costello_0882",
+        "costello_0882",
+        "costello_1119",
+        "probe_0121"
+      ]
+    },
+    "notes": "Filtered to realized_cer == 0 and label == 'drift' (a clean input the ensemble nonetheless called drift on). Precedence: critical_substitution > formatting > paraphrase > overgenerative > other -- each row is assigned the first cause it matches, not summed across causes. critical_substitution = any of ['crit_negation_flip', 'crit_numeral_change', 'crit_recipient_change', 'crit_urgency_change', 'crit_actionable_omission'] is True. formatting = output_message equals intended_text after lowercasing, punctuation removal, and whitespace collapse. paraphrase = cos_mpnet and cos_minilm both >= nli_metric.COS_HI (currently 0.75) and bidirectional entailment ('entail' both directions) on at least one of the two NLI models (deberta or roberta), reached only when no crit_* flag is set. overgenerative = output_message at least 1.5x intended_text's character length, reached only when none of the above matched. other = residual. Examples are capped at 10 message_id(s) per cause."
+  },
+  "calibration": {
+    "dropped_nan_confidence": 7315,
+    "per_model": {
+      "command-r:latest": {
+        "ece": 0.3458313064592463,
+        "ece_ci": [
+          0.33975051248550125,
+          0.35295087377332407
+        ],
+        "auroc": 0.7419085205885299,
+        "auroc_ci": [
+          0.7362113635066265,
+          0.7477940687098101
+        ],
+        "n": 242985,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "gemma2:9b": {
+        "ece": 0.3460790873961406,
+        "ece_ci": [
+          0.3394406464771039,
+          0.3528331160610855
+        ],
+        "auroc": 0.7845921679018556,
+        "auroc_ci": [
+          0.7793484068298906,
+          0.7895525768843102
+        ],
+        "n": 242997,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "gemma3:27b": {
+        "ece": 0.32943904657259127,
+        "ece_ci": [
+          0.32348944557991854,
+          0.3353220919723932
+        ],
+        "auroc": 0.7408956571023414,
+        "auroc_ci": [
+          0.734913345817848,
+          0.7464179410834211
+        ],
+        "n": 242997,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "gemma4:12b": {
+        "ece": 0.3038624643484773,
+        "ece_ci": [
+          0.29806518714776586,
+          0.31076579654014846
+        ],
+        "auroc": 0.8766685940163944,
+        "auroc_ci": [
+          0.8704642158699812,
+          0.8826026352008666
+        ],
+        "n": 242977,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "gemma4:31b": {
+        "ece": 0.17342471954501681,
+        "ece_ci": [
+          0.16735591017993048,
+          0.17937917703006853
+        ],
+        "auroc": 0.8964089096491619,
+        "auroc_ci": [
+          0.8881119958048301,
+          0.9038560233121113
+        ],
+        "n": 242998,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "gemma4:e4b": {
+        "ece": 0.3245685784715163,
+        "ece_ci": [
+          0.3187948933626543,
+          0.3301312081028786
+        ],
+        "auroc": 0.8758741857313028,
+        "auroc_ci": [
+          0.8694424488086054,
+          0.8825847821162537
+        ],
+        "n": 242999,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "llama3.1:8b": {
+        "ece": 0.3996317898597017,
+        "ece_ci": [
+          0.393604900319238,
+          0.4058534071257089
+        ],
+        "auroc": 0.8342786086602502,
+        "auroc_ci": [
+          0.8281255177524136,
+          0.839632969964694
+        ],
+        "n": 241058,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "llama4:17b-scout-16e-instruct-q4_K_M": {
+        "ece": 0.2714987445976537,
+        "ece_ci": [
+          0.2660939927947602,
+          0.27709548771919934
+        ],
+        "auroc": 0.7662025216045718,
+        "auroc_ci": [
+          0.7614761707325511,
+          0.7707129678776389
+        ],
+        "n": 242950,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "mistral-small:24b": {
+        "ece": 0.3227391171943802,
+        "ece_ci": [
+          0.316195703024497,
+          0.32876992667453214
+        ],
+        "auroc": 0.8154457872605828,
+        "auroc_ci": [
+          0.8101614428242326,
+          0.820681004567695
+        ],
+        "n": 242998,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "phi3:mini": {
+        "ece": 0.5778150113983035,
+        "ece_ci": [
+          0.5724518657613656,
+          0.5833505780345687
+        ],
+        "auroc": 0.7095186109907698,
+        "auroc_ci": [
+          0.7036083331640081,
+          0.7150925148997089
+        ],
+        "n": 238632,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "phi4:14b": {
+        "ece": 0.35117993736084196,
+        "ece_ci": [
+          0.3448693750748499,
+          0.3570433583080913
+        ],
+        "auroc": 0.8725192978241434,
+        "auroc_ci": [
+          0.867926772100696,
+          0.8773330583080177
+        ],
+        "n": 242979,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "phi4:mini": {
+        "ece": 0.5018164439885138,
+        "ece_ci": [
+          0.49556193053065145,
+          0.507627706729761
+        ],
+        "auroc": 0.7338269691855546,
+        "auroc_ci": [
+          0.7298620398819823,
+          0.7377150498106824
+        ],
+        "n": 242727,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "qwen2.5:7b": {
+        "ece": 0.4167267078951602,
+        "ece_ci": [
+          0.41093916091335203,
+          0.42209761175046356
+        ],
+        "auroc": 0.8266540193168211,
+        "auroc_ci": [
+          0.8218228779351062,
+          0.8312952756167548
+        ],
+        "n": 242389,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "qwen3.5:27b-q4": {
+        "ece": 0.22041008230452674,
+        "ece_ci": [
+          0.21474386261393202,
+          0.22691192752266062
+        ],
+        "auroc": 0.8838410502406074,
+        "auroc_ci": [
+          0.8773576095307524,
+          0.8900095066458621
+        ],
+        "n": 243000,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "qwen3.6:27b": {
+        "ece": 0.2646179835390946,
+        "ece_ci": [
+          0.2584155825965405,
+          0.2705430120126059
+        ],
+        "auroc": 0.8525244127893955,
+        "auroc_ci": [
+          0.8461909836870845,
+          0.8585501442173573
+        ],
+        "n": 243000,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "qwen3.6:35b-a3b": {
+        "ece": 0.2798473656270191,
+        "ece_ci": [
+          0.27376717481902685,
+          0.28550774006952595
+        ],
+        "auroc": 0.8703108065051195,
+        "auroc_ci": [
+          0.8648682640487879,
+          0.8759058586790712
+        ],
+        "n": 242999,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      }
+    },
+    "meta_ece": {
+      "pooled": 0.3393452291097041,
+      "ci": [
+        0.28831760020983493,
+        0.3903728580095733
+      ],
+      "tau2": 0.010835261380544072,
+      "q": 17401.028875844528,
+      "i2": 99.91379820062926,
+      "k_models": 16,
+      "caveat": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "meta_auroc": {
+      "pooled": 0.8175696249239376,
+      "ci": [
+        0.7873921587759682,
+        0.8477470910719069
+      ],
+      "tau2": 0.0037844862590239556,
+      "q": 7417.252647658596,
+      "i2": 99.79776878700855,
+      "k_models": 16,
+      "caveat": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    }
+  },
+  "matched_compare": {
+    "engine": "conditional_logit",
+    "coef": {
+      "critical": {
+        "est": 0.14430050121352414,
+        "se": 0.01348627661088455,
+        "ci_lo": 0.11786788477064553,
+        "ci_hi": 0.17073311765640276,
+        "p": 1.0199496699461806e-26
+      },
+      "char_len": {
+        "est": 0.0010026615378743696,
+        "se": 0.0090584366813727,
+        "ci_lo": -0.01675154811385265,
+        "ci_hi": 0.018756871189601388,
+        "p": 0.9118636484406797
+      },
+      "n_errors": {
+        "est": 0.13815673586464516,
+        "se": 0.01059240333300885,
+        "ci_lo": 0.11739600682222578,
+        "ci_hi": 0.15891746490706454,
+        "p": 6.965944345399715e-39
+      },
+      "corrupted_negation": {
+        "est": 0.040951151194252196,
+        "se": 0.07894289972220765,
+        "ci_lo": -0.11377408909643186,
+        "ci_hi": 0.19567639148493624,
+        "p": 0.6039393126823634
+      },
+      "corrupted_numeral": {
+        "est": 0.6791997102122747,
+        "se": 0.28717763137065255,
+        "ci_lo": 0.11634189556027563,
+        "ci_hi": 1.2420575248642738,
+        "p": 0.018025898978658292
+      },
+      "realized_cer": {
+        "est": 4.742783502728306,
+        "se": 0.21733720761591394,
+        "ci_lo": 4.316810403300611,
+        "ci_hi": 5.168756602156002,
+        "p": 1.4271315063537616e-105
+      }
+    },
+    "n_obs": 55624,
+    "n_pairs": 27812,
+    "converged": true,
+    "notes": "engine=conditional_logit (statsmodels.discrete.conditional_models.ConditionalLogit, endog=drift, exog=[critical + char_len + n_errors + corrupted_negation + corrupted_numeral + realized_cer], groups=pair_id). Conditioning is on the matched pair (pair_id, the Task-1.3 CRIT-CTRL match): every pair's group-specific intercept is differenced out of the conditional likelihood, so any confounder constant within a matched pair is controlled for without being named. coef['critical'] is the adjusted CRIT-vs-CTRL contrast; the other five entries are the adjusters' own coefficients. 63888 of 91700 input pairs dropped for having no within-group outcome variance (fully concordant -- same drift/non-drift outcome on every row in that pair, contributing nothing to a conditional likelihood; standard for conditional logistic regression, not a bug). Fit warnings: Dropped 63888 groups and 127776 observations for having no within-group variance. converged=True (fit raised no exception and every reported est/se is finite; ConditionalLogit's own .fit() does not expose the underlying optimizer's convergence flag on its returned result, see module docstring).",
+    "_strata": "pair_id x cer_target x replicate_idx x model (matched pair at identical corruption cell)",
+    "_note": "Coarse message-pair-level conditioning did not converge on the full cohort (huge strata); finer identical-corruption strata is the classic discordant-matched-pair conditional logistic and converges.",
+    "risk_difference": {
+      "estimand": "risk_difference_crit_minus_ctrl",
+      "rd": 0.021723009814612837,
+      "ci_lo": 0.0039212104689204195,
+      "ci_hi": 0.041480643402399105,
+      "additional_drifts_per_1000": {
+        "est": 21.723009814612837,
+        "ci_lo": 3.9212104689204197,
+        "ci_hi": 41.4806434023991
+      },
+      "p_crit": 0.33365321701199563,
+      "p_ctrl": 0.3119302071973828,
+      "n_crit": 91700,
+      "n_ctrl": 91700,
+      "n_pairs": 131,
+      "n_boot": 1000,
+      "seed": 0,
+      "boot_se": 0.00968169469922145,
+      "notes": "estimand=risk_difference RD = P(drift|CRIT) - P(drift|CTRL) on the matched CRIT-vs-CTRL design (the absolute-scale companion to matched_drift's odds-ratio contrast). CI is a pair-clustered percentile bootstrap (1000 of 1000 replicates finite): whole matched pairs (pair_id) are resampled with replacement, preserving within-pair correlation across the many attempt-level rows a pair spans (models x CER targets x replicates). additional_drifts_per_1000 = RD*1000 (a pure rescale of RD and its CI). n_pairs=131, n_crit=91700, n_ctrl=91700, seed=0."
+    },
+    "risk_difference_by_cer": {
+      "estimand": "risk_difference_crit_minus_ctrl_by_cer_target",
+      "interaction_form": "stratified",
+      "by_cer": [
+        {
+          "cer_target": 0.0,
+          "rd": 0.01777535441657579,
+          "ci_lo": 0.005013631406761178,
+          "ci_hi": 0.03272355507088331,
+          "additional_drifts_per_1000": 17.77535441657579,
+          "p_crit": 0.023555070883315158,
+          "p_ctrl": 0.0057797164667393675,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        },
+        {
+          "cer_target": 0.1,
+          "rd": 0.014721919302071979,
+          "ci_lo": -0.007580425299890925,
+          "ci_hi": 0.03841330425299888,
+          "additional_drifts_per_1000": 14.721919302071978,
+          "p_crit": 0.15572519083969466,
+          "p_ctrl": 0.14100327153762268,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        },
+        {
+          "cer_target": 0.2,
+          "rd": 0.03222464558342425,
+          "ci_lo": 0.0049604689203925885,
+          "ci_hi": 0.061190021810250766,
+          "additional_drifts_per_1000": 32.22464558342425,
+          "p_crit": 0.340948745910578,
+          "p_ctrl": 0.30872410032715375,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        },
+        {
+          "cer_target": 0.3,
+          "rd": 0.030316248636859333,
+          "ci_lo": 0.0033233369683750517,
+          "ci_hi": 0.05927071973827692,
+          "additional_drifts_per_1000": 30.316248636859335,
+          "p_crit": 0.5144492911668485,
+          "p_ctrl": 0.4841330425299891,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        },
+        {
+          "cer_target": 0.4,
+          "rd": 0.013576881134133023,
+          "ci_lo": -0.010850599781897508,
+          "ci_hi": 0.03855507088331523,
+          "additional_drifts_per_1000": 13.576881134133023,
+          "p_crit": 0.6335877862595419,
+          "p_ctrl": 0.6200109051254089,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        }
+      ],
+      "n_boot": 1000,
+      "seed": 0,
+      "notes": "criticality-by-CER interaction on the absolute scale: CRIT-vs-CTRL risk difference within each cer_target level, each with its own pair-clustered percentile-bootstrap 95% CI. Reported as stratum-specific RDs (interaction_form=stratified), not a critical x cer product term, because the coarse pair-level conditional logit does not converge on the full cohort (see module docstring / digest _note); the stratified RD shows whether the absolute gap changes with corruption without optimizer fragility. Each stratum uses a distinct deterministic bootstrap stream (seed+i, base seed=0); 1000 replicates per stratum."
+    },
+    "reused_from": "v2 (CRIT/CTRL unchanged)"
+  },
+  "sensitivity": {
+    "tie_at_tau0.5": {
+      "primary": 0.3201,
+      "drift_averse": 0.287,
+      "severity": 0.3265
+    },
+    "tau_at_tie_primary": {
+      "0.3": 0.3587,
+      "0.4": 0.3426,
+      "0.5": 0.3201,
+      "0.6": 0.2926
+    },
+    "reused_from": "v2 (NOT in Task C4's module list -- see run_v3 module docstring)"
+  },
+  "mixed_model": {
+    "drift": {
+      "engine": "clustered_logit_fallback",
+      "coefficients": {
+        "Intercept": {
+          "est": -2.9628959065777316,
+          "se": 0.04660528832910661,
+          "ci_lo": -3.0542405931918855,
+          "ci_hi": -2.8715512199635778
+        },
+        "corrupted_negation[T.True]": {
+          "est": 0.15156132684183374,
+          "se": 0.030759390537362003,
+          "ci_lo": 0.09127402920220207,
+          "ci_hi": 0.2118486244814654
+        },
+        "corrupted_numeral[T.True]": {
+          "est": 1.4875695781181126,
+          "se": 0.014146367160526137,
+          "ci_lo": 1.4598432079714012,
+          "ci_hi": 1.515295948264824
+        },
+        "C(family)[T.gemma2]": {
+          "est": 0.25300235300380053,
+          "se": 0.012458724257332313,
+          "ci_lo": 0.22858370216611368,
+          "ci_hi": 0.2774210038414874
+        },
+        "C(family)[T.gemma3]": {
+          "est": -0.07826003458977018,
+          "se": 0.012012417541261363,
+          "ci_lo": -0.10180394033789965,
+          "ci_hi": -0.05471612884164072
+        },
+        "C(family)[T.gemma4]": {
+          "est": -0.21944944446507172,
+          "se": 0.011217303372825822,
+          "ci_lo": -0.24143495507947002,
+          "ci_hi": -0.19746393385067343
+        },
+        "C(family)[T.llama3.1]": {
+          "est": 0.7853366609267878,
+          "se": 0.014915742584444525,
+          "ci_lo": 0.7561023426586061,
+          "ci_hi": 0.8145709791949695
+        },
+        "C(family)[T.llama4]": {
+          "est": -0.054899452882696195,
+          "se": 0.012266146868869343,
+          "ci_lo": -0.07894065897475885,
+          "ci_hi": -0.03085824679063353
+        },
+        "C(family)[T.mistral-small]": {
+          "est": 0.2916310064722441,
+          "se": 0.011927590627054412,
+          "ci_lo": 0.26825335842087994,
+          "ci_hi": 0.31500865452360827
+        },
+        "C(family)[T.phi3]": {
+          "est": 1.3280319287655495,
+          "se": 0.016168923746343624,
+          "ci_lo": 1.2963414205539416,
+          "ci_hi": 1.3597224369771574
+        },
+        "C(family)[T.phi4]": {
+          "est": 0.7742008382035858,
+          "se": 0.011862546590713388,
+          "ci_lo": 0.7509506741208591,
+          "ci_hi": 0.7974510022863124
+        },
+        "C(family)[T.qwen2.5]": {
+          "est": -0.35510073083398647,
+          "se": 0.014877057566378698,
+          "ci_lo": -0.3842592278600178,
+          "ci_hi": -0.3259422338079551
+        },
+        "C(family)[T.qwen3.5]": {
+          "est": 0.04220359426725521,
+          "se": 0.012283818978744292,
+          "ci_lo": 0.018127751476306807,
+          "ci_hi": 0.0662794370582036
+        },
+        "C(family)[T.qwen3.6]": {
+          "est": 0.030441755369152113,
+          "se": 0.011706658527694152,
+          "ci_lo": 0.007497126275562878,
+          "ci_hi": 0.05338638446274135
+        },
+        "realized_cer": {
+          "est": 4.768564381404142,
+          "se": 0.17370433723159104,
+          "ci_lo": 4.428110136471823,
+          "ci_hi": 5.10901862633646
+        },
+        "n_errors": {
+          "est": 0.18779059164903256,
+          "se": 0.008041544909513242,
+          "ci_lo": 0.17202945324632518,
+          "ci_hi": 0.20355173005173993
+        },
+        "char_len": {
+          "est": -0.0023727139857210285,
+          "se": 0.002002764714230314,
+          "ci_lo": -0.006298060695120097,
+          "ci_hi": 0.0015526327236780402
+        }
+      },
+      "variance_components": {},
+      "converged": true,
+      "notes": "FALLBACK LADDER FIRED: primary VB fit raised an exception before returning a result (VB skipped (force_fallback=True): variational-Bayes GLMM intractable at full scale (>1.7M rows) and non-convergent at v2 scale; preregistered cluster-robust logit used). engine=clustered_logit_fallback (smf.logit with cov_type='cluster', cov_kwds={'groups': message_id}). variance_components are unavailable with this engine (no random-effects structure is fit); coefficients/CIs are the message-clustered cluster-robust point estimates instead.",
+      "outcome": "drift",
+      "n_obs": 3888000,
+      "n_groups": {
+        "message_id": 2299,
+        "model_id": 16,
+        "corpus": 3,
+        "family": 12
+      }
+    },
+    "faithful": {
+      "engine": "clustered_logit_fallback",
+      "coefficients": {
+        "Intercept": {
+          "est": 1.5986075375717452,
+          "se": 0.15058799844127346,
+          "ci_lo": 1.3034604841228754,
+          "ci_hi": 1.893754591020615
+        },
+        "corrupted_negation[T.True]": {
+          "est": 0.2756385759347544,
+          "se": 0.04575013716935674,
+          "ci_lo": 0.1859699547950479,
+          "ci_hi": 0.36530719707446085
+        },
+        "corrupted_numeral[T.True]": {
+          "est": -3.5928898758371473,
+          "se": 0.0266430079256205,
+          "ci_lo": -3.6451092118111785,
+          "ci_hi": -3.540670539863116
+        },
+        "C(family)[T.gemma2]": {
+          "est": 0.19123631196544294,
+          "se": 0.01603503144848717,
+          "ci_lo": 0.15980822783544096,
+          "ci_hi": 0.22266439609544492
+        },
+        "C(family)[T.gemma3]": {
+          "est": 0.39528625381073706,
+          "se": 0.016399555285265027,
+          "ci_lo": 0.36314371608914414,
+          "ci_hi": 0.42742879153233
+        },
+        "C(family)[T.gemma4]": {
+          "est": 0.5146106913169032,
+          "se": 0.015150740811679818,
+          "ci_lo": 0.48491578498690957,
+          "ci_hi": 0.5443055976468968
+        },
+        "C(family)[T.llama3.1]": {
+          "est": -0.6028790453694842,
+          "se": 0.020320333902467715,
+          "ci_lo": -0.6427061679721492,
+          "ci_hi": -0.5630519227668193
+        },
+        "C(family)[T.llama4]": {
+          "est": -0.04408892603659858,
+          "se": 0.014265365329049496,
+          "ci_lo": -0.07204852830784197,
+          "ci_hi": -0.01612932376535519
+        },
+        "C(family)[T.mistral-small]": {
+          "est": 0.03374820977449749,
+          "se": 0.016112830607627023,
+          "ci_lo": 0.00216764209455389,
+          "ci_hi": 0.06532877745444109
+        },
+        "C(family)[T.phi3]": {
+          "est": -1.5965001211933967,
+          "se": 0.027246518256092322,
+          "ci_lo": -1.6499023156794508,
+          "ci_hi": -1.5430979267073426
+        },
+        "C(family)[T.phi4]": {
+          "est": -0.6287558653026313,
+          "se": 0.0162523013669114,
+          "ci_lo": -0.6606097906476687,
+          "ci_hi": -0.5969019399575939
+        },
+        "C(family)[T.qwen2.5]": {
+          "est": -0.7426308925503925,
+          "se": 0.018007216117761633,
+          "ci_lo": -0.7779243876030345,
+          "ci_hi": -0.7073373974977505
+        },
+        "C(family)[T.qwen3.5]": {
+          "est": 0.5232360562996012,
+          "se": 0.017131851797733404,
+          "ci_lo": 0.489658243787566,
+          "ci_hi": 0.5568138688116365
+        },
+        "C(family)[T.qwen3.6]": {
+          "est": 0.4192381233336958,
+          "se": 0.01606631957966822,
+          "ci_lo": 0.3877487155934354,
+          "ci_hi": 0.45072753107395624
+        },
+        "realized_cer": {
+          "est": -7.234066745432747,
+          "se": 0.4904810758660627,
+          "ci_lo": -8.195391989228687,
+          "ci_hi": -6.272741501636806
+        },
+        "n_errors": {
+          "est": -0.24950253711475281,
+          "se": 0.020873543913638496,
+          "ci_lo": -0.2904139314151995,
+          "ci_hi": -0.20859114281430613
+        },
+        "char_len": {
+          "est": 0.05371284952868482,
+          "se": 0.006206540288032795,
+          "ci_lo": 0.04154825409554369,
+          "ci_hi": 0.06587744496182595
+        }
+      },
+      "variance_components": {},
+      "converged": true,
+      "notes": "FALLBACK LADDER FIRED: primary VB fit raised an exception before returning a result (VB skipped (force_fallback=True): variational-Bayes GLMM intractable at full scale (>1.7M rows) and non-convergent at v2 scale; preregistered cluster-robust logit used). engine=clustered_logit_fallback (smf.logit with cov_type='cluster', cov_kwds={'groups': message_id}). variance_components are unavailable with this engine (no random-effects structure is fit); coefficients/CIs are the message-clustered cluster-robust point estimates instead.",
+      "outcome": "faithful",
+      "n_obs": 3888000,
+      "n_groups": {
+        "message_id": 2299,
+        "model_id": 16,
+        "corpus": 3,
+        "family": 12
+      }
+    },
+    "degraded": {
+      "engine": "clustered_logit_fallback",
+      "coefficients": {
+        "Intercept": {
+          "est": -0.14658793454615657,
+          "se": 0.16335298690836603,
+          "ci_lo": -0.466753905653597,
+          "ci_hi": 0.17357803656128382
+        },
+        "corrupted_negation[T.True]": {
+          "est": -0.42894230634013775,
+          "se": 0.046157188025703545,
+          "ci_lo": -0.5194087324981601,
+          "ci_hi": -0.3384758801821154
+        },
+        "corrupted_numeral[T.True]": {
+          "est": 0.5561976054145421,
+          "se": 0.020543921185275003,
+          "ci_lo": 0.5159322597901737,
+          "ci_hi": 0.5964629510389106
+        },
+        "C(family)[T.gemma2]": {
+          "est": -0.6547589001459151,
+          "se": 0.02602333336945601,
+          "ci_lo": -0.7057636963077283,
+          "ci_hi": -0.6037541039841019
+        },
+        "C(family)[T.gemma3]": {
+          "est": -0.41314977031626693,
+          "se": 0.021621703931288774,
+          "ci_lo": -0.455527531305981,
+          "ci_hi": -0.37077200932655285
+        },
+        "C(family)[T.gemma4]": {
+          "est": -0.3765007640937644,
+          "se": 0.017530109183799037,
+          "ci_lo": -0.4108591467390653,
+          "ci_hi": -0.34214238144846343
+        },
+        "C(family)[T.llama3.1]": {
+          "est": -0.34037219915926714,
+          "se": 0.02314890779519613,
+          "ci_lo": -0.38574322471929007,
+          "ci_hi": -0.2950011735992442
+        },
+        "C(family)[T.llama4]": {
+          "est": 0.11525419537735507,
+          "se": 0.016241169679893627,
+          "ci_lo": 0.08342208773795964,
+          "ci_hi": 0.1470863030167505
+        },
+        "C(family)[T.mistral-small]": {
+          "est": -0.4644951162735214,
+          "se": 0.022926947034557037,
+          "ci_lo": -0.5094311067367105,
+          "ci_hi": -0.4195591258103322
+        },
+        "C(family)[T.phi3]": {
+          "est": 0.11643796497945469,
+          "se": 0.023550588608524072,
+          "ci_lo": 0.07027965949202825,
+          "ci_hi": 0.16259627046688113
+        },
+        "C(family)[T.phi4]": {
+          "est": -0.2831666575724958,
+          "se": 0.015493618063341525,
+          "ci_lo": -0.31353359096686445,
+          "ci_hi": -0.2527997241781272
+        },
+        "C(family)[T.qwen2.5]": {
+          "est": 1.0378816813410683,
+          "se": 0.017697855285098884,
+          "ci_lo": 1.0031945223786727,
+          "ci_hi": 1.0725688403034639
+        },
+        "C(family)[T.qwen3.5]": {
+          "est": -0.8398137712852525,
+          "se": 0.030652175600615308,
+          "ci_lo": -0.8998909315102559,
+          "ci_hi": -0.779736611060249
+        },
+        "C(family)[T.qwen3.6]": {
+          "est": -0.6301836184745357,
+          "se": 0.02518728533164415,
+          "ci_lo": -0.6795497905928922,
+          "ci_hi": -0.5808174463561793
+        },
+        "realized_cer": {
+          "est": 0.7393507592401014,
+          "se": 0.3431083633952292,
+          "ci_lo": 0.06687072419097118,
+          "ci_hi": 1.4118307942892316
+        },
+        "n_errors": {
+          "est": 0.2081239433204371,
+          "se": 0.01848734661821011,
+          "ci_lo": 0.1718894097790369,
+          "ci_hi": 0.2443584768618373
+        },
+        "char_len": {
+          "est": -0.13715962880541763,
+          "se": 0.008633820787050338,
+          "ci_lo": -0.15408160659700956,
+          "ci_hi": -0.1202376510138257
+        }
+      },
+      "variance_components": {},
+      "converged": true,
+      "notes": "FALLBACK LADDER FIRED: primary VB fit raised an exception before returning a result (VB skipped (force_fallback=True): variational-Bayes GLMM intractable at full scale (>1.7M rows) and non-convergent at v2 scale; preregistered cluster-robust logit used). engine=clustered_logit_fallback (smf.logit with cov_type='cluster', cov_kwds={'groups': message_id}). variance_components are unavailable with this engine (no random-effects structure is fit); coefficients/CIs are the message-clustered cluster-robust point estimates instead.",
+      "outcome": "degraded",
+      "n_obs": 3888000,
+      "n_groups": {
+        "message_id": 2299,
+        "model_id": 16,
+        "corpus": 3,
+        "family": 12
+      }
+    }
+  },
+  "multinomial": {
+    "task": "C4 v3 multinomial + drift-vs-faithful/degraded contrasts",
+    "data": {
+      "labeled_path": "output/intermediate/attempts_v3plus_labeled.parquet",
+      "exposure_path": "output/intermediate/exposure_v3_full.parquet",
+      "n_rows": 3888000,
+      "label_counts": {
+        "faithful": 2161374,
+        "drift": 1220590,
+        "degraded": 506036
+      },
+      "model_families": [
+        "command-r",
+        "gemma2",
+        "gemma3",
+        "gemma4",
+        "llama3.1",
+        "llama4",
+        "mistral-small",
+        "phi3",
+        "phi4",
+        "qwen2.5",
+        "qwen3.5",
+        "qwen3.6"
+      ]
+    },
+    "predictors": "realized_cer + corrupted_numeral + corrupted_negation + char_len + C(model_family)",
+    "multinomial_mnlogit_base_faithful": {
+      "model": "MNLogit",
+      "base_category": "faithful",
+      "non_base_classes": [
+        "degraded",
+        "drift"
+      ],
+      "primary_predictor": "realized_cer",
+      "cov_type": "cluster",
+      "cluster_unit": "message_id",
+      "method_used": "newton",
+      "converged": true,
+      "n_obs": 3888000,
+      "n_clusters": 2299,
+      "terms": [
+        "Intercept",
+        "corrupted_numeral[T.True]",
+        "corrupted_negation[T.True]",
+        "C(model_family)[T.gemma2]",
+        "C(model_family)[T.gemma3]",
+        "C(model_family)[T.gemma4]",
+        "C(model_family)[T.llama3.1]",
+        "C(model_family)[T.llama4]",
+        "C(model_family)[T.mistral-small]",
+        "C(model_family)[T.phi3]",
+        "C(model_family)[T.phi4]",
+        "C(model_family)[T.qwen2.5]",
+        "C(model_family)[T.qwen3.5]",
+        "C(model_family)[T.qwen3.6]",
+        "realized_cer",
+        "char_len"
+      ],
+      "equations": {
+        "degraded": [
+          {
+            "term": "Intercept",
+            "coef": -1.8623207585114612,
+            "se": 0.15217471821482928,
+            "odds_ratio": 0.15531177068212637,
+            "ci_lower": 0.11525851400891338,
+            "ci_upper": 0.20928385481832593,
+            "p": 1.946697083163584e-34
+          },
+          {
+            "term": "corrupted_numeral[T.True]",
+            "coef": 3.6698665461595343,
+            "se": 0.034512818226839194,
+            "odds_ratio": 39.246667892243096,
+            "ci_lower": 36.67967054324869,
+            "ci_upper": 41.9933144935931,
+            "p": 0.0
+          },
+          {
+            "term": "corrupted_negation[T.True]",
+            "coef": -0.5665238252421589,
+            "se": 0.06394463392010787,
+            "odds_ratio": 0.5674947247626769,
+            "ci_lower": 0.50064750681835,
+            "ci_upper": 0.6432674851016804,
+            "p": 8.030264763358357e-19
+          },
+          {
+            "term": "C(model_family)[T.gemma2]",
+            "coef": -0.6548918533173197,
+            "se": 0.03045144064009564,
+            "odds_ratio": 0.5194982415606916,
+            "ci_lower": 0.4893997786563221,
+            "ci_upper": 0.5514477830897654,
+            "p": 1.3649848885756705e-102
+          },
+          {
+            "term": "C(model_family)[T.gemma3]",
+            "coef": -0.5747515374549381,
+            "se": 0.027352094264075418,
+            "odds_ratio": 0.5628446972611256,
+            "ci_lower": 0.5334656176337165,
+            "ci_upper": 0.5938417449285037,
+            "p": 4.980572300206514e-98
+          },
+          {
+            "term": "C(model_family)[T.gemma4]",
+            "coef": -0.615148262060069,
+            "se": 0.023700996601689235,
+            "odds_ratio": 0.5405607447182131,
+            "ci_lower": 0.5160243308526159,
+            "ci_upper": 0.5662638392408816,
+            "p": 1.6162770553062692e-148
+          },
+          {
+            "term": "C(model_family)[T.llama3.1]",
+            "coef": 0.12170395838967779,
+            "se": 0.027486846275171867,
+            "odds_ratio": 1.1294196970580581,
+            "ci_lower": 1.0701841426929832,
+            "ci_upper": 1.1919339870733436,
+            "p": 9.523603267009515e-06
+          },
+          {
+            "term": "C(model_family)[T.llama4]",
+            "coef": 0.11587082653172885,
+            "se": 0.0192359991509224,
+            "odds_ratio": 1.1228508202302274,
+            "ci_lower": 1.0813053416567373,
+            "ci_upper": 1.1659925424579438,
+            "p": 1.70532386366275e-09
+          },
+          {
+            "term": "C(model_family)[T.mistral-small]",
+            "coef": -0.3954679441285211,
+            "se": 0.027086028646015295,
+            "odds_ratio": 0.6733648683769299,
+            "ci_lower": 0.6385498169155671,
+            "ci_upper": 0.7100781081646352,
+            "p": 2.7903743041669874e-48
+          },
+          {
+            "term": "C(model_family)[T.phi3]",
+            "coef": 1.1741965609409135,
+            "se": 0.03939168872179906,
+            "odds_ratio": 3.2355423381719546,
+            "ci_lower": 2.9951378875487658,
+            "ci_upper": 3.4952428285934105,
+            "p": 3.0559000879033325e-195
+          },
+          {
+            "term": "C(model_family)[T.phi4]",
+            "coef": 0.18544363396460237,
+            "se": 0.01997698953364711,
+            "odds_ratio": 1.203752347115452,
+            "ci_lower": 1.1575311915506123,
+            "ci_upper": 1.2518191507607446,
+            "p": 1.6498636858242852e-20
+          },
+          {
+            "term": "C(model_family)[T.qwen2.5]",
+            "coef": 1.193104873336162,
+            "se": 0.02546114329117007,
+            "odds_ratio": 3.297303038711751,
+            "ci_lower": 3.1367961652150025,
+            "ci_upper": 3.4660228961203616,
+            "p": 0.0
+          },
+          {
+            "term": "C(model_family)[T.qwen3.5]",
+            "coef": -1.0172425434995918,
+            "se": 0.037752986795942904,
+            "odds_ratio": 0.361590637199588,
+            "ci_lower": 0.3358008382956052,
+            "ci_upper": 0.3893611152790123,
+            "p": 6.583011774725857e-160
+          },
+          {
+            "term": "C(model_family)[T.qwen3.6]",
+            "coef": -0.7728113205657314,
+            "se": 0.031296575434355225,
+            "odds_ratio": 0.4617132181539383,
+            "ci_lower": 0.4342427882983508,
+            "ci_upper": 0.4909214420196644,
+            "p": 1.266674711186808e-134
+          },
+          {
+            "term": "realized_cer",
+            "coef": 11.163689170129736,
+            "se": 0.23432909901182225,
+            "odds_ratio": 70522.64692041032,
+            "ci_lower": 44552.01114991192,
+            "ci_upper": 111632.3057095188,
+            "p": 0.0
+          },
+          {
+            "term": "char_len",
+            "coef": -0.07643874858064016,
+            "se": 0.0048830967423879905,
+            "odds_ratio": 0.9264096564574018,
+            "ci_lower": 0.91758556703467,
+            "ci_upper": 0.9353186039652408,
+            "p": 3.1323409917333757e-55
+          }
+        ],
+        "drift": [
+          {
+            "term": "Intercept",
+            "coef": -3.774940179321153,
+            "se": 0.049940812741460006,
+            "odds_ratio": 0.022938462795303066,
+            "ci_lower": 0.020799582311527152,
+            "ci_upper": 0.025297290471063803,
+            "p": 0.0
+          },
+          {
+            "term": "corrupted_numeral[T.True]",
+            "coef": 3.5994610249933707,
+            "se": 0.021191869131679582,
+            "odds_ratio": 36.57851422485601,
+            "ci_lower": 35.09033458948475,
+            "ci_upper": 38.12980749687516,
+            "p": 0.0
+          },
+          {
+            "term": "corrupted_negation[T.True]",
+            "coef": -0.1193137703720538,
+            "se": 0.04269815276499804,
+            "odds_ratio": 0.8875292766765808,
+            "ci_lower": 0.8162777418652428,
+            "ci_upper": 0.9650002401855218,
+            "p": 0.005200345525220998
+          },
+          {
+            "term": "C(model_family)[T.gemma2]",
+            "coef": 0.02802295715730174,
+            "se": 0.015720496075931418,
+            "odds_ratio": 1.0284192937339212,
+            "ci_lower": 0.9972152356990812,
+            "ci_upper": 1.060599764084763,
+            "p": 0.07465557599200648
+          },
+          {
+            "term": "C(model_family)[T.gemma3]",
+            "coef": -0.2889991671594838,
+            "se": 0.01511629743267326,
+            "odds_ratio": 0.7490128292106409,
+            "ci_lower": 0.7271470402519659,
+            "ci_upper": 0.7715361368007878,
+            "p": 1.7752565999003488e-81
+          },
+          {
+            "term": "C(model_family)[T.gemma4]",
+            "coef": -0.4455850023202351,
+            "se": 0.014130656696704637,
+            "odds_ratio": 0.6404495019765112,
+            "ci_lower": 0.6229552575417663,
+            "ci_upper": 0.6584350314347589,
+            "p": 3.046412828701936e-218
+          },
+          {
+            "term": "C(model_family)[T.llama3.1]",
+            "coef": 0.8288587795142539,
+            "se": 0.018542798876036853,
+            "odds_ratio": 2.290703050760557,
+            "ci_lower": 2.208946183024209,
+            "ci_upper": 2.3754858796875515,
+            "p": 0.0
+          },
+          {
+            "term": "C(model_family)[T.llama4]",
+            "coef": -0.005403835780269056,
+            "se": 0.01389835223509412,
+            "odds_ratio": 0.9946107386758274,
+            "ci_lower": 0.9678829624207307,
+            "ci_upper": 1.0220765938632734,
+            "p": 0.6974157741038474
+          },
+          {
+            "term": "C(model_family)[T.mistral-small]",
+            "coef": 0.14804189936301565,
+            "se": 0.015230606932079059,
+            "odds_ratio": 1.1595614802325496,
+            "ci_lower": 1.125458443873074,
+            "ci_upper": 1.1946978884550796,
+            "p": 2.4771759803048434e-22
+          },
+          {
+            "term": "C(model_family)[T.phi3]",
+            "coef": 1.7917424640004276,
+            "se": 0.022421109488502212,
+            "odds_ratio": 5.999897969501764,
+            "ci_lower": 5.741944390208905,
+            "ci_upper": 6.269439966331975,
+            "p": 0.0
+          },
+          {
+            "term": "C(model_family)[T.phi4]",
+            "coef": 0.8405521615718324,
+            "se": 0.014854990253343706,
+            "odds_ratio": 2.3176463387866955,
+            "ci_lower": 2.2511403626897626,
+            "ci_upper": 2.3861171167813295,
+            "p": 0.0
+          },
+          {
+            "term": "C(model_family)[T.qwen2.5]",
+            "coef": 0.2579788462805898,
+            "se": 0.020542051588907494,
+            "odds_ratio": 1.29431143883364,
+            "ci_lower": 1.2432353874040971,
+            "ci_upper": 1.3474858563940575,
+            "p": 3.567098913164377e-36
+          },
+          {
+            "term": "C(model_family)[T.qwen3.5]",
+            "coef": -0.2941792458683441,
+            "se": 0.01645528662081453,
+            "odds_ratio": 0.7451429156832327,
+            "ci_lower": 0.7214941456052104,
+            "ci_upper": 0.7695668331822142,
+            "p": 1.7660629718481657e-71
+          },
+          {
+            "term": "C(model_family)[T.qwen3.6]",
+            "coef": -0.23893057313861424,
+            "se": 0.015255475609858512,
+            "odds_ratio": 0.7874695520143283,
+            "ci_lower": 0.7642725933295449,
+            "ci_upper": 0.8113705774115911,
+            "p": 2.753025305162349e-55
+          },
+          {
+            "term": "realized_cer",
+            "coef": 12.975357748774707,
+            "se": 0.10908209298430874,
+            "odds_ratio": 431644.55913397047,
+            "ci_lower": 348558.29707102,
+            "ci_upper": 534536.1937891181,
+            "p": 0.0
+          },
+          {
+            "term": "char_len",
+            "coef": 0.018204932442825002,
+            "se": 0.0015879322319037141,
+            "odds_ratio": 1.018371652397251,
+            "ci_lower": 1.0152071115418844,
+            "ci_upper": 1.021546057563763,
+            "p": 1.9878443396486152e-30
+          }
+        ]
+      }
+    },
+    "contrast_drift_vs_degraded": {
+      "model": "Logit",
+      "positive": "drift",
+      "negative": "degraded",
+      "outcome": "P(label == 'drift')",
+      "cov_type": "cluster",
+      "cluster_unit": "message_id",
+      "method_used": "newton",
+      "converged": true,
+      "n_obs": 1726626,
+      "n_positive": 1220590,
+      "n_negative": 506036,
+      "n_clusters": 2299,
+      "terms": [
+        {
+          "term": "Intercept",
+          "coef": -1.6568667785948918,
+          "se": 0.08723413306782123,
+          "odds_ratio": 0.19073566190387847,
+          "ci_lower": 0.16076002761386665,
+          "ci_upper": 0.22630061254588021,
+          "p": 1.936458205901819e-80
+        },
+        {
+          "term": "corrupted_numeral[T.True]",
+          "coef": -0.030507144771037574,
+          "se": 0.02344643514029363,
+          "odds_ratio": 0.969953501946765,
+          "ci_lower": 0.9263887526009833,
+          "ci_upper": 1.015566945623336,
+          "p": 0.19320980620925765
+        },
+        {
+          "term": "corrupted_negation[T.True]",
+          "coef": 0.47279973451458185,
+          "se": 0.038619211299108856,
+          "odds_ratio": 1.6044800288274437,
+          "ci_lower": 1.4875157866525361,
+          "ci_upper": 1.7306412382347711,
+          "p": 1.8403057266989356e-34
+        },
+        {
+          "term": "C(model_family)[T.gemma2]",
+          "coef": 0.7078748057729062,
+          "se": 0.02250720285096681,
+          "odds_ratio": 2.0296732221242433,
+          "ci_lower": 1.9420837581749264,
+          "ci_upper": 2.121213037937961,
+          "p": 4.063150268357469e-217
+        },
+        {
+          "term": "C(model_family)[T.gemma3]",
+          "coef": 0.307577920926224,
+          "se": 0.020665570875906706,
+          "odds_ratio": 1.3601267867119498,
+          "ci_lower": 1.3061372879738495,
+          "ci_upper": 1.416347954357162,
+          "p": 4.212630634349734e-50
+        },
+        {
+          "term": "C(model_family)[T.gemma4]",
+          "coef": 0.19773002486007243,
+          "se": 0.017212671754974724,
+          "odds_ratio": 1.2186333486978045,
+          "ci_lower": 1.1782070197802965,
+          "ci_upper": 1.2604467751646475,
+          "p": 1.5251591471546376e-30
+        },
+        {
+          "term": "C(model_family)[T.llama3.1]",
+          "coef": 0.7186346220107973,
+          "se": 0.020277465214785774,
+          "odds_ratio": 2.0516300468823223,
+          "ci_lower": 1.97169094144338,
+          "ci_upper": 2.1348101575133365,
+          "p": 4.1267025235377634e-275
+        },
+        {
+          "term": "C(model_family)[T.llama4]",
+          "coef": -0.13467117761104264,
+          "se": 0.017064616151155548,
+          "odds_ratio": 0.8740032562814645,
+          "ci_lower": 0.8452547559957839,
+          "ci_upper": 0.9037295402031592,
+          "p": 2.9776930337896676e-15
+        },
+        {
+          "term": "C(model_family)[T.mistral-small]",
+          "coef": 0.5871806641442361,
+          "se": 0.018545562829565092,
+          "odds_ratio": 1.7989095290822839,
+          "ci_lower": 1.7346957346208671,
+          "ci_upper": 1.8655003463937823,
+          "p": 5.264484901938308e-220
+        },
+        {
+          "term": "C(model_family)[T.phi3]",
+          "coef": 0.5820118653738642,
+          "se": 0.024349058532809203,
+          "odds_ratio": 1.789635316637145,
+          "ci_lower": 1.7062339743626604,
+          "ci_upper": 1.877113347101937,
+          "p": 2.8607929775656847e-126
+        },
+        {
+          "term": "C(model_family)[T.phi4]",
+          "coef": 0.6534545902621636,
+          "se": 0.014909112832019492,
+          "odds_ratio": 1.922169681100018,
+          "ci_lower": 1.8668140588797528,
+          "ci_upper": 1.9791667334867302,
+          "p": 0.0
+        },
+        {
+          "term": "C(model_family)[T.qwen2.5]",
+          "coef": -0.9927576518526167,
+          "se": 0.017346416171590582,
+          "odds_ratio": 0.3705534234280132,
+          "ci_lower": 0.35816697066358505,
+          "ci_upper": 0.38336823565786365,
+          "p": 0.0
+        },
+        {
+          "term": "C(model_family)[T.qwen3.5]",
+          "coef": 0.7774644842182754,
+          "se": 0.02629243598387618,
+          "odds_ratio": 2.175948114387287,
+          "ci_lower": 2.066656856721591,
+          "ci_upper": 2.2910190344886225,
+          "p": 3.645167205151277e-192
+        },
+        {
+          "term": "C(model_family)[T.qwen3.6]",
+          "coef": 0.5764103308657126,
+          "se": 0.02249688622315619,
+          "odds_ratio": 1.7796386371654702,
+          "ci_lower": 1.7028737143297639,
+          "ci_upper": 1.85986409458362,
+          "p": 8.725167333587187e-145
+        },
+        {
+          "term": "realized_cer",
+          "coef": 1.4129664791436864,
+          "se": 0.12039547907017593,
+          "odds_ratio": 4.108124010385601,
+          "ci_lower": 3.244611681458804,
+          "ci_upper": 5.201449215370753,
+          "p": 8.329347950231638e-32
+        },
+        {
+          "term": "char_len",
+          "coef": 0.08708380879623806,
+          "se": 0.002861284565961632,
+          "odds_ratio": 1.0909881102871144,
+          "ci_lower": 1.0848869565981978,
+          "ci_upper": 1.0971235754553141,
+          "p": 1.879813046488163e-203
+        }
+      ]
+    },
+    "contrast_drift_vs_faithful": {
+      "model": "Logit",
+      "positive": "drift",
+      "negative": "faithful",
+      "outcome": "P(label == 'drift')",
+      "cov_type": "cluster",
+      "cluster_unit": "message_id",
+      "method_used": "newton",
+      "converged": true,
+      "n_obs": 3381964,
+      "n_positive": 1220590,
+      "n_negative": 2161374,
+      "n_clusters": 2299,
+      "terms": [
+        {
+          "term": "Intercept",
+          "coef": -4.14220965772677,
+          "se": 0.048838988450499644,
+          "odds_ratio": 0.015887706296392832,
+          "ci_lower": 0.014437413008102125,
+          "ci_upper": 0.017483687085683944,
+          "p": 0.0
+        },
+        {
+          "term": "corrupted_numeral[T.True]",
+          "coef": 3.879832959972167,
+          "se": 0.020311206785341814,
+          "odds_ratio": 48.41612696464946,
+          "ci_lower": 46.5265783251474,
+          "ci_upper": 50.38241441000336,
+          "p": 0.0
+        },
+        {
+          "term": "corrupted_negation[T.True]",
+          "coef": -0.11952904950413817,
+          "se": 0.04465105746715585,
+          "odds_ratio": 0.8873382307090413,
+          "ci_lower": 0.8129842730109623,
+          "ci_upper": 0.9684924565167262,
+          "p": 0.0074293728897002875
+        },
+        {
+          "term": "C(model_family)[T.gemma2]",
+          "coef": -0.0647597977828544,
+          "se": 0.014828877164874242,
+          "odds_ratio": 0.9372925760949262,
+          "ci_lower": 0.910443110875894,
+          "ci_upper": 0.9649338467260006,
+          "p": 1.2588345436710864e-05
+        },
+        {
+          "term": "C(model_family)[T.gemma3]",
+          "coef": -0.37166923278077596,
+          "se": 0.01466719400018901,
+          "odds_ratio": 0.6895822960243143,
+          "ci_lower": 0.6700409796737333,
+          "ci_upper": 0.7096935223599523,
+          "p": 1.1532472535866691e-141
+        },
+        {
+          "term": "C(model_family)[T.gemma4]",
+          "coef": -0.5532182638587438,
+          "se": 0.013707761972705778,
+          "odds_ratio": 0.5750960182535431,
+          "ci_lower": 0.5598507863893962,
+          "ci_upper": 0.5907563912592976,
+          "p": 0.0
+        },
+        {
+          "term": "C(model_family)[T.llama3.1]",
+          "coef": 0.822011420581196,
+          "se": 0.018984972934771378,
+          "odds_ratio": 2.2750713637248614,
+          "ci_lower": 2.191971916924306,
+          "ci_upper": 2.3613211784681996,
+          "p": 0.0
+        },
+        {
+          "term": "C(model_family)[T.llama4]",
+          "coef": 0.03173235031728299,
+          "se": 0.014721393923523177,
+          "odds_ratio": 1.0322411893020185,
+          "ci_lower": 1.002883096576784,
+          "ci_upper": 1.0624587018453808,
+          "p": 0.031120680576674678
+        },
+        {
+          "term": "C(model_family)[T.mistral-small]",
+          "coef": 0.0537616982781341,
+          "se": 0.014617860046071478,
+          "odds_ratio": 1.0552331083238802,
+          "ci_lower": 1.0254291614466873,
+          "ci_upper": 1.0859033025079132,
+          "p": 0.00023524594051224822
+        },
+        {
+          "term": "C(model_family)[T.phi3]",
+          "coef": 1.8822631914184276,
+          "se": 0.02130735850015611,
+          "odds_ratio": 6.568353494466519,
+          "ci_lower": 6.299696994643112,
+          "ci_upper": 6.8484671032522675,
+          "p": 0.0
+        },
+        {
+          "term": "C(model_family)[T.phi4]",
+          "coef": 0.7768297386587137,
+          "se": 0.015060150837590096,
+          "odds_ratio": 2.174567379237954,
+          "ci_lower": 2.111317975480761,
+          "ci_upper": 2.239711564890674,
+          "p": 0.0
+        },
+        {
+          "term": "C(model_family)[T.qwen2.5]",
+          "coef": 0.5446724417140512,
+          "se": 0.018473052983223638,
+          "odds_ratio": 1.7240435651211075,
+          "ci_lower": 1.6627384688687994,
+          "ci_upper": 1.7876089776509725,
+          "p": 4.522883095727787e-191
+        },
+        {
+          "term": "C(model_family)[T.qwen3.5]",
+          "coef": -0.4226492955002969,
+          "se": 0.01493407605971214,
+          "odds_ratio": 0.6553084124260625,
+          "ci_lower": 0.6364053685649944,
+          "ci_upper": 0.6747729302860367,
+          "p": 3.359277001992968e-176
+        },
+        {
+          "term": "C(model_family)[T.qwen3.6]",
+          "coef": -0.34415280514018587,
+          "se": 0.013992930200136007,
+          "odds_ratio": 0.7088206083413932,
+          "ci_lower": 0.6896449049466707,
+          "ci_upper": 0.7285294956950558,
+          "p": 1.4371427859773404e-133
+        },
+        {
+          "term": "realized_cer",
+          "coef": 14.029004605112789,
+          "se": 0.08772644085570748,
+          "odds_ratio": 1237996.1286390577,
+          "ci_lower": 1042428.8079048494,
+          "ci_upper": 1470253.3188867797,
+          "p": 0.0
+        },
+        {
+          "term": "char_len",
+          "coef": 0.02611560918910975,
+          "se": 0.0017135544063538886,
+          "odds_ratio": 1.0264596097772816,
+          "ci_lower": 1.0230180226542167,
+          "ci_upper": 1.0299127749191725,
+          "p": 1.900962270483841e-52
+        }
+      ]
+    },
+    "highlight_drift_vs_degraded_realized_cer": {
+      "note": "PRIMARY reviewer-requested contrast: does realized corruption push the model toward a fluent-but-wrong drift OVER an obviously-degraded output? OR > 1 means rising realized_cer favors drift over degraded.",
+      "odds_ratio": 4.108124010385601,
+      "ci_lower": 3.244611681458804,
+      "ci_upper": 5.201449215370753,
+      "p": 8.329347950231638e-32
+    }
+  },
+  "confidence": {
+    "confidently_wrong_rate": {
+      "conf_threshold": 0.9,
+      "scale_detected": "0-100",
+      "effective_threshold": 90.0,
+      "n_excluded_nan": 7315,
+      "pooled": {
+        "n": 3880685,
+        "n_drift": 1213735,
+        "n_drift_at_high_confidence": 545433,
+        "frac_drift_at_high_confidence": 0.4493839264748895,
+        "n_high_confidence": 2665669,
+        "n_high_confidence_not_faithful": 767323,
+        "confidently_wrong_rate": 0.28785381830977513
+      },
+      "per_model": {
+        "command-r:latest": {
+          "n": 242985,
+          "n_drift": 68628,
+          "n_drift_at_high_confidence": 29566,
+          "frac_drift_at_high_confidence": 0.4308154106195722,
+          "n_high_confidence": 161387,
+          "n_high_confidence_not_faithful": 49995,
+          "confidently_wrong_rate": 0.30978331588046126
+        },
+        "gemma2:9b": {
+          "n": 242997,
+          "n_drift": 77465,
+          "n_drift_at_high_confidence": 52499,
+          "frac_drift_at_high_confidence": 0.6777125153295036,
+          "n_high_confidence": 203206,
+          "n_high_confidence_not_faithful": 65832,
+          "confidently_wrong_rate": 0.32396681200358257
+        },
+        "gemma3:27b": {
+          "n": 242997,
+          "n_drift": 66018,
+          "n_drift_at_high_confidence": 52787,
+          "frac_drift_at_high_confidence": 0.7995849616771183,
+          "n_high_confidence": 220472,
+          "n_high_confidence_not_faithful": 72241,
+          "confidently_wrong_rate": 0.3276651910446678
+        },
+        "gemma4:12b": {
+          "n": 242977,
+          "n_drift": 69185,
+          "n_drift_at_high_confidence": 32511,
+          "frac_drift_at_high_confidence": 0.46991399869913997,
+          "n_high_confidence": 188475,
+          "n_high_confidence_not_faithful": 42877,
+          "confidently_wrong_rate": 0.22749436264756598
+        },
+        "gemma4:31b": {
+          "n": 242998,
+          "n_drift": 56341,
+          "n_drift_at_high_confidence": 10249,
+          "frac_drift_at_high_confidence": 0.18191015423936388,
+          "n_high_confidence": 171835,
+          "n_high_confidence_not_faithful": 17128,
+          "confidently_wrong_rate": 0.09967701574184537
+        },
+        "gemma4:e4b": {
+          "n": 242999,
+          "n_drift": 58752,
+          "n_drift_at_high_confidence": 20258,
+          "frac_drift_at_high_confidence": 0.34480528322440085,
+          "n_high_confidence": 159161,
+          "n_high_confidence_not_faithful": 33151,
+          "confidently_wrong_rate": 0.20828594944741488
+        },
+        "llama3.1:8b": {
+          "n": 241058,
+          "n_drift": 95752,
+          "n_drift_at_high_confidence": 25875,
+          "frac_drift_at_high_confidence": 0.2702293424680424,
+          "n_high_confidence": 135013,
+          "n_high_confidence_not_faithful": 33696,
+          "confidently_wrong_rate": 0.24957596675875657
+        },
+        "llama4:17b-scout-16e-instruct-q4_K_M": {
+          "n": 242950,
+          "n_drift": 66744,
+          "n_drift_at_high_confidence": 590,
+          "frac_drift_at_high_confidence": 0.008839745894762076,
+          "n_high_confidence": 69479,
+          "n_high_confidence_not_faithful": 5666,
+          "confidently_wrong_rate": 0.08154982080916535
+        },
+        "mistral-small:24b": {
+          "n": 242998,
+          "n_drift": 78861,
+          "n_drift_at_high_confidence": 16067,
+          "frac_drift_at_high_confidence": 0.2037382229492398,
+          "n_high_confidence": 133312,
+          "n_high_confidence_not_faithful": 23779,
+          "confidently_wrong_rate": 0.1783710393662986
+        },
+        "phi3:mini": {
+          "n": 238632,
+          "n_drift": 115626,
+          "n_drift_at_high_confidence": 106429,
+          "frac_drift_at_high_confidence": 0.9204590662999671,
+          "n_high_confidence": 225891,
+          "n_high_confidence_not_faithful": 144537,
+          "confidently_wrong_rate": 0.6398528493831096
+        },
+        "phi4:14b": {
+          "n": 242979,
+          "n_drift": 88788,
+          "n_drift_at_high_confidence": 51735,
+          "frac_drift_at_high_confidence": 0.5826800919043114,
+          "n_high_confidence": 193948,
+          "n_high_confidence_not_faithful": 64090,
+          "confidently_wrong_rate": 0.3304493988079279
+        },
+        "phi4:mini": {
+          "n": 242727,
+          "n_drift": 105370,
+          "n_drift_at_high_confidence": 90335,
+          "frac_drift_at_high_confidence": 0.8573123279870931,
+          "n_high_confidence": 220606,
+          "n_high_confidence_not_faithful": 123341,
+          "confidently_wrong_rate": 0.5591008404123188
+        },
+        "qwen2.5:7b": {
+          "n": 242389,
+          "n_drift": 56792,
+          "n_drift_at_high_confidence": 8941,
+          "frac_drift_at_high_confidence": 0.15743414565431751,
+          "n_high_confidence": 100967,
+          "n_high_confidence_not_faithful": 19599,
+          "confidently_wrong_rate": 0.19411292798637178
+        },
+        "qwen3.5:27b-q4": {
+          "n": 243000,
+          "n_drift": 70072,
+          "n_drift_at_high_confidence": 9262,
+          "frac_drift_at_high_confidence": 0.13217833085968717,
+          "n_high_confidence": 148416,
+          "n_high_confidence_not_faithful": 15332,
+          "confidently_wrong_rate": 0.10330422595946528
+        },
+        "qwen3.6:27b": {
+          "n": 243000,
+          "n_drift": 68503,
+          "n_drift_at_high_confidence": 24739,
+          "frac_drift_at_high_confidence": 0.3611374684320395,
+          "n_high_confidence": 182382,
+          "n_high_confidence_not_faithful": 33797,
+          "confidently_wrong_rate": 0.18530885723371823
+        },
+        "qwen3.6:35b-a3b": {
+          "n": 242999,
+          "n_drift": 70838,
+          "n_drift_at_high_confidence": 13590,
+          "frac_drift_at_high_confidence": 0.1918461842513905,
+          "n_high_confidence": 151119,
+          "n_high_confidence_not_faithful": 22262,
+          "confidently_wrong_rate": 0.14731436814695703
+        }
+      },
+      "notes": "confidence scale detected as 0-100 from df['confidence'].max() on 3880685 non-NaN row(s); conf_threshold=0.9 rescaled to effective_threshold=90.0 for comparison (>= is inclusive). 7315 NaN-confidence row(s) excluded from every denominator below. frac_drift_at_high_confidence = P(confidence >= threshold | label == 'drift'). confidently_wrong_rate = P(label != 'faithful' | confidence >= threshold). Report per-model, not just pooled -- confidence scales differ across models."
+    },
+    "missing_confidence_audit": {
+      "total_missing": 7315,
+      "table": [
+        {
+          "model": "command-r:latest",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "command-r:latest",
+          "cer_target": 0.1,
+          "n_missing": 4
+        },
+        {
+          "model": "command-r:latest",
+          "cer_target": 0.2,
+          "n_missing": 2
+        },
+        {
+          "model": "command-r:latest",
+          "cer_target": 0.3,
+          "n_missing": 3
+        },
+        {
+          "model": "command-r:latest",
+          "cer_target": 0.4,
+          "n_missing": 6
+        },
+        {
+          "model": "gemma2:9b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma2:9b",
+          "cer_target": 0.1,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma2:9b",
+          "cer_target": 0.2,
+          "n_missing": 1
+        },
+        {
+          "model": "gemma2:9b",
+          "cer_target": 0.3,
+          "n_missing": 1
+        },
+        {
+          "model": "gemma2:9b",
+          "cer_target": 0.4,
+          "n_missing": 1
+        },
+        {
+          "model": "gemma3:27b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma3:27b",
+          "cer_target": 0.1,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma3:27b",
+          "cer_target": 0.2,
+          "n_missing": 1
+        },
+        {
+          "model": "gemma3:27b",
+          "cer_target": 0.3,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma3:27b",
+          "cer_target": 0.4,
+          "n_missing": 2
+        },
+        {
+          "model": "gemma4:12b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:12b",
+          "cer_target": 0.1,
+          "n_missing": 1
+        },
+        {
+          "model": "gemma4:12b",
+          "cer_target": 0.2,
+          "n_missing": 3
+        },
+        {
+          "model": "gemma4:12b",
+          "cer_target": 0.3,
+          "n_missing": 9
+        },
+        {
+          "model": "gemma4:12b",
+          "cer_target": 0.4,
+          "n_missing": 10
+        },
+        {
+          "model": "gemma4:31b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:31b",
+          "cer_target": 0.1,
+          "n_missing": 1
+        },
+        {
+          "model": "gemma4:31b",
+          "cer_target": 0.2,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:31b",
+          "cer_target": 0.3,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:31b",
+          "cer_target": 0.4,
+          "n_missing": 1
+        },
+        {
+          "model": "gemma4:e4b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:e4b",
+          "cer_target": 0.1,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:e4b",
+          "cer_target": 0.2,
+          "n_missing": 1
+        },
+        {
+          "model": "gemma4:e4b",
+          "cer_target": 0.3,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:e4b",
+          "cer_target": 0.4,
+          "n_missing": 0
+        },
+        {
+          "model": "llama3.1:8b",
+          "cer_target": 0.0,
+          "n_missing": 917
+        },
+        {
+          "model": "llama3.1:8b",
+          "cer_target": 0.1,
+          "n_missing": 345
+        },
+        {
+          "model": "llama3.1:8b",
+          "cer_target": 0.2,
+          "n_missing": 276
+        },
+        {
+          "model": "llama3.1:8b",
+          "cer_target": 0.3,
+          "n_missing": 217
+        },
+        {
+          "model": "llama3.1:8b",
+          "cer_target": 0.4,
+          "n_missing": 187
+        },
+        {
+          "model": "llama4:17b-scout-16e-instruct-q4_K_M",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "llama4:17b-scout-16e-instruct-q4_K_M",
+          "cer_target": 0.1,
+          "n_missing": 4
+        },
+        {
+          "model": "llama4:17b-scout-16e-instruct-q4_K_M",
+          "cer_target": 0.2,
+          "n_missing": 17
+        },
+        {
+          "model": "llama4:17b-scout-16e-instruct-q4_K_M",
+          "cer_target": 0.3,
+          "n_missing": 15
+        },
+        {
+          "model": "llama4:17b-scout-16e-instruct-q4_K_M",
+          "cer_target": 0.4,
+          "n_missing": 14
+        },
+        {
+          "model": "mistral-small:24b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "mistral-small:24b",
+          "cer_target": 0.1,
+          "n_missing": 0
+        },
+        {
+          "model": "mistral-small:24b",
+          "cer_target": 0.2,
+          "n_missing": 0
+        },
+        {
+          "model": "mistral-small:24b",
+          "cer_target": 0.3,
+          "n_missing": 2
+        },
+        {
+          "model": "mistral-small:24b",
+          "cer_target": 0.4,
+          "n_missing": 0
+        },
+        {
+          "model": "phi3:mini",
+          "cer_target": 0.0,
+          "n_missing": 326
+        },
+        {
+          "model": "phi3:mini",
+          "cer_target": 0.1,
+          "n_missing": 722
+        },
+        {
+          "model": "phi3:mini",
+          "cer_target": 0.2,
+          "n_missing": 991
+        },
+        {
+          "model": "phi3:mini",
+          "cer_target": 0.3,
+          "n_missing": 1116
+        },
+        {
+          "model": "phi3:mini",
+          "cer_target": 0.4,
+          "n_missing": 1213
+        },
+        {
+          "model": "phi4:14b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "phi4:14b",
+          "cer_target": 0.1,
+          "n_missing": 2
+        },
+        {
+          "model": "phi4:14b",
+          "cer_target": 0.2,
+          "n_missing": 1
+        },
+        {
+          "model": "phi4:14b",
+          "cer_target": 0.3,
+          "n_missing": 6
+        },
+        {
+          "model": "phi4:14b",
+          "cer_target": 0.4,
+          "n_missing": 12
+        },
+        {
+          "model": "phi4:mini",
+          "cer_target": 0.0,
+          "n_missing": 54
+        },
+        {
+          "model": "phi4:mini",
+          "cer_target": 0.1,
+          "n_missing": 30
+        },
+        {
+          "model": "phi4:mini",
+          "cer_target": 0.2,
+          "n_missing": 45
+        },
+        {
+          "model": "phi4:mini",
+          "cer_target": 0.3,
+          "n_missing": 63
+        },
+        {
+          "model": "phi4:mini",
+          "cer_target": 0.4,
+          "n_missing": 81
+        },
+        {
+          "model": "qwen2.5:7b",
+          "cer_target": 0.0,
+          "n_missing": 98
+        },
+        {
+          "model": "qwen2.5:7b",
+          "cer_target": 0.1,
+          "n_missing": 132
+        },
+        {
+          "model": "qwen2.5:7b",
+          "cer_target": 0.2,
+          "n_missing": 156
+        },
+        {
+          "model": "qwen2.5:7b",
+          "cer_target": 0.3,
+          "n_missing": 128
+        },
+        {
+          "model": "qwen2.5:7b",
+          "cer_target": 0.4,
+          "n_missing": 97
+        },
+        {
+          "model": "qwen3.5:27b-q4",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.5:27b-q4",
+          "cer_target": 0.1,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.5:27b-q4",
+          "cer_target": 0.2,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.5:27b-q4",
+          "cer_target": 0.3,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.5:27b-q4",
+          "cer_target": 0.4,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.6:27b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.6:27b",
+          "cer_target": 0.1,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.6:27b",
+          "cer_target": 0.2,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.6:27b",
+          "cer_target": 0.3,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.6:27b",
+          "cer_target": 0.4,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.6:35b-a3b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.6:35b-a3b",
+          "cer_target": 0.1,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.6:35b-a3b",
+          "cer_target": 0.2,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.6:35b-a3b",
+          "cer_target": 0.3,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.6:35b-a3b",
+          "cer_target": 0.4,
+          "n_missing": 1
+        }
+      ],
+      "notes": "7315 of 3888000 row(s) have NaN confidence, tabulated across 16 model(s) x 5 cer_target level(s). Cells with zero missing rows are included explicitly."
+    },
+    "predicted_drift_grid": {
+      "cer_grid": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4
+      ],
+      "predicted_drift_probability": {
+        "0.0": 0.06974220523788001,
+        "0.1": 0.1444867625498084,
+        "0.2": 0.2756043778220389,
+        "0.3": 0.4615190356955636,
+        "0.4": 0.6587915445988013
+      },
+      "coefficients": {
+        "const": {
+          "est": -2.590656084809072,
+          "se": 0.01781030960867063
+        },
+        "realized_cer": {
+          "est": 8.121424129517052,
+          "se": 0.0721808139393047
+        }
+      },
+      "n_obs": 3888000,
+      "converged": true,
+      "seed": 0,
+      "notes": "engine=statsmodels.api.Logit (label=='drift' ~ 1 + realized_cer), cov_type='cluster', cov_kwds={'groups': message_id}. Deliberately univariate (realized_cer only, no covariates or random effects) for a single quotable number per CER grid point; see idrift.analysis.mixed_models for the covariate-adjusted models. `seed` is accepted for interface consistency but unused -- this fit's Newton-Raphson MLE is already deterministic."
+    }
+  },
+  "dependence_sensitivity": {
+    "task": "C4 v3 dependence-structure sensitivity (was B9)",
+    "description": "Alternative estimators of the realized_cer -> drift log-odds slope under different dependence assumptions across 16 models. All estimators fit realized_cer ONLY (plus intercept) for mutual comparability.",
+    "n_obs": 3888000,
+    "n_messages": 2299,
+    "n_models": 16,
+    "drift_rate": 0.3139377572016461,
+    "reference_slopes": {
+      "primary_message_clustered_ADJUSTED": 4.768564381404142,
+      "univariate_message_clustered_anchor": {
+        "slope": 8.121424129517052,
+        "se": 0.0721808139393047,
+        "ci": [
+          7.9799497341960155,
+          8.26289852483809
+        ]
+      },
+      "note": "The 4.77 headline is the ADJUSTED message-clustered logit slope (adjusts n_errors, char_len, corrupted_negation, corrupted_numeral, C(family)) from this run's mixed_model.drift.coefficients.realized_cer. The dependence estimators here are UNIVARIATE, so their natural reference is the univariate message-clustered anchor (8.12, from confidence_analysis.predicted_drift_grid). That gap is ADJUSTMENT, not dependence; this digest's question is only about dependence."
+    },
+    "estimators": {
+      "per_model_pooled_dl": {
+        "method": "per_model_pooled_dl",
+        "label": "Per-model message-clustered cluster-robust logit (drift ~ realized_cer), pooled across models by DerSimonian-Laird random-effects meta-analysis (preferred model-level estimator; 7 models is too few for a model-clustered SE)",
+        "slope": 8.635121056681154,
+        "se": 0.5464753929105375,
+        "ci": [
+          7.5640292865765,
+          9.706212826785807
+        ],
+        "tau2": 4.767101046944264,
+        "i2": 99.80247609920463,
+        "q": 7594.017706008838,
+        "k_models": 16,
+        "per_model": {
+          "command-r:latest": {
+            "slope": 7.444781008465879,
+            "se": 0.10102935693102533,
+            "ci": [
+              7.24676346888107,
+              7.642798548050689
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "gemma2:9b": {
+            "slope": 10.008424471262055,
+            "se": 0.11746238952696926,
+            "ci": [
+              9.778198187789195,
+              10.238650754734914
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "gemma3:27b": {
+            "slope": 9.033094316246798,
+            "se": 0.10062953725168151,
+            "ci": [
+              8.835860423233502,
+              9.230328209260094
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "gemma4:12b": {
+            "slope": 9.636212385345031,
+            "se": 0.11580000913142707,
+            "ci": [
+              9.409244367447434,
+              9.863180403242628
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "gemma4:31b": {
+            "slope": 10.781453578886506,
+            "se": 0.11674222829428983,
+            "ci": [
+              10.552638811429699,
+              11.010268346343313
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "gemma4:e4b": {
+            "slope": 6.718667436011122,
+            "se": 0.08034354914057959,
+            "ci": [
+              6.5611940796955865,
+              6.876140792326658
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "llama3.1:8b": {
+            "slope": 7.453581626867114,
+            "se": 0.11991293263225622,
+            "ci": [
+              7.218552278907891,
+              7.688610974826336
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "llama4:17b-scout-16e-instruct-q4_K_M": {
+            "slope": 7.367102476062046,
+            "se": 0.06988809669142629,
+            "ci": [
+              7.23012180654685,
+              7.504083145577241
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "mistral-small:24b": {
+            "slope": 9.636703619571543,
+            "se": 0.11667014798584868,
+            "ci": [
+              9.408030129519279,
+              9.865377109623807
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "phi3:mini": {
+            "slope": 7.682690466731486,
+            "se": 0.09850915029261936,
+            "ci": [
+              7.4896125321579525,
+              7.87576840130502
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "phi4:14b": {
+            "slope": 10.393406263681294,
+            "se": 0.11301881978504418,
+            "ci": [
+              10.171889376902607,
+              10.614923150459981
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "phi4:mini": {
+            "slope": 8.527880883130695,
+            "se": 0.0971668715112555,
+            "ci": [
+              8.337433814968634,
+              8.718327951292757
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "qwen2.5:7b": {
+            "slope": 4.096035953012289,
+            "se": 0.057089216429974256,
+            "ci": [
+              3.9841410888095394,
+              4.207930817215039
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "qwen3.5:27b-q4": {
+            "slope": 10.219431425462849,
+            "se": 0.12208954912029012,
+            "ci": [
+              9.98013590918708,
+              10.458726941738618
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "qwen3.6:27b": {
+            "slope": 10.237413216257396,
+            "se": 0.12174574324062556,
+            "ci": [
+              9.99879155950577,
+              10.476034873009022
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "qwen3.6:35b-a3b": {
+            "slope": 8.941761764227495,
+            "se": 0.10802703958742141,
+            "ci": [
+              8.73002876663615,
+              9.153494761818841
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          }
+        },
+        "n_models_dropped": 0,
+        "models_dropped": [],
+        "primary_slope": 4.79
+      },
+      "gee": {
+        "method": "gee",
+        "label": "GEE population-averaged logit (drift ~ realized_cer; Binomial family, independence fallback working correlation, groups=message_id, robust sandwich SE)",
+        "slope": 8.121424129517022,
+        "se": 0.07216510464468481,
+        "ci": [
+          7.97998052441344,
+          8.262867734620604
+        ],
+        "cov_struct_used": "independence_fallback",
+        "exchangeable_converged": false,
+        "n_obs": 3888000,
+        "n_groups": 2299,
+        "converged": true,
+        "notes": "FALLBACK: exchangeable working correlation returned an implausible or degenerate fit (non-finite parameters, a log-odds slope beyond 50, or a collapsed standard error), in some runs while reporting convergence on this cohort (large ~700-row message clusters with strong within-message drift correlation); reverted to an independence working correlation with the same robust sandwich SE, which yields a consistent slope and a valid cluster-robust SE regardless of the true correlation.",
+        "primary_slope": 4.79
+      },
+      "bootstrap_message": {
+        "method": "cluster_bootstrap_message",
+        "label": "Nonparametric cluster bootstrap of drift ~ realized_cer, resampling message-level clusters (2299) with replacement, 500 resamples",
+        "slope": 8.121424129516974,
+        "se": 0.06831244201208764,
+        "ci": [
+          7.99614879520934,
+          8.25682125342631
+        ],
+        "level": "message",
+        "n_clusters": 2299,
+        "n_boot": 500,
+        "n_valid": 500,
+        "unstable": false,
+        "primary_slope": 4.79
+      },
+      "bootstrap_model": {
+        "method": "cluster_bootstrap_model",
+        "label": "Nonparametric cluster bootstrap of drift ~ realized_cer, resampling model-level clusters (16) with replacement, 500 resamples",
+        "slope": 8.121424129516974,
+        "se": 0.45828204379092174,
+        "ci": [
+          7.257234815271992,
+          8.991599365792686
+        ],
+        "level": "model",
+        "n_clusters": 16,
+        "n_boot": 500,
+        "n_valid": 500,
+        "unstable": false,
+        "primary_slope": 4.79
+      }
+    },
+    "agreement": {
+      "per_model_pooled_dl": {
+        "slope": 8.635121056681154,
+        "ci": [
+          7.5640292865765,
+          9.706212826785807
+        ],
+        "ci_covers_univariate_anchor": true,
+        "ci_covers_adjusted_4.77": false,
+        "abs_diff_from_univariate_anchor": 0.5136969271641014
+      },
+      "gee": {
+        "slope": 8.121424129517022,
+        "ci": [
+          7.97998052441344,
+          8.262867734620604
+        ],
+        "ci_covers_univariate_anchor": true,
+        "ci_covers_adjusted_4.77": false,
+        "abs_diff_from_univariate_anchor": 3.019806626980426e-14
+      },
+      "bootstrap_message": {
+        "slope": 8.121424129516974,
+        "ci": [
+          7.99614879520934,
+          8.25682125342631
+        ],
+        "ci_covers_univariate_anchor": true,
+        "ci_covers_adjusted_4.77": false,
+        "abs_diff_from_univariate_anchor": 7.815970093361102e-14
+      },
+      "bootstrap_model": {
+        "slope": 8.121424129516974,
+        "ci": [
+          7.257234815271992,
+          8.991599365792686
+        ],
+        "ci_covers_univariate_anchor": true,
+        "ci_covers_adjusted_4.77": false,
+        "abs_diff_from_univariate_anchor": 7.815970093361102e-14
+      }
+    },
+    "slope_spread_across_estimators": 0.5136969271641796,
+    "max_pct_deviation_from_anchor": 6.325207487897186,
+    "model_level_bootstrap_unstable": false,
+    "conclusion": {
+      "stable_across_dependence_assumptions": true,
+      "summary": "The realized_cer log-odds slope is STABLE across dependence assumptions: all four estimators lie in 8.12-8.64 (spread 0.51, 6.3% max deviation from the univariate anchor 8.12). The preferred model-level estimator is the DerSimonian-Laird per-model pool (16 models; a model-clustered SE is not used because the model count is too small for that purpose); it shows between-model heterogeneity (tau^2=4.77, I^2=100%) but every model's slope is positive (range 4.1-10.8). The model-level cluster bootstrap is reported honestly as UNSTABLE (16 clusters: much wider CI than the message-level bootstrap). The exchangeable GEE diverged on this cohort and fell back to an independence working correlation (see its notes)."
+    }
+  },
+  "benefit_harm": {
+    "overall": {
+      "n_total": 3888000,
+      "n_no_benefit": 964625,
+      "rate_no_benefit": 0.2481031378600823,
+      "n_rescue": 1045045,
+      "rate_rescue": 0.26878729423868314,
+      "n_silent_failure": 1149010,
+      "rate_silent_failure": 0.2955272633744856,
+      "n_llm_induced_harm": 28121,
+      "rate_llm_induced_harm": 0.007232767489711934,
+      "n_no_correction": 477897,
+      "rate_no_correction": 0.1229158950617284,
+      "n_other__drift_to_degraded": 7301,
+      "rate_other__drift_to_degraded": 0.001877829218106996,
+      "n_other__drift_to_drift": 43459,
+      "rate_other__drift_to_drift": 0.01117772633744856,
+      "n_other__drift_to_faithful": 151704,
+      "rate_other__drift_to_faithful": 0.03901851851851852,
+      "n_other__faithful_to_degraded": 20838,
+      "rate_other__faithful_to_degraded": 0.005359567901234568,
+      "faithful_gained_per_drift_introduced": 0.8877898891457281,
+      "net_metric_note": ""
+    },
+    "by_group": [
+      {
+        "corpus": "AUTH",
+        "cer_target": 0.0,
+        "n_total": 693760,
+        "n_no_benefit": 642185,
+        "n_rescue": 6824,
+        "n_silent_failure": 647,
+        "n_llm_induced_harm": 12613,
+        "n_no_correction": 21329,
+        "n_other__drift_to_degraded": 0,
+        "n_other__drift_to_drift": 0,
+        "n_other__drift_to_faithful": 0,
+        "n_other__faithful_to_degraded": 10162,
+        "rate_no_benefit": 0.9256587292435424,
+        "rate_rescue": 0.009836254612546126,
+        "rate_silent_failure": 0.0009325991697416975,
+        "rate_llm_induced_harm": 0.018180638837638378,
+        "rate_no_correction": 0.030744061346863468,
+        "rate_other__drift_to_degraded": 0.0,
+        "rate_other__drift_to_drift": 0.0,
+        "rate_other__drift_to_faithful": 0.0,
+        "rate_other__faithful_to_degraded": 0.014647716789667897,
+        "faithful_gained_per_drift_introduced": 0.514630467571644,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "AUTH",
+        "cer_target": 0.1,
+        "n_total": 693760,
+        "n_no_benefit": 166214,
+        "n_rescue": 283797,
+        "n_silent_failure": 74890,
+        "n_llm_induced_harm": 7670,
+        "n_no_correction": 47553,
+        "n_other__drift_to_degraded": 2016,
+        "n_other__drift_to_drift": 16058,
+        "n_other__drift_to_faithful": 91462,
+        "n_other__faithful_to_degraded": 4100,
+        "rate_no_benefit": 0.2395842942804428,
+        "rate_rescue": 0.4090708602398524,
+        "rate_silent_failure": 0.10794799354243542,
+        "rate_llm_induced_harm": 0.011055696494464945,
+        "rate_no_correction": 0.06854387684501845,
+        "rate_other__drift_to_degraded": 0.0029059040590405905,
+        "rate_other__drift_to_drift": 0.02314633302583026,
+        "rate_other__drift_to_faithful": 0.1318352167896679,
+        "rate_other__faithful_to_degraded": 0.005909824723247232,
+        "faithful_gained_per_drift_introduced": 3.4374636627906976,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "AUTH",
+        "cer_target": 0.2,
+        "n_total": 693760,
+        "n_no_benefit": 40567,
+        "n_rescue": 314728,
+        "n_silent_failure": 204830,
+        "n_llm_induced_harm": 2793,
+        "n_no_correction": 82810,
+        "n_other__drift_to_degraded": 1695,
+        "n_other__drift_to_drift": 11742,
+        "n_other__drift_to_faithful": 32963,
+        "n_other__faithful_to_degraded": 1632,
+        "rate_no_benefit": 0.05847411208487085,
+        "rate_rescue": 0.45365544280442804,
+        "rate_silent_failure": 0.2952461946494465,
+        "rate_llm_induced_harm": 0.004025887915129151,
+        "rate_no_correction": 0.11936404520295203,
+        "rate_other__drift_to_degraded": 0.002443208025830258,
+        "rate_other__drift_to_drift": 0.016925161439114392,
+        "rate_other__drift_to_faithful": 0.04751354935424354,
+        "rate_other__faithful_to_degraded": 0.0023523985239852396,
+        "faithful_gained_per_drift_introduced": 1.5158628860964345,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "AUTH",
+        "cer_target": 0.3,
+        "n_total": 693760,
+        "n_no_benefit": 11352,
+        "n_rescue": 216005,
+        "n_silent_failure": 328070,
+        "n_llm_induced_harm": 1205,
+        "n_no_correction": 118997,
+        "n_other__drift_to_degraded": 1259,
+        "n_other__drift_to_drift": 6202,
+        "n_other__drift_to_faithful": 9947,
+        "n_other__faithful_to_degraded": 723,
+        "rate_no_benefit": 0.0163630073800738,
+        "rate_rescue": 0.31135407057195574,
+        "rate_silent_failure": 0.47288687730627305,
+        "rate_llm_induced_harm": 0.0017369119003690036,
+        "rate_no_correction": 0.17152473477859778,
+        "rate_other__drift_to_degraded": 0.0018147486162361623,
+        "rate_other__drift_to_drift": 0.008939690959409594,
+        "rate_other__drift_to_faithful": 0.01433781134686347,
+        "rate_other__faithful_to_degraded": 0.0010421471402214022,
+        "faithful_gained_per_drift_introduced": 0.6560018221851036,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "AUTH",
+        "cer_target": 0.4,
+        "n_total": 693760,
+        "n_no_benefit": 2613,
+        "n_rescue": 120531,
+        "n_silent_failure": 412819,
+        "n_llm_induced_harm": 271,
+        "n_no_correction": 147962,
+        "n_other__drift_to_degraded": 1228,
+        "n_other__drift_to_drift": 4846,
+        "n_other__drift_to_faithful": 3238,
+        "n_other__faithful_to_degraded": 252,
+        "rate_no_benefit": 0.003766432195571956,
+        "rate_rescue": 0.17373587407749078,
+        "rate_silent_failure": 0.5950458371771218,
+        "rate_llm_induced_harm": 0.000390625,
+        "rate_no_correction": 0.21327548431734317,
+        "rate_other__drift_to_degraded": 0.0017700645756457566,
+        "rate_other__drift_to_drift": 0.006985124538745387,
+        "rate_other__drift_to_faithful": 0.004667320110701107,
+        "rate_other__faithful_to_degraded": 0.0003632380073800738,
+        "faithful_gained_per_drift_introduced": 0.2917790312038539,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "CRIT",
+        "cer_target": 0.0,
+        "n_total": 41920,
+        "n_no_benefit": 37009,
+        "n_rescue": 673,
+        "n_silent_failure": 20,
+        "n_llm_induced_harm": 1210,
+        "n_no_correction": 1867,
+        "n_other__drift_to_degraded": 0,
+        "n_other__drift_to_drift": 0,
+        "n_other__drift_to_faithful": 0,
+        "n_other__faithful_to_degraded": 1141,
+        "rate_no_benefit": 0.882848282442748,
+        "rate_rescue": 0.016054389312977098,
+        "rate_silent_failure": 0.00047709923664122136,
+        "rate_llm_induced_harm": 0.028864503816793893,
+        "rate_no_correction": 0.04453721374045801,
+        "rate_other__drift_to_degraded": 0.0,
+        "rate_other__drift_to_drift": 0.0,
+        "rate_other__drift_to_faithful": 0.0,
+        "rate_other__faithful_to_degraded": 0.02721851145038168,
+        "faithful_gained_per_drift_introduced": 0.5471544715447154,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "CRIT",
+        "cer_target": 0.1,
+        "n_total": 41920,
+        "n_no_benefit": 9105,
+        "n_rescue": 16522,
+        "n_silent_failure": 5385,
+        "n_llm_induced_harm": 512,
+        "n_no_correction": 3885,
+        "n_other__drift_to_degraded": 187,
+        "n_other__drift_to_drift": 1184,
+        "n_other__drift_to_faithful": 4709,
+        "n_other__faithful_to_degraded": 431,
+        "rate_no_benefit": 0.21719942748091603,
+        "rate_rescue": 0.394131679389313,
+        "rate_silent_failure": 0.12845896946564886,
+        "rate_llm_induced_harm": 0.012213740458015267,
+        "rate_no_correction": 0.09267652671755726,
+        "rate_other__drift_to_degraded": 0.00446087786259542,
+        "rate_other__drift_to_drift": 0.028244274809160305,
+        "rate_other__drift_to_faithful": 0.11233301526717557,
+        "rate_other__faithful_to_degraded": 0.010281488549618321,
+        "faithful_gained_per_drift_introduced": 2.8017636086145496,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "CRIT",
+        "cer_target": 0.2,
+        "n_total": 41920,
+        "n_no_benefit": 2291,
+        "n_rescue": 17015,
+        "n_silent_failure": 13939,
+        "n_llm_induced_harm": 176,
+        "n_no_correction": 6038,
+        "n_other__drift_to_degraded": 143,
+        "n_other__drift_to_drift": 646,
+        "n_other__drift_to_faithful": 1499,
+        "n_other__faithful_to_degraded": 173,
+        "rate_no_benefit": 0.05465171755725191,
+        "rate_rescue": 0.4058921755725191,
+        "rate_silent_failure": 0.3325143129770992,
+        "rate_llm_induced_harm": 0.004198473282442748,
+        "rate_no_correction": 0.14403625954198473,
+        "rate_other__drift_to_degraded": 0.003411259541984733,
+        "rate_other__drift_to_drift": 0.015410305343511451,
+        "rate_other__drift_to_faithful": 0.035758587786259545,
+        "rate_other__faithful_to_degraded": 0.0041269083969465645,
+        "faithful_gained_per_drift_introduced": 1.2054551895147008,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "CRIT",
+        "cer_target": 0.3,
+        "n_total": 41920,
+        "n_no_benefit": 858,
+        "n_rescue": 10810,
+        "n_silent_failure": 20997,
+        "n_llm_induced_harm": 83,
+        "n_no_correction": 8225,
+        "n_other__drift_to_degraded": 133,
+        "n_other__drift_to_drift": 372,
+        "n_other__drift_to_faithful": 343,
+        "n_other__faithful_to_degraded": 99,
+        "rate_no_benefit": 0.020467557251908398,
+        "rate_rescue": 0.25787213740458015,
+        "rate_silent_failure": 0.5008826335877863,
+        "rate_llm_induced_harm": 0.0019799618320610686,
+        "rate_no_correction": 0.19620706106870228,
+        "rate_other__drift_to_degraded": 0.0031727099236641223,
+        "rate_other__drift_to_drift": 0.008874045801526717,
+        "rate_other__drift_to_faithful": 0.008182251908396946,
+        "rate_other__faithful_to_degraded": 0.0023616412213740457,
+        "faithful_gained_per_drift_introduced": 0.5128083491461101,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "CRIT",
+        "cer_target": 0.4,
+        "n_total": 41920,
+        "n_no_benefit": 459,
+        "n_rescue": 5532,
+        "n_silent_failure": 25353,
+        "n_llm_induced_harm": 68,
+        "n_no_correction": 9899,
+        "n_other__drift_to_degraded": 108,
+        "n_other__drift_to_drift": 286,
+        "n_other__drift_to_faithful": 166,
+        "n_other__faithful_to_degraded": 49,
+        "rate_no_benefit": 0.01094942748091603,
+        "rate_rescue": 0.13196564885496184,
+        "rate_silent_failure": 0.6047948473282443,
+        "rate_llm_induced_harm": 0.0016221374045801526,
+        "rate_no_correction": 0.23614026717557252,
+        "rate_other__drift_to_degraded": 0.0025763358778625955,
+        "rate_other__drift_to_drift": 0.006822519083969466,
+        "rate_other__drift_to_faithful": 0.003959923664122137,
+        "rate_other__faithful_to_degraded": 0.0011688931297709924,
+        "faithful_gained_per_drift_introduced": 0.2176153573816923,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "CTRL",
+        "cer_target": 0.0,
+        "n_total": 41920,
+        "n_no_benefit": 38010,
+        "n_rescue": 460,
+        "n_silent_failure": 20,
+        "n_llm_induced_harm": 589,
+        "n_no_correction": 1760,
+        "n_other__drift_to_degraded": 0,
+        "n_other__drift_to_drift": 0,
+        "n_other__drift_to_faithful": 0,
+        "n_other__faithful_to_degraded": 1081,
+        "rate_no_benefit": 0.9067270992366412,
+        "rate_rescue": 0.01097328244274809,
+        "rate_silent_failure": 0.00047709923664122136,
+        "rate_llm_induced_harm": 0.01405057251908397,
+        "rate_no_correction": 0.04198473282442748,
+        "rate_other__drift_to_degraded": 0.0,
+        "rate_other__drift_to_drift": 0.0,
+        "rate_other__drift_to_faithful": 0.0,
+        "rate_other__faithful_to_degraded": 0.025787213740458014,
+        "faithful_gained_per_drift_introduced": 0.7553366174055829,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "CTRL",
+        "cer_target": 0.1,
+        "n_total": 41920,
+        "n_no_benefit": 9880,
+        "n_rescue": 16245,
+        "n_silent_failure": 4936,
+        "n_llm_induced_harm": 594,
+        "n_no_correction": 3587,
+        "n_other__drift_to_degraded": 150,
+        "n_other__drift_to_drift": 926,
+        "n_other__drift_to_faithful": 5052,
+        "n_other__faithful_to_degraded": 550,
+        "rate_no_benefit": 0.23568702290076335,
+        "rate_rescue": 0.38752385496183206,
+        "rate_silent_failure": 0.11774809160305344,
+        "rate_llm_induced_harm": 0.014169847328244275,
+        "rate_no_correction": 0.08556774809160306,
+        "rate_other__drift_to_degraded": 0.00357824427480916,
+        "rate_other__drift_to_drift": 0.02208969465648855,
+        "rate_other__drift_to_faithful": 0.12051526717557252,
+        "rate_other__faithful_to_degraded": 0.013120229007633587,
+        "faithful_gained_per_drift_introduced": 2.9376130198915007,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "CTRL",
+        "cer_target": 0.2,
+        "n_total": 41920,
+        "n_no_benefit": 2870,
+        "n_rescue": 17767,
+        "n_silent_failure": 12697,
+        "n_llm_induced_harm": 208,
+        "n_no_correction": 5856,
+        "n_other__drift_to_degraded": 116,
+        "n_other__drift_to_drift": 546,
+        "n_other__drift_to_faithful": 1626,
+        "n_other__faithful_to_degraded": 234,
+        "rate_no_benefit": 0.06846374045801527,
+        "rate_rescue": 0.423831106870229,
+        "rate_silent_failure": 0.3028864503816794,
+        "rate_llm_induced_harm": 0.004961832061068702,
+        "rate_no_correction": 0.13969465648854962,
+        "rate_other__drift_to_degraded": 0.002767175572519084,
+        "rate_other__drift_to_drift": 0.013024809160305344,
+        "rate_other__drift_to_faithful": 0.0387881679389313,
+        "rate_other__faithful_to_degraded": 0.00558206106870229,
+        "faithful_gained_per_drift_introduced": 1.3767531964354902,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "CTRL",
+        "cer_target": 0.3,
+        "n_total": 41920,
+        "n_no_benefit": 1028,
+        "n_rescue": 12019,
+        "n_silent_failure": 19657,
+        "n_llm_induced_harm": 92,
+        "n_no_correction": 7924,
+        "n_other__drift_to_degraded": 137,
+        "n_other__drift_to_drift": 378,
+        "n_other__drift_to_faithful": 541,
+        "n_other__faithful_to_degraded": 144,
+        "rate_no_benefit": 0.02452290076335878,
+        "rate_rescue": 0.286712786259542,
+        "rate_silent_failure": 0.46891698473282445,
+        "rate_llm_induced_harm": 0.0021946564885496184,
+        "rate_no_correction": 0.18902671755725192,
+        "rate_other__drift_to_degraded": 0.0032681297709923666,
+        "rate_other__drift_to_drift": 0.009017175572519085,
+        "rate_other__drift_to_faithful": 0.012905534351145038,
+        "rate_other__faithful_to_degraded": 0.003435114503816794,
+        "faithful_gained_per_drift_introduced": 0.6085877765962834,
+        "net_metric_note": ""
+      },
+      {
+        "corpus": "CTRL",
+        "cer_target": 0.4,
+        "n_total": 41920,
+        "n_no_benefit": 184,
+        "n_rescue": 6117,
+        "n_silent_failure": 24750,
+        "n_llm_induced_harm": 37,
+        "n_no_correction": 10205,
+        "n_other__drift_to_degraded": 129,
+        "n_other__drift_to_drift": 273,
+        "n_other__drift_to_faithful": 158,
+        "n_other__faithful_to_degraded": 67,
+        "rate_no_benefit": 0.004389312977099237,
+        "rate_rescue": 0.14592080152671755,
+        "rate_silent_failure": 0.5904103053435115,
+        "rate_llm_induced_harm": 0.0008826335877862595,
+        "rate_no_correction": 0.2434398854961832,
+        "rate_other__drift_to_degraded": 0.003077290076335878,
+        "rate_other__drift_to_drift": 0.006512404580152672,
+        "rate_other__drift_to_faithful": 0.0037690839694656487,
+        "rate_other__faithful_to_degraded": 0.0015982824427480916,
+        "faithful_gained_per_drift_introduced": 0.24678258764675032,
+        "net_metric_note": ""
+      }
+    ],
+    "auth_net_by_cer": {
+      "0.0": 0.514630467571644,
+      "0.1": 3.4374636627906976,
+      "0.2": 1.5158628860964345,
+      "0.3": 0.6560018221851036,
+      "0.4": 0.2917790312038539
+    },
+    "n_full_raw_keys": 243000,
+    "raw_label_marginals": {
+      "degraded": 166997,
+      "faithful": 63349,
+      "drift": 12654
+    },
+    "notes": []
+  },
+  "notes": {
+    "sensitivity": "The tau/tie-break recalibration table was not recomputed: it requires re-deriving labels via idrift.adjudicate.label_runner.derive_labels (a per-row Python loop, no vectorized path) at several tau/tie_break settings over the full 3,888,000-row labeled corpus, which the Task C4 brief's module list did not include. Copied from v2 as a placeholder pending an explicit decision on whether to rerun it."
+  }
+}

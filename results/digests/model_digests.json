@@ -1,0 +1,127 @@
+{
+  "_provenance": "Immutable ollama model-layer sha256 digests + quantization read directly from the O2 ollama manifest store (OLLAMA_MODELS=/n/scratch/users/a/alg7274/ollama_models/manifests/registry.ollama.ai/library/<model>/<tag>) on 2026-08-03 by scratchpad/expand_panel/recover_model_digests.sh. Supersedes the null ollama_digest_sha256 fields in output/model_manifest16.json, which used /api/show (never pulled back for 9 tags); the digests were always present in the manifest store. Verified genuine: 7 tags overlapping the /api/show capture (harden_model_manifest.json) match byte-for-byte, and 3 previously-null tags (qwen3.6:27b, gemma3:27b, phi3:mini) were independently re-read from O2 and matched byte-for-byte. Not fabricated; any unrecoverable field is marked not_recoverable. Extended on 2026-08-11 by scratchpad/expand_panel/recover_model_digests_heavy4.sh to add the 4 models (granite3.3:8b, gpt-oss:20b, gpt-oss:120b, deepseek-r1:32b) that complete the 16-to-20-model panel expansion, using the identical raw-manifest-store read method; not fabricated, same verification standard as the original 16.",
+  "_n_models": 20,
+  "_n_recovered": 20,
+  "models": {
+    "gemma4:12b": {
+      "manifest_path": "registry.ollama.ai/library/gemma4/12b",
+      "config_digest": "sha256:a298f5e22b42115cf4aeeb0440d9095d80994062d4263f89602d25e340e6016a",
+      "model_layer_digest": "sha256:6519da92d5ed63e909105cf114e017803cc2c9b755116f0e6f0ecfdc0998ca00",
+      "quantization_or_filetype": "Q8_0"
+    },
+    "gemma4:31b": {
+      "manifest_path": "registry.ollama.ai/library/gemma4/31b",
+      "config_digest": "sha256:8e73751606f42e85ac6c9cf4f76f111ef5129a20f66e5664b9d27e934330f09a",
+      "model_layer_digest": "sha256:66fda95ed640d0e897555a53f927737e1b96264657f8724fbab6118bdb4ffb73",
+      "quantization_or_filetype": "Q8_0"
+    },
+    "gemma4:e4b": {
+      "manifest_path": "registry.ollama.ai/library/gemma4/e4b",
+      "config_digest": "sha256:ce677f641308ba8fc7e935e9b0e3f96c09cb0bc2dba71121a285442e21937b05",
+      "model_layer_digest": "sha256:0213bca357a6aa0a8b93b784c4794f4f3bb344dc67a5dd0f9651adee6810d253",
+      "quantization_or_filetype": "Q8_0"
+    },
+    "mistral-small:24b": {
+      "manifest_path": "registry.ollama.ai/library/mistral-small/24b",
+      "config_digest": "sha256:a4ae56844628aae8808e4f77adf4f7d21a2c52724a32ae90f46b6c67cae3be2f",
+      "model_layer_digest": "sha256:5e84c54ee8d5d9436b3b084c5803f3fea02e39991ae046443b34e1ded491d9c6",
+      "quantization_or_filetype": "Q4_K_M"
+    },
+    "phi4:14b": {
+      "manifest_path": "registry.ollama.ai/library/phi4/14b",
+      "config_digest": "sha256:9a8b7f7ee4cad52dfb7f2d954db9e6d678108fb53f9a71e8a0d642fbcfdabd37",
+      "model_layer_digest": "sha256:f68df5d3a22a01ea9ec547741f42ee7fedbf949bf42ef526fb1944fa0cfaa110",
+      "quantization_or_filetype": "Q8_0"
+    },
+    "phi4:mini": {
+      "manifest_path": "registry.ollama.ai/library/phi4/mini",
+      "config_digest": "sha256:cc7678ebeb6ce1f6a7c431c7496957b42ab216df4e05490a221d02fd60b94c90",
+      "model_layer_digest": "sha256:7c6dee0881c14d75dfae25b21a12e987a33e14b4cf7d8ab43a3cf12bac1cc5d6",
+      "quantization_or_filetype": "Q8_0"
+    },
+    "qwen3.5:27b-q4": {
+      "manifest_path": "registry.ollama.ai/library/qwen3.5/27b-q4",
+      "config_digest": "sha256:74433bac6feefebe5c9eab7e199fd5781bc1f76e9be4888227e8af3d861c9e94",
+      "model_layer_digest": "sha256:355d2d2f32094907ca71b0d0d4a41d97e04c94599631c773182e4b30b55f6f0c",
+      "quantization_or_filetype": "Q4_K_M"
+    },
+    "command-r:latest": {
+      "manifest_path": "registry.ollama.ai/library/command-r/latest",
+      "config_digest": "sha256:8e63f21e12fbee5ed18c16613ee36e3a6cc06dafc3ebd830d8b53eb65f7c43a9",
+      "model_layer_digest": "sha256:8e0609b8f0fe36530ac9966544e6cf780cfcda006fbe739eeab278aef89b3df7",
+      "quantization_or_filetype": "Q4_0"
+    },
+    "gemma2:9b": {
+      "manifest_path": "registry.ollama.ai/library/gemma2/9b",
+      "config_digest": "sha256:10aa81da732eae8a66e07d70620089a608f546ff280a2856a43be69d622f715a",
+      "model_layer_digest": "sha256:ff1d1fc78170d787ee1201778e2dd65ea211654ca5fb7d69b5a2e7b123a50373",
+      "quantization_or_filetype": "Q4_0"
+    },
+    "gemma3:27b": {
+      "manifest_path": "registry.ollama.ai/library/gemma3/27b",
+      "config_digest": "sha256:f838f048d36876f9f411d302e8fc45cea6793a37cd978af1b6a0b042fcfb2f31",
+      "model_layer_digest": "sha256:e796792eba26c4d3b04b0ac5adb01a453dd9ec2dfd83b6c59cbf6fe5f30b0f68",
+      "quantization_or_filetype": "Q4_K_M"
+    },
+    "llama3.1:8b": {
+      "manifest_path": "registry.ollama.ai/library/llama3.1/8b",
+      "config_digest": "sha256:455f34728c9b5dd3376378bfb809ee166c145b0b4c1f1a6feca069055066ef9a",
+      "model_layer_digest": "sha256:667b0c1932bc6ffc593ed1d03f895bf2dc8dc6df21db3042284a6f4416b06a29",
+      "quantization_or_filetype": "Q4_K_M"
+    },
+    "llama4:17b-scout-16e-instruct-q4_K_M": {
+      "manifest_path": "registry.ollama.ai/library/llama4/17b-scout-16e-instruct-q4_K_M",
+      "config_digest": "sha256:f7ce8f326f5d258f1cb6a21e5f5fed318d8e0d56151a8ed406a6b410e320f53c",
+      "model_layer_digest": "sha256:9d507a36062c2845dd3bb3e93364e9abc1607118acd8650727a700f72fb126e5",
+      "quantization_or_filetype": "Q4_K_M"
+    },
+    "phi3:mini": {
+      "manifest_path": "registry.ollama.ai/library/phi3/mini",
+      "config_digest": "sha256:23291dc44752bac878bf46ab0f2b8daf75c710060f80f1a351151c7be2f5ee0f",
+      "model_layer_digest": "sha256:633fc5be925f9a484b61d6f9b9a78021eeb462100bd557309f01ba84cac26adf",
+      "quantization_or_filetype": "Q4_0"
+    },
+    "qwen2.5:7b": {
+      "manifest_path": "registry.ollama.ai/library/qwen2.5/7b",
+      "config_digest": "sha256:2f15b3218f0552c60647ce60ada83632d2c09755b16259b13e3e4458e9ae419d",
+      "model_layer_digest": "sha256:2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730",
+      "quantization_or_filetype": "Q4_K_M"
+    },
+    "qwen3.6:27b": {
+      "manifest_path": "registry.ollama.ai/library/qwen3.6/27b",
+      "config_digest": "sha256:728c795c776272002ed455cf94ef825cbbe4cc04c9a925a1a78933bbf0c2b63b",
+      "model_layer_digest": "sha256:83c54730a5fea8a0958598c01617c1419c431e93b33bacf980b49a420c798926",
+      "quantization_or_filetype": "Q4_K_M"
+    },
+    "qwen3.6:35b-a3b": {
+      "manifest_path": "registry.ollama.ai/library/qwen3.6/35b-a3b",
+      "config_digest": "sha256:5d1c86a949f7f3b5e75370e129765af7526f0cc1812a9de21a541da042596faa",
+      "model_layer_digest": "sha256:f5ee307a2982106a6eb82b62b2c00b575c9072145a759ae4660378acda8dcf2d",
+      "quantization_or_filetype": "Q4_K_M"
+    },
+    "granite3.3:8b": {
+      "manifest_path": "registry.ollama.ai/library/granite3.3/8b",
+      "config_digest": "sha256:122661774644959cd109295a907dc4305a7b72f9ce8b9ba0fe43dd2393a7becd",
+      "model_layer_digest": "sha256:77bcee066a76dcdd10d0d123c87e32c8ec2c74e31b6ffd87ebee49c9ac215dca",
+      "quantization_or_filetype": "Q4_K_M"
+    },
+    "gpt-oss:20b": {
+      "manifest_path": "registry.ollama.ai/library/gpt-oss/20b",
+      "config_digest": "sha256:776beb3adb235076157cfea408b8ea2a2d25eae99d7f5da997f607f6b69fa0fa",
+      "model_layer_digest": "sha256:e7b273f9636059a689e3ddcab3716e4f65abe0143ac978e46673ad0e52d09efb",
+      "quantization_or_filetype": "MXFP4"
+    },
+    "gpt-oss:120b": {
+      "manifest_path": "registry.ollama.ai/library/gpt-oss/120b",
+      "config_digest": "sha256:0b3eaefc220f88ee3875909c1306654b2fbda9e31dae0133d6cdf488b37f9402",
+      "model_layer_digest": "sha256:6be6d66a3f546d8c19b130dc41dc24b2fc159f84ffbc76a0ee0676205083cf5a",
+      "quantization_or_filetype": "MXFP4"
+    },
+    "deepseek-r1:32b": {
+      "manifest_path": "registry.ollama.ai/library/deepseek-r1/32b",
+      "config_digest": "sha256:c7f3ea903b50b3c9a42221b265ade4375d1bb5e3b6b6731488712886a8c41ff0",
+      "model_layer_digest": "sha256:6150cb382311b69f09cc0f9a1b69fc029cbd742b66bb8ec531aa5ecf5c613e93",
+      "quantization_or_filetype": "Q4_K_M"
+    }
+  }
+}

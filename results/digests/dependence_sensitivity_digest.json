@@ -1,0 +1,209 @@
+{
+  "task": "B9 dependence-structure sensitivity",
+  "description": "Alternative estimators of the realized_cer -> drift log-odds slope under different dependence assumptions, to show the slope is stable across dependence structures (only 7 models, so a model-clustered SE is not credible). All estimators fit realized_cer ONLY (plus intercept) for mutual comparability.",
+  "n_obs": 533400,
+  "n_messages": 762,
+  "n_models": 7,
+  "drift_rate": 0.32012185976752905,
+  "reference_slopes": {
+    "primary_message_clustered_ADJUSTED": 4.79,
+    "univariate_message_clustered_anchor": {
+      "slope": 8.788681772292223,
+      "se": 0.14794356749890686,
+      "ci": [
+        8.498712379994366,
+        9.078651164590081
+      ]
+    },
+    "note": "The 4.79 headline is the ADJUSTED message-clustered logit slope (adjusts n_errors, char_len, corrupted_negation, corrupted_numeral, C(family)). The dependence estimators here are UNIVARIATE, so their natural reference is the univariate message-clustered anchor (8.79). The univariate slope is ~2x the adjusted slope because, unadjusted, realized_cer absorbs the drift-increasing effect of correlated corruption covariates (notably corrupted_numeral and n_errors). That gap is ADJUSTMENT, not dependence; the B9 question is only about dependence."
+  },
+  "estimators": {
+    "per_model_pooled_dl": {
+      "method": "per_model_pooled_dl",
+      "label": "Per-model message-clustered cluster-robust logit (drift ~ realized_cer), pooled across models by DerSimonian-Laird random-effects meta-analysis (preferred model-level estimator; 7 models is too few for a model-clustered SE)",
+      "slope": 9.22593403384373,
+      "se": 0.62090120394926,
+      "ci": [
+        8.00896767410318,
+        10.44290039358428
+      ],
+      "tau2": 2.6611390030291098,
+      "i2": 98.70832007457346,
+      "q": 464.5113608945115,
+      "k_models": 7,
+      "per_model": {
+        "gemma4:12b": {
+          "slope": 9.424283218269206,
+          "se": 0.19682742760653446,
+          "ci": [
+            9.038501460160399,
+            9.810064976378014
+          ],
+          "n": 76200,
+          "n_messages": 762
+        },
+        "gemma4:31b": {
+          "slope": 10.592136435662535,
+          "se": 0.20591485680188473,
+          "ci": [
+            10.188543316330842,
+            10.995729554994229
+          ],
+          "n": 76200,
+          "n_messages": 762
+        },
+        "gemma4:e4b": {
+          "slope": 6.5299560007682835,
+          "se": 0.13491729287545431,
+          "ci": [
+            6.265518106732393,
+            6.794393894804174
+          ],
+          "n": 76200,
+          "n_messages": 762
+        },
+        "mistral-small:24b": {
+          "slope": 9.397188339447846,
+          "se": 0.2135310032899037,
+          "ci": [
+            8.978667572999635,
+            9.815709105896056
+          ],
+          "n": 76200,
+          "n_messages": 762
+        },
+        "phi4:14b": {
+          "slope": 10.247201864914558,
+          "se": 0.20109083162525082,
+          "ci": [
+            9.853063834929067,
+            10.64133989490005
+          ],
+          "n": 76200,
+          "n_messages": 762
+        },
+        "phi4:mini": {
+          "slope": 8.404285829198937,
+          "se": 0.17121113739148705,
+          "ci": [
+            8.068711999911622,
+            8.739859658486251
+          ],
+          "n": 76200,
+          "n_messages": 762
+        },
+        "qwen3.5:27b-q4": {
+          "slope": 10.015647616295542,
+          "se": 0.21903030555724615,
+          "ci": [
+            9.586348217403339,
+            10.444947015187745
+          ],
+          "n": 76200,
+          "n_messages": 762
+        }
+      },
+      "n_models_dropped": 0,
+      "models_dropped": [],
+      "primary_slope": 4.79
+    },
+    "gee": {
+      "method": "gee",
+      "label": "GEE population-averaged logit (drift ~ realized_cer; Binomial family, independence fallback working correlation, groups=message_id, robust sandwich SE)",
+      "slope": 8.788681772292234,
+      "se": 0.14784632120815286,
+      "ci": [
+        8.498902982724255,
+        9.078460561860213
+      ],
+      "cov_struct_used": "independence_fallback",
+      "exchangeable_converged": false,
+      "n_obs": 533400,
+      "n_groups": 762,
+      "converged": true,
+      "notes": "FALLBACK: exchangeable working correlation returned non-finite parameters (correlation ran away) on this cohort (large ~700-row message clusters with strong within-message drift correlation); reverted to an independence working correlation with the same robust sandwich SE, which yields a consistent slope and a valid cluster-robust SE regardless of the true correlation.",
+      "primary_slope": 4.79
+    },
+    "bootstrap_message": {
+      "method": "cluster_bootstrap_message",
+      "label": "Nonparametric cluster bootstrap of drift ~ realized_cer, resampling message-level clusters (762) with replacement, 500 resamples",
+      "slope": 8.78868177229223,
+      "se": 0.15350120811406123,
+      "ci": [
+        8.479554176559716,
+        9.06181194939671
+      ],
+      "level": "message",
+      "n_clusters": 762,
+      "n_boot": 500,
+      "n_valid": 500,
+      "unstable": false,
+      "primary_slope": 4.79
+    },
+    "bootstrap_model": {
+      "method": "cluster_bootstrap_model",
+      "label": "Nonparametric cluster bootstrap of drift ~ realized_cer, resampling model-level clusters (7) with replacement, 500 resamples -- UNSTABLE: too few clusters for a trustworthy cluster bootstrap; CI is wide/erratic and reported for honesty, not relied upon (see per_model_pooled_slope for the preferred model-level estimator)",
+      "slope": 8.78868177229223,
+      "se": 0.5157318094290123,
+      "ci": [
+        7.785996730254945,
+        9.812809842581604
+      ],
+      "level": "model",
+      "n_clusters": 7,
+      "n_boot": 500,
+      "n_valid": 500,
+      "unstable": true,
+      "primary_slope": 4.79
+    }
+  },
+  "agreement": {
+    "per_model_pooled_dl": {
+      "slope": 9.22593403384373,
+      "ci": [
+        8.00896767410318,
+        10.44290039358428
+      ],
+      "ci_covers_univariate_anchor": true,
+      "ci_covers_adjusted_4.79": false,
+      "abs_diff_from_univariate_anchor": 0.43725226155150665
+    },
+    "gee": {
+      "slope": 8.788681772292234,
+      "ci": [
+        8.498902982724255,
+        9.078460561860213
+      ],
+      "ci_covers_univariate_anchor": true,
+      "ci_covers_adjusted_4.79": false,
+      "abs_diff_from_univariate_anchor": 1.0658141036401503e-14
+    },
+    "bootstrap_message": {
+      "slope": 8.78868177229223,
+      "ci": [
+        8.479554176559716,
+        9.06181194939671
+      ],
+      "ci_covers_univariate_anchor": true,
+      "ci_covers_adjusted_4.79": false,
+      "abs_diff_from_univariate_anchor": 7.105427357601002e-15
+    },
+    "bootstrap_model": {
+      "slope": 8.78868177229223,
+      "ci": [
+        7.785996730254945,
+        9.812809842581604
+      ],
+      "ci_covers_univariate_anchor": true,
+      "ci_covers_adjusted_4.79": false,
+      "abs_diff_from_univariate_anchor": 7.105427357601002e-15
+    }
+  },
+  "slope_spread_across_estimators": 0.43725226155149954,
+  "max_pct_deviation_from_anchor": 4.975174581130209,
+  "model_level_bootstrap_unstable": true,
+  "conclusion": {
+    "stable_across_dependence_assumptions": true,
+    "summary": "The realized_cer log-odds slope is STABLE across dependence assumptions: all four estimators lie in 8.79-9.23 (spread 0.44, <= 5.0% from the univariate anchor 8.79). The preferred model-level estimator is the DerSimonian-Laird per-model pool (7 models is too few for a model-clustered SE); it shows large between-model heterogeneity (tau^2=2.66, I^2=99%) but every model's slope is large and positive (range 6.5-10.6). The model-level cluster bootstrap is reported honestly as UNSTABLE (7 clusters: much wider CI than the message-level bootstrap). The exchangeable GEE diverged on this cohort and fell back to an independence working correlation (see its notes). None of these dependence estimators diverges materially from the others."
+  }
+}

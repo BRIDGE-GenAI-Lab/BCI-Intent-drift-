@@ -1,0 +1,1536 @@
+{
+  "_meta": {
+    "labeled": "output/intermediate/attempts_v3_labeled.parquet",
+    "exposure": "output/intermediate/exposure_v3_full.parquet",
+    "tau_primary": 0.5,
+    "tie_primary": "primary",
+    "corpus_version": "v3",
+    "n_rows": 1701000,
+    "n_auth_messages": 2168,
+    "generated_by": "idrift.analysis.run_v3",
+    "reused_unchanged_artifacts": [
+      "output/balance_digest.json (CRIT/CTRL SMD balance table -- unchanged, byte-identical corpora)",
+      "output/stratified_diag_digest.json (physician-panel stratified diagnostics -- unchanged)"
+    ]
+  },
+  "drift_curve": {
+    "drift_by_corpus_x_targetcer": {
+      "AUTH": {
+        "0.0": 1.2,
+        "0.1": 12.78,
+        "0.2": 30.2,
+        "0.3": 48.15,
+        "0.4": 62.0
+      },
+      "CRIT": {
+        "0.0": 2.36,
+        "0.1": 15.57,
+        "0.2": 34.09,
+        "0.3": 51.44,
+        "0.4": 63.36
+      },
+      "CTRL": {
+        "0.0": 0.58,
+        "0.1": 14.1,
+        "0.2": 30.87,
+        "0.3": 48.41,
+        "0.4": 62.0
+      }
+    },
+    "overall_by_corpus": {
+      "AUTH": {
+        "faithful": 0.583,
+        "degraded": 0.1083,
+        "drift": 0.3087
+      },
+      "CRIT": {
+        "faithful": 0.5303,
+        "degraded": 0.1361,
+        "drift": 0.3337
+      },
+      "CTRL": {
+        "faithful": 0.5517,
+        "degraded": 0.1363,
+        "drift": 0.3119
+      }
+    },
+    "per_model_auth_drift": {
+      "gemma4:31b": 0.2305,
+      "gemma4:e4b": 0.2413,
+      "gemma4:12b": 0.2825,
+      "qwen3.5:27b-q4": 0.2867,
+      "mistral-small:24b": 0.3227,
+      "phi4:14b": 0.3637,
+      "phi4:mini": 0.4332
+    },
+    "n_by_corpus": {
+      "AUTH": 1517600,
+      "CRIT": 91700,
+      "CTRL": 91700
+    }
+  },
+  "zero_cer_audit": {
+    "total_zero_cer_drift": 4889,
+    "by_cause": {
+      "critical_substitution": 2063,
+      "formatting": 183,
+      "paraphrase": 21,
+      "overgenerative": 185,
+      "other": 2437
+    },
+    "examples": {
+      "critical_substitution": [
+        "costello_1965",
+        "costello_1965",
+        "costello_1965",
+        "probe_0048",
+        "probe_0048",
+        "probe_0048",
+        "probe_0050",
+        "probe_0050",
+        "probe_0050",
+        "costello_1965"
+      ],
+      "formatting": [
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056"
+      ],
+      "paraphrase": [
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751"
+      ],
+      "overgenerative": [
+        "costello_0620",
+        "costello_0620",
+        "costello_0620",
+        "costello_0620",
+        "costello_0620",
+        "costello_0296",
+        "costello_0296",
+        "costello_0296",
+        "costello_0620",
+        "costello_0620"
+      ],
+      "other": [
+        "costello_1119",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "costello_0882",
+        "costello_0882",
+        "costello_0882",
+        "costello_1119",
+        "probe_0121"
+      ]
+    },
+    "notes": "Filtered to realized_cer == 0 and label == 'drift' (a clean input the ensemble nonetheless called drift on). Precedence: critical_substitution > formatting > paraphrase > overgenerative > other -- each row is assigned the first cause it matches, not summed across causes. critical_substitution = any of ['crit_negation_flip', 'crit_numeral_change', 'crit_recipient_change', 'crit_urgency_change', 'crit_actionable_omission'] is True. formatting = output_message equals intended_text after lowercasing, punctuation removal, and whitespace collapse. paraphrase = cos_mpnet and cos_minilm both >= nli_metric.COS_HI (currently 0.75) and bidirectional entailment ('entail' both directions) on at least one of the two NLI models (deberta or roberta), reached only when no crit_* flag is set. overgenerative = output_message at least 1.5x intended_text's character length, reached only when none of the above matched. other = residual. Examples are capped at 10 message_id(s) per cause."
+  },
+  "calibration": {
+    "dropped_nan_confidence": 322,
+    "per_model": {
+      "gemma4:12b": {
+        "ece": 0.30386246434847725,
+        "ece_ci": [
+          0.29715105354098703,
+          0.3103898754244484
+        ],
+        "auroc": 0.8766685940163944,
+        "auroc_ci": [
+          0.869855453212633,
+          0.8831715279141565
+        ],
+        "n": 242977,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "gemma4:31b": {
+        "ece": 0.17342471954501676,
+        "ece_ci": [
+          0.16729482709803273,
+          0.17957854718680583
+        ],
+        "auroc": 0.8964089096491619,
+        "auroc_ci": [
+          0.8883507370928033,
+          0.9044134882600743
+        ],
+        "n": 242998,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "gemma4:e4b": {
+        "ece": 0.3245685784715161,
+        "ece_ci": [
+          0.3190322792800679,
+          0.3300643312614792
+        ],
+        "auroc": 0.8758741857313028,
+        "auroc_ci": [
+          0.8693133645038681,
+          0.8823499702096099
+        ],
+        "n": 242999,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "mistral-small:24b": {
+        "ece": 0.3227391171943799,
+        "ece_ci": [
+          0.31673022372769294,
+          0.32958690471586216
+        ],
+        "auroc": 0.8154457872605828,
+        "auroc_ci": [
+          0.8103357045415154,
+          0.8205099777229805
+        ],
+        "n": 242998,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "phi4:14b": {
+        "ece": 0.35117993736084163,
+        "ece_ci": [
+          0.34542343454609253,
+          0.3572373720353826
+        ],
+        "auroc": 0.8725192978241434,
+        "auroc_ci": [
+          0.8676757089221021,
+          0.8770965382513077
+        ],
+        "n": 242979,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "phi4:mini": {
+        "ece": 0.501816443988514,
+        "ece_ci": [
+          0.49584065452136156,
+          0.507460741878135
+        ],
+        "auroc": 0.7338269691855546,
+        "auroc_ci": [
+          0.729666505728495,
+          0.7374089840195842
+        ],
+        "n": 242727,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "qwen3.5:27b-q4": {
+        "ece": 0.22041008230452652,
+        "ece_ci": [
+          0.21485449999999984,
+          0.22659661790778118
+        ],
+        "auroc": 0.8838410502406074,
+        "auroc_ci": [
+          0.8775966879664499,
+          0.8895790916629408
+        ],
+        "n": 243000,
+        "n_messages": 2299,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      }
+    },
+    "meta_ece": {
+      "pooled": 0.3140023442902355,
+      "ci": [
+        0.23531300214115425,
+        0.39269168643931673
+      ],
+      "tau2": 0.011273286853582415,
+      "q": 7180.214225314583,
+      "i2": 99.91643703360764,
+      "k_models": 7,
+      "caveat": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "meta_auroc": {
+      "pooled": 0.8506226384258538,
+      "ci": [
+        0.7991910060513434,
+        0.9020542708003643
+      ],
+      "tau2": 0.004810690800785744,
+      "q": 3664.730472724441,
+      "i2": 99.83627718205592,
+      "k_models": 7,
+      "caveat": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    }
+  },
+  "matched_compare": {
+    "engine": "conditional_logit",
+    "coef": {
+      "critical": {
+        "est": 0.14430050121352414,
+        "se": 0.01348627661088455,
+        "ci_lo": 0.11786788477064553,
+        "ci_hi": 0.17073311765640276,
+        "p": 1.0199496699461806e-26
+      },
+      "char_len": {
+        "est": 0.0010026615378743696,
+        "se": 0.0090584366813727,
+        "ci_lo": -0.01675154811385265,
+        "ci_hi": 0.018756871189601388,
+        "p": 0.9118636484406797
+      },
+      "n_errors": {
+        "est": 0.13815673586464516,
+        "se": 0.01059240333300885,
+        "ci_lo": 0.11739600682222578,
+        "ci_hi": 0.15891746490706454,
+        "p": 6.965944345399715e-39
+      },
+      "corrupted_negation": {
+        "est": 0.040951151194252196,
+        "se": 0.07894289972220765,
+        "ci_lo": -0.11377408909643186,
+        "ci_hi": 0.19567639148493624,
+        "p": 0.6039393126823634
+      },
+      "corrupted_numeral": {
+        "est": 0.6791997102122747,
+        "se": 0.28717763137065255,
+        "ci_lo": 0.11634189556027563,
+        "ci_hi": 1.2420575248642738,
+        "p": 0.018025898978658292
+      },
+      "realized_cer": {
+        "est": 4.742783502728306,
+        "se": 0.21733720761591394,
+        "ci_lo": 4.316810403300611,
+        "ci_hi": 5.168756602156002,
+        "p": 1.4271315063537616e-105
+      }
+    },
+    "n_obs": 55624,
+    "n_pairs": 27812,
+    "converged": true,
+    "notes": "engine=conditional_logit (statsmodels.discrete.conditional_models.ConditionalLogit, endog=drift, exog=[critical + char_len + n_errors + corrupted_negation + corrupted_numeral + realized_cer], groups=pair_id). Conditioning is on the matched pair (pair_id, the Task-1.3 CRIT-CTRL match): every pair's group-specific intercept is differenced out of the conditional likelihood, so any confounder constant within a matched pair is controlled for without being named. coef['critical'] is the adjusted CRIT-vs-CTRL contrast; the other five entries are the adjusters' own coefficients. 63888 of 91700 input pairs dropped for having no within-group outcome variance (fully concordant -- same drift/non-drift outcome on every row in that pair, contributing nothing to a conditional likelihood; standard for conditional logistic regression, not a bug). Fit warnings: Dropped 63888 groups and 127776 observations for having no within-group variance. converged=True (fit raised no exception and every reported est/se is finite; ConditionalLogit's own .fit() does not expose the underlying optimizer's convergence flag on its returned result, see module docstring).",
+    "_strata": "pair_id x cer_target x replicate_idx x model (matched pair at identical corruption cell)",
+    "_note": "Coarse message-pair-level conditioning did not converge on the full cohort (huge strata); finer identical-corruption strata is the classic discordant-matched-pair conditional logistic and converges.",
+    "risk_difference": {
+      "estimand": "risk_difference_crit_minus_ctrl",
+      "rd": 0.021723009814612837,
+      "ci_lo": 0.0039212104689204195,
+      "ci_hi": 0.041480643402399105,
+      "additional_drifts_per_1000": {
+        "est": 21.723009814612837,
+        "ci_lo": 3.9212104689204197,
+        "ci_hi": 41.4806434023991
+      },
+      "p_crit": 0.33365321701199563,
+      "p_ctrl": 0.3119302071973828,
+      "n_crit": 91700,
+      "n_ctrl": 91700,
+      "n_pairs": 131,
+      "n_boot": 1000,
+      "seed": 0,
+      "boot_se": 0.00968169469922145,
+      "notes": "estimand=risk_difference RD = P(drift|CRIT) - P(drift|CTRL) on the matched CRIT-vs-CTRL design (the absolute-scale companion to matched_drift's odds-ratio contrast). CI is a pair-clustered percentile bootstrap (1000 of 1000 replicates finite): whole matched pairs (pair_id) are resampled with replacement, preserving within-pair correlation across the many attempt-level rows a pair spans (models x CER targets x replicates). additional_drifts_per_1000 = RD*1000 (a pure rescale of RD and its CI). n_pairs=131, n_crit=91700, n_ctrl=91700, seed=0."
+    },
+    "risk_difference_by_cer": {
+      "estimand": "risk_difference_crit_minus_ctrl_by_cer_target",
+      "interaction_form": "stratified",
+      "by_cer": [
+        {
+          "cer_target": 0.0,
+          "rd": 0.01777535441657579,
+          "ci_lo": 0.005013631406761178,
+          "ci_hi": 0.03272355507088331,
+          "additional_drifts_per_1000": 17.77535441657579,
+          "p_crit": 0.023555070883315158,
+          "p_ctrl": 0.0057797164667393675,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        },
+        {
+          "cer_target": 0.1,
+          "rd": 0.014721919302071979,
+          "ci_lo": -0.007580425299890925,
+          "ci_hi": 0.03841330425299888,
+          "additional_drifts_per_1000": 14.721919302071978,
+          "p_crit": 0.15572519083969466,
+          "p_ctrl": 0.14100327153762268,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        },
+        {
+          "cer_target": 0.2,
+          "rd": 0.03222464558342425,
+          "ci_lo": 0.0049604689203925885,
+          "ci_hi": 0.061190021810250766,
+          "additional_drifts_per_1000": 32.22464558342425,
+          "p_crit": 0.340948745910578,
+          "p_ctrl": 0.30872410032715375,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        },
+        {
+          "cer_target": 0.3,
+          "rd": 0.030316248636859333,
+          "ci_lo": 0.0033233369683750517,
+          "ci_hi": 0.05927071973827692,
+          "additional_drifts_per_1000": 30.316248636859335,
+          "p_crit": 0.5144492911668485,
+          "p_ctrl": 0.4841330425299891,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        },
+        {
+          "cer_target": 0.4,
+          "rd": 0.013576881134133023,
+          "ci_lo": -0.010850599781897508,
+          "ci_hi": 0.03855507088331523,
+          "additional_drifts_per_1000": 13.576881134133023,
+          "p_crit": 0.6335877862595419,
+          "p_ctrl": 0.6200109051254089,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        }
+      ],
+      "n_boot": 1000,
+      "seed": 0,
+      "notes": "criticality-by-CER interaction on the absolute scale: CRIT-vs-CTRL risk difference within each cer_target level, each with its own pair-clustered percentile-bootstrap 95% CI. Reported as stratum-specific RDs (interaction_form=stratified), not a critical x cer product term, because the coarse pair-level conditional logit does not converge on the full cohort (see module docstring / digest _note); the stratified RD shows whether the absolute gap changes with corruption without optimizer fragility. Each stratum uses a distinct deterministic bootstrap stream (seed+i, base seed=0); 1000 replicates per stratum."
+    },
+    "reused_from": "v2 (CRIT/CTRL unchanged)"
+  },
+  "sensitivity": {
+    "tie_at_tau0.5": {
+      "primary": 0.3102,
+      "drift_averse": 0.2762,
+      "severity": 0.3162
+    },
+    "tau_at_tie_primary": {
+      "0.3": 0.3473,
+      "0.4": 0.3317,
+      "0.5": 0.3102,
+      "0.6": 0.2832
+    },
+    "rederived_on": "v3 full corpus (re-derived from cached ensemble signals; validated exactly against v2)"
+  },
+  "mixed_model": {
+    "drift": {
+      "engine": "clustered_logit_fallback",
+      "coefficients": {
+        "Intercept": {
+          "est": -3.3342954322150304,
+          "se": 0.0507456956016964,
+          "ci_lo": -3.433755167964788,
+          "ci_hi": -3.234835696465273
+        },
+        "corrupted_negation[T.True]": {
+          "est": 0.1305597154859539,
+          "se": 0.03373710078900879,
+          "ci_lo": 0.06443621299669884,
+          "ci_hi": 0.196683217975209
+        },
+        "corrupted_numeral[T.True]": {
+          "est": 1.7354659340892955,
+          "se": 0.015774382469184587,
+          "ci_lo": 1.7045487125713337,
+          "ci_hi": 1.7663831556072573
+        },
+        "C(family)[T.mistral-small]": {
+          "est": 0.5354721736307203,
+          "se": 0.009665837625038667,
+          "ci_lo": 0.5165274800052323,
+          "ci_hi": 0.5544168672562083
+        },
+        "C(family)[T.phi4]": {
+          "est": 1.042215506451478,
+          "se": 0.010488746132222658,
+          "ci_lo": 1.0216579417893379,
+          "ci_hi": 1.062773071113618
+        },
+        "C(family)[T.qwen3.5]": {
+          "est": 0.27394310440707703,
+          "se": 0.008432656359719728,
+          "ci_lo": 0.25741540164802373,
+          "ci_hi": 0.29047080716613033
+        },
+        "realized_cer": {
+          "est": 5.408133519826228,
+          "se": 0.2049182286036425,
+          "ci_lo": 5.006501171987343,
+          "ci_hi": 5.809765867665113
+        },
+        "n_errors": {
+          "est": 0.1970941041747951,
+          "se": 0.009521169558293718,
+          "ci_lo": 0.17843295474984028,
+          "ci_hi": 0.2157552535997499
+        },
+        "char_len": {
+          "est": -0.005798669823351393,
+          "se": 0.0022718527219149675,
+          "ci_lo": -0.01025141933648402,
+          "ci_hi": -0.001345920310218766
+        }
+      },
+      "variance_components": {},
+      "converged": true,
+      "notes": "FALLBACK LADDER FIRED: primary VB fit raised an exception before returning a result (VB skipped (force_fallback=True): variational-Bayes GLMM intractable at full scale (>1.7M rows) and non-convergent at v2 scale; preregistered cluster-robust logit used). engine=clustered_logit_fallback (smf.logit with cov_type='cluster', cov_kwds={'groups': message_id}). variance_components are unavailable with this engine (no random-effects structure is fit); coefficients/CIs are the message-clustered cluster-robust point estimates instead.",
+      "outcome": "drift",
+      "n_obs": 1701000,
+      "n_groups": {
+        "message_id": 2299,
+        "model_id": 7,
+        "corpus": 3,
+        "family": 4
+      }
+    },
+    "faithful": {
+      "engine": "clustered_logit_fallback",
+      "coefficients": {
+        "Intercept": {
+          "est": 1.9238606544900954,
+          "se": 0.15976859811491861,
+          "ci_lo": 1.610719956324401,
+          "ci_hi": 2.2370013526557897
+        },
+        "corrupted_negation[T.True]": {
+          "est": 0.2966533190550332,
+          "se": 0.0462780008097831,
+          "ci_lo": 0.2059501041913429,
+          "ci_hi": 0.38735653391872354
+        },
+        "corrupted_numeral[T.True]": {
+          "est": -3.3723820815849845,
+          "se": 0.026812879956023942,
+          "ci_lo": -3.4249343606205875,
+          "ci_hi": -3.3198298025493815
+        },
+        "C(family)[T.mistral-small]": {
+          "est": -0.4671365124826105,
+          "se": 0.014479728999836114,
+          "ci_lo": -0.4955162598281895,
+          "ci_hi": -0.43875676513703155
+        },
+        "C(family)[T.phi4]": {
+          "est": -1.1109921656519066,
+          "se": 0.01886500916324268,
+          "ci_lo": -1.1479669041798803,
+          "ci_hi": -1.0740174271239329
+        },
+        "C(family)[T.qwen3.5]": {
+          "est": 0.008380687832710825,
+          "se": 0.009761196547048162,
+          "ci_lo": -0.010750905845520308,
+          "ci_hi": 0.02751228151094196
+        },
+        "realized_cer": {
+          "est": -6.615197917689401,
+          "se": 0.4965178340454409,
+          "ci_lo": -7.588354990100301,
+          "ci_hi": -5.642040845278501
+        },
+        "n_errors": {
+          "est": -0.2571345126419761,
+          "se": 0.021619057666977914,
+          "ci_lo": -0.29950708704894735,
+          "ci_hi": -0.2147619382350049
+        },
+        "char_len": {
+          "est": 0.05760448213375852,
+          "se": 0.006563051349771339,
+          "ci_lo": 0.044741137859519706,
+          "ci_hi": 0.07046782640799733
+        }
+      },
+      "variance_components": {},
+      "converged": true,
+      "notes": "FALLBACK LADDER FIRED: primary VB fit raised an exception before returning a result (VB skipped (force_fallback=True): variational-Bayes GLMM intractable at full scale (>1.7M rows) and non-convergent at v2 scale; preregistered cluster-robust logit used). engine=clustered_logit_fallback (smf.logit with cov_type='cluster', cov_kwds={'groups': message_id}). variance_components are unavailable with this engine (no random-effects structure is fit); coefficients/CIs are the message-clustered cluster-robust point estimates instead.",
+      "outcome": "faithful",
+      "n_obs": 1701000,
+      "n_groups": {
+        "message_id": 2299,
+        "model_id": 7,
+        "corpus": 3,
+        "family": 4
+      }
+    },
+    "degraded": {
+      "engine": "clustered_logit_fallback",
+      "coefficients": {
+        "Intercept": {
+          "est": -0.2613607316778096,
+          "se": 0.17222557966180213,
+          "ci_lo": -0.5989166650314758,
+          "ci_hi": 0.07619520167585658
+        },
+        "corrupted_negation[T.True]": {
+          "est": -0.5446598595254326,
+          "se": 0.061035864937673816,
+          "ci_lo": -0.6642879565685244,
+          "ci_hi": -0.42503176248234087
+        },
+        "corrupted_numeral[T.True]": {
+          "est": 0.5618330524130425,
+          "se": 0.024318165589805298,
+          "ci_lo": 0.5141703236869428,
+          "ci_hi": 0.6094957811391422
+        },
+        "C(family)[T.mistral-small]": {
+          "est": -0.08737324471361856,
+          "se": 0.018104803380255417,
+          "ci_lo": -0.12285800728609819,
+          "ci_hi": -0.05188848214113891
+        },
+        "C(family)[T.phi4]": {
+          "est": 0.09266087205462493,
+          "se": 0.016801167593130956,
+          "ci_lo": 0.05973118867386676,
+          "ci_hi": 0.1255905554353831
+        },
+        "C(family)[T.qwen3.5]": {
+          "est": -0.460221121412407,
+          "se": 0.019120734185787792,
+          "ci_lo": -0.4976970717745149,
+          "ci_hi": -0.42274517105029913
+        },
+        "realized_cer": {
+          "est": 0.20484901808578052,
+          "se": 0.3359813536697773,
+          "ci_lo": -0.4536623345839974,
+          "ci_hi": 0.8633603707555584
+        },
+        "n_errors": {
+          "est": 0.2072266006034075,
+          "se": 0.019185445525641307,
+          "ci_lo": 0.16962381834579543,
+          "ci_hi": 0.24482938286101957
+        },
+        "char_len": {
+          "est": -0.1434489588624545,
+          "se": 0.009303479985001696,
+          "ci_lo": -0.16168344456394707,
+          "ci_hi": -0.12521447316096196
+        }
+      },
+      "variance_components": {},
+      "converged": true,
+      "notes": "FALLBACK LADDER FIRED: primary VB fit raised an exception before returning a result (VB skipped (force_fallback=True): variational-Bayes GLMM intractable at full scale (>1.7M rows) and non-convergent at v2 scale; preregistered cluster-robust logit used). engine=clustered_logit_fallback (smf.logit with cov_type='cluster', cov_kwds={'groups': message_id}). variance_components are unavailable with this engine (no random-effects structure is fit); coefficients/CIs are the message-clustered cluster-robust point estimates instead.",
+      "outcome": "degraded",
+      "n_obs": 1701000,
+      "n_groups": {
+        "message_id": 2299,
+        "model_id": 7,
+        "corpus": 3,
+        "family": 4
+      }
+    }
+  },
+  "multinomial": {
+    "task": "C4 v3 multinomial + drift-vs-faithful/degraded contrasts",
+    "data": {
+      "labeled_path": "output/intermediate/attempts_v3_labeled.parquet",
+      "exposure_path": "output/intermediate/exposure_v3_full.parquet",
+      "n_rows": 1701000,
+      "label_counts": {
+        "faithful": 984020,
+        "drift": 527647,
+        "degraded": 189333
+      },
+      "model_families": [
+        "gemma4",
+        "mistral-small",
+        "phi4",
+        "qwen3.5"
+      ]
+    },
+    "predictors": "realized_cer + corrupted_numeral + corrupted_negation + char_len + C(model_family)",
+    "multinomial_mnlogit_base_faithful": {
+      "model": "MNLogit",
+      "base_category": "faithful",
+      "non_base_classes": [
+        "degraded",
+        "drift"
+      ],
+      "primary_predictor": "realized_cer",
+      "cov_type": "cluster",
+      "cluster_unit": "message_id",
+      "method_used": "newton",
+      "converged": true,
+      "n_obs": 1701000,
+      "n_clusters": 2299,
+      "terms": [
+        "Intercept",
+        "corrupted_numeral[T.True]",
+        "corrupted_negation[T.True]",
+        "C(model_family)[T.mistral-small]",
+        "C(model_family)[T.phi4]",
+        "C(model_family)[T.qwen3.5]",
+        "realized_cer",
+        "char_len"
+      ],
+      "equations": {
+        "degraded": [
+          {
+            "term": "Intercept",
+            "coef": -1.9896831913510888,
+            "se": 0.16614697872743722,
+            "odds_ratio": 0.13673873859920016,
+            "ci_lower": 0.09873406198995133,
+            "ci_upper": 0.18937216049718822,
+            "p": 4.77894902959566e-33
+          },
+          {
+            "term": "corrupted_numeral[T.True]",
+            "coef": 3.438943220750247,
+            "se": 0.039958178552953964,
+            "odds_ratio": 31.15401784644419,
+            "ci_lower": 28.807236700440214,
+            "ci_upper": 33.69197948658961,
+            "p": 0.0
+          },
+          {
+            "term": "corrupted_negation[T.True]",
+            "coef": -0.6815134816665241,
+            "se": 0.07560761979823635,
+            "odds_ratio": 0.5058508167782989,
+            "ci_lower": 0.43617938209266716,
+            "ci_upper": 0.5866509499087439,
+            "p": 1.9900104737874422e-19
+          },
+          {
+            "term": "C(model_family)[T.mistral-small]",
+            "coef": 0.1950988551471124,
+            "se": 0.021803934848531572,
+            "odds_ratio": 1.2154311321744993,
+            "ci_lower": 1.1645839841837022,
+            "ci_upper": 1.2684983282630817,
+            "p": 3.6239535968449094e-19
+          },
+          {
+            "term": "C(model_family)[T.phi4]",
+            "coef": 0.7386757472135291,
+            "se": 0.026676968779312662,
+            "odds_ratio": 2.0931618030019608,
+            "ci_lower": 1.9865308961096046,
+            "ci_upper": 2.2055163310707875,
+            "p": 9.305080519209178e-169
+          },
+          {
+            "term": "C(model_family)[T.qwen3.5]",
+            "coef": -0.39711770315854766,
+            "se": 0.020612194557804383,
+            "odds_ratio": 0.6722548944513276,
+            "ci_lower": 0.645637639507597,
+            "ci_upper": 0.6999694804944034,
+            "p": 1.0333707181083304e-82
+          },
+          {
+            "term": "realized_cer",
+            "coef": 9.923348064976002,
+            "se": 0.22058804140992944,
+            "odds_ratio": 20401.180891109063,
+            "ci_lower": 13240.074394462374,
+            "ci_upper": 31435.486640908264,
+            "p": 0.0
+          },
+          {
+            "term": "char_len",
+            "coef": -0.08529724167038666,
+            "se": 0.005565802309474577,
+            "odds_ratio": 0.9182393048482302,
+            "ci_lower": 0.9082768792742968,
+            "ci_upper": 0.9283110031842267,
+            "p": 5.186471683251721e-53
+          }
+        ],
+        "drift": [
+          {
+            "term": "Intercept",
+            "coef": -4.258796181090631,
+            "se": 0.04953035195306953,
+            "odds_ratio": 0.014139313341835425,
+            "ci_lower": 0.01283122164472402,
+            "ci_upper": 0.015580759752584359,
+            "p": 0.0
+          },
+          {
+            "term": "corrupted_numeral[T.True]",
+            "coef": 3.4116466997032955,
+            "se": 0.020626689675238324,
+            "odds_ratio": 30.31512308459449,
+            "ci_lower": 29.113999204520372,
+            "ci_upper": 31.5658003965125,
+            "p": 0.0
+          },
+          {
+            "term": "corrupted_negation[T.True]",
+            "coef": -0.12335508272880379,
+            "se": 0.042981834695950356,
+            "odds_ratio": 0.883949731545576,
+            "ci_lower": 0.8125336658678901,
+            "ci_upper": 0.9616427733672988,
+            "p": 0.0041055585425421185
+          },
+          {
+            "term": "C(model_family)[T.mistral-small]",
+            "coef": 0.5942718169449146,
+            "se": 0.012205372388750602,
+            "odds_ratio": 1.8117112071113763,
+            "ci_lower": 1.7688855696870625,
+            "ci_upper": 1.855573675437716,
+            "p": 0.0
+          },
+          {
+            "term": "C(model_family)[T.phi4]",
+            "coef": 1.277430964465031,
+            "se": 0.01409258942315798,
+            "odds_ratio": 3.5874116889601724,
+            "ci_lower": 3.489679843943758,
+            "ci_upper": 3.687880608423943,
+            "p": 0.0
+          },
+          {
+            "term": "C(model_family)[T.qwen3.5]",
+            "coef": 0.16506457774391367,
+            "se": 0.00995758949113529,
+            "odds_ratio": 1.1794692837174399,
+            "ci_lower": 1.1566733240864762,
+            "ci_upper": 1.2027145108854647,
+            "p": 1.026129494235909e-61
+          },
+          {
+            "term": "realized_cer",
+            "coef": 12.840230085436222,
+            "se": 0.10523181138266986,
+            "odds_ratio": 377086.57630469196,
+            "ci_lower": 306808.6447097368,
+            "ci_upper": 463462.44957902137,
+            "p": 0.0
+          },
+          {
+            "term": "char_len",
+            "coef": 0.01939963526144169,
+            "se": 0.001584184804888077,
+            "odds_ratio": 1.019589030938758,
+            "ci_lower": 1.0164281725947868,
+            "ci_upper": 1.0227597188267545,
+            "p": 1.7688946050032771e-34
+          }
+        ]
+      }
+    },
+    "contrast_drift_vs_degraded": {
+      "model": "Logit",
+      "positive": "drift",
+      "negative": "degraded",
+      "outcome": "P(label == 'drift')",
+      "cov_type": "cluster",
+      "cluster_unit": "message_id",
+      "method_used": "newton",
+      "converged": true,
+      "n_obs": 716980,
+      "n_positive": 527647,
+      "n_negative": 189333,
+      "n_clusters": 2299,
+      "terms": [
+        {
+          "term": "Intercept",
+          "coef": -1.8827222160332102,
+          "se": 0.09436092216432455,
+          "odds_ratio": 0.15217528739324962,
+          "ci_lower": 0.1264806148280655,
+          "ci_upper": 0.1830898602501069,
+          "p": 1.4300412387299884e-88
+        },
+        {
+          "term": "corrupted_numeral[T.True]",
+          "coef": 0.04028683465062761,
+          "se": 0.02745181493580734,
+          "odds_ratio": 1.0411093576071608,
+          "ci_lower": 0.9865732203384051,
+          "ci_upper": 1.0986601624209935,
+          "p": 0.14222725419995735
+        },
+        {
+          "term": "corrupted_negation[T.True]",
+          "coef": 0.5867356677558233,
+          "se": 0.05123526984697942,
+          "odds_ratio": 1.7981091989239828,
+          "ci_lower": 1.6263144548874457,
+          "ci_upper": 1.9880513768653743,
+          "p": 2.3033323037146966e-30
+        },
+        {
+          "term": "C(model_family)[T.mistral-small]",
+          "coef": 0.415952974473688,
+          "se": 0.01434534799805104,
+          "odds_ratio": 1.5158145852158451,
+          "ci_lower": 1.4737889608387542,
+          "ci_upper": 1.5590385854467483,
+          "p": 7.46095442183623e-185
+        },
+        {
+          "term": "C(model_family)[T.phi4]",
+          "coef": 0.5012392352239206,
+          "se": 0.01637492164378503,
+          "odds_ratio": 1.650765690670191,
+          "ci_lower": 1.5986267485467505,
+          "ci_upper": 1.7046051356084528,
+          "p": 8.961165367735406e-206
+        },
+        {
+          "term": "C(model_family)[T.qwen3.5]",
+          "coef": 0.595779099610741,
+          "se": 0.015615662200465551,
+          "odds_ratio": 1.8144440270580147,
+          "ci_lower": 1.759752130349327,
+          "ci_upper": 1.8708357106366862,
+          "p": 0.0
+        },
+        {
+          "term": "realized_cer",
+          "coef": 2.3696733063337616,
+          "se": 0.1216514909616278,
+          "odds_ratio": 10.693898084604067,
+          "ci_lower": 8.425314166903641,
+          "ci_upper": 13.573316552767361,
+          "p": 1.6484598614822974e-84
+        },
+        {
+          "term": "char_len",
+          "coef": 0.09292611436449712,
+          "se": 0.0032398135282053903,
+          "odds_ratio": 1.0973806516058275,
+          "ci_lower": 1.0904344518766254,
+          "ci_upper": 1.1043710994698854,
+          "p": 6.298206469567364e-181
+        }
+      ]
+    },
+    "contrast_drift_vs_faithful": {
+      "model": "Logit",
+      "positive": "drift",
+      "negative": "faithful",
+      "outcome": "P(label == 'drift')",
+      "cov_type": "cluster",
+      "cluster_unit": "message_id",
+      "method_used": "newton",
+      "converged": true,
+      "n_obs": 1511667,
+      "n_positive": 527647,
+      "n_negative": 984020,
+      "n_clusters": 2299,
+      "terms": [
+        {
+          "term": "Intercept",
+          "coef": -4.623146891002582,
+          "se": 0.04891167911576868,
+          "odds_ratio": 0.009821839120518072,
+          "ci_lower": 0.00892399091464962,
+          "ci_upper": 0.010810020385719637,
+          "p": 0.0
+        },
+        {
+          "term": "corrupted_numeral[T.True]",
+          "coef": 3.700527829609204,
+          "se": 0.021068854821238846,
+          "odds_ratio": 40.46865928030493,
+          "ci_lower": 38.83157222826084,
+          "ci_upper": 42.17476372881745,
+          "p": 0.0
+        },
+        {
+          "term": "corrupted_negation[T.True]",
+          "coef": -0.14132038605803882,
+          "se": 0.045060234057563396,
+          "odds_ratio": 0.8682111043998937,
+          "ci_lower": 0.7948222120762405,
+          "ci_upper": 0.948376266227168,
+          "p": 0.001711203234878279
+        },
+        {
+          "term": "C(model_family)[T.mistral-small]",
+          "coef": 0.5987054280258793,
+          "se": 0.01169291742915983,
+          "odds_ratio": 1.8197614626589107,
+          "ci_lower": 1.7785309792217217,
+          "ci_upper": 1.861947764568943,
+          "p": 0.0
+        },
+        {
+          "term": "C(model_family)[T.phi4]",
+          "coef": 1.3112124202705713,
+          "se": 0.013419133387868695,
+          "odds_ratio": 3.7106698774152918,
+          "ci_lower": 3.614347719509826,
+          "ci_upper": 3.809559015263911,
+          "p": 0.0
+        },
+        {
+          "term": "C(model_family)[T.qwen3.5]",
+          "coef": 0.12962716102023533,
+          "se": 0.009974787153098075,
+          "odds_ratio": 1.138403862855863,
+          "ci_lower": 1.1163639573473476,
+          "ci_upper": 1.1608788929773033,
+          "p": 1.297884777948847e-38
+        },
+        {
+          "term": "realized_cer",
+          "coef": 13.7674157692295,
+          "se": 0.09370799587424475,
+          "odds_ratio": 953043.4450135293,
+          "ci_lower": 793137.1783706455,
+          "ci_upper": 1145188.7931280367,
+          "p": 0.0
+        },
+        {
+          "term": "char_len",
+          "coef": 0.02595554894426271,
+          "se": 0.0017239666064215514,
+          "odds_ratio": 1.0262953275486928,
+          "ci_lower": 1.022833417518884,
+          "ci_upper": 1.0297689548541098,
+          "p": 3.166598616483125e-51
+        }
+      ]
+    },
+    "highlight_drift_vs_degraded_realized_cer": {
+      "note": "PRIMARY reviewer-requested contrast: does realized corruption push the model toward a fluent-but-wrong drift OVER an obviously-degraded output? OR > 1 means rising realized_cer favors drift over degraded.",
+      "odds_ratio": 10.693898084604067,
+      "ci_lower": 8.425314166903641,
+      "ci_upper": 13.573316552767361,
+      "p": 1.6484598614822974e-84
+    }
+  },
+  "confidence": {
+    "confidently_wrong_rate": {
+      "conf_threshold": 0.9,
+      "scale_detected": "0-100",
+      "effective_threshold": 90.0,
+      "n_excluded_nan": 322,
+      "pooled": {
+        "n": 1700678,
+        "n_drift": 527369,
+        "n_drift_at_high_confidence": 230417,
+        "frac_drift_at_high_confidence": 0.4369179834233715,
+        "n_high_confidence": 1215753,
+        "n_high_confidence_not_faithful": 319698,
+        "confidently_wrong_rate": 0.2629629538236796
+      },
+      "per_model": {
+        "gemma4:12b": {
+          "n": 242977,
+          "n_drift": 69185,
+          "n_drift_at_high_confidence": 32511,
+          "frac_drift_at_high_confidence": 0.46991399869913997,
+          "n_high_confidence": 188475,
+          "n_high_confidence_not_faithful": 42877,
+          "confidently_wrong_rate": 0.22749436264756598
+        },
+        "gemma4:31b": {
+          "n": 242998,
+          "n_drift": 56341,
+          "n_drift_at_high_confidence": 10249,
+          "frac_drift_at_high_confidence": 0.18191015423936388,
+          "n_high_confidence": 171835,
+          "n_high_confidence_not_faithful": 17128,
+          "confidently_wrong_rate": 0.09967701574184537
+        },
+        "gemma4:e4b": {
+          "n": 242999,
+          "n_drift": 58752,
+          "n_drift_at_high_confidence": 20258,
+          "frac_drift_at_high_confidence": 0.34480528322440085,
+          "n_high_confidence": 159161,
+          "n_high_confidence_not_faithful": 33151,
+          "confidently_wrong_rate": 0.20828594944741488
+        },
+        "mistral-small:24b": {
+          "n": 242998,
+          "n_drift": 78861,
+          "n_drift_at_high_confidence": 16067,
+          "frac_drift_at_high_confidence": 0.2037382229492398,
+          "n_high_confidence": 133312,
+          "n_high_confidence_not_faithful": 23779,
+          "confidently_wrong_rate": 0.1783710393662986
+        },
+        "phi4:14b": {
+          "n": 242979,
+          "n_drift": 88788,
+          "n_drift_at_high_confidence": 51735,
+          "frac_drift_at_high_confidence": 0.5826800919043114,
+          "n_high_confidence": 193948,
+          "n_high_confidence_not_faithful": 64090,
+          "confidently_wrong_rate": 0.3304493988079279
+        },
+        "phi4:mini": {
+          "n": 242727,
+          "n_drift": 105370,
+          "n_drift_at_high_confidence": 90335,
+          "frac_drift_at_high_confidence": 0.8573123279870931,
+          "n_high_confidence": 220606,
+          "n_high_confidence_not_faithful": 123341,
+          "confidently_wrong_rate": 0.5591008404123188
+        },
+        "qwen3.5:27b-q4": {
+          "n": 243000,
+          "n_drift": 70072,
+          "n_drift_at_high_confidence": 9262,
+          "frac_drift_at_high_confidence": 0.13217833085968717,
+          "n_high_confidence": 148416,
+          "n_high_confidence_not_faithful": 15332,
+          "confidently_wrong_rate": 0.10330422595946528
+        }
+      },
+      "notes": "confidence scale detected as 0-100 from df['confidence'].max() on 1700678 non-NaN row(s); conf_threshold=0.9 rescaled to effective_threshold=90.0 for comparison (>= is inclusive). 322 NaN-confidence row(s) excluded from every denominator below. frac_drift_at_high_confidence = P(confidence >= threshold | label == 'drift'). confidently_wrong_rate = P(label != 'faithful' | confidence >= threshold). Report per-model, not just pooled -- confidence scales differ across models."
+    },
+    "missing_confidence_audit": {
+      "total_missing": 322,
+      "table": [
+        {
+          "model": "gemma4:12b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:12b",
+          "cer_target": 0.1,
+          "n_missing": 1
+        },
+        {
+          "model": "gemma4:12b",
+          "cer_target": 0.2,
+          "n_missing": 3
+        },
+        {
+          "model": "gemma4:12b",
+          "cer_target": 0.3,
+          "n_missing": 9
+        },
+        {
+          "model": "gemma4:12b",
+          "cer_target": 0.4,
+          "n_missing": 10
+        },
+        {
+          "model": "gemma4:31b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:31b",
+          "cer_target": 0.1,
+          "n_missing": 1
+        },
+        {
+          "model": "gemma4:31b",
+          "cer_target": 0.2,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:31b",
+          "cer_target": 0.3,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:31b",
+          "cer_target": 0.4,
+          "n_missing": 1
+        },
+        {
+          "model": "gemma4:e4b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:e4b",
+          "cer_target": 0.1,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:e4b",
+          "cer_target": 0.2,
+          "n_missing": 1
+        },
+        {
+          "model": "gemma4:e4b",
+          "cer_target": 0.3,
+          "n_missing": 0
+        },
+        {
+          "model": "gemma4:e4b",
+          "cer_target": 0.4,
+          "n_missing": 0
+        },
+        {
+          "model": "mistral-small:24b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "mistral-small:24b",
+          "cer_target": 0.1,
+          "n_missing": 0
+        },
+        {
+          "model": "mistral-small:24b",
+          "cer_target": 0.2,
+          "n_missing": 0
+        },
+        {
+          "model": "mistral-small:24b",
+          "cer_target": 0.3,
+          "n_missing": 2
+        },
+        {
+          "model": "mistral-small:24b",
+          "cer_target": 0.4,
+          "n_missing": 0
+        },
+        {
+          "model": "phi4:14b",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "phi4:14b",
+          "cer_target": 0.1,
+          "n_missing": 2
+        },
+        {
+          "model": "phi4:14b",
+          "cer_target": 0.2,
+          "n_missing": 1
+        },
+        {
+          "model": "phi4:14b",
+          "cer_target": 0.3,
+          "n_missing": 6
+        },
+        {
+          "model": "phi4:14b",
+          "cer_target": 0.4,
+          "n_missing": 12
+        },
+        {
+          "model": "phi4:mini",
+          "cer_target": 0.0,
+          "n_missing": 54
+        },
+        {
+          "model": "phi4:mini",
+          "cer_target": 0.1,
+          "n_missing": 30
+        },
+        {
+          "model": "phi4:mini",
+          "cer_target": 0.2,
+          "n_missing": 45
+        },
+        {
+          "model": "phi4:mini",
+          "cer_target": 0.3,
+          "n_missing": 63
+        },
+        {
+          "model": "phi4:mini",
+          "cer_target": 0.4,
+          "n_missing": 81
+        },
+        {
+          "model": "qwen3.5:27b-q4",
+          "cer_target": 0.0,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.5:27b-q4",
+          "cer_target": 0.1,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.5:27b-q4",
+          "cer_target": 0.2,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.5:27b-q4",
+          "cer_target": 0.3,
+          "n_missing": 0
+        },
+        {
+          "model": "qwen3.5:27b-q4",
+          "cer_target": 0.4,
+          "n_missing": 0
+        }
+      ],
+      "notes": "322 of 1701000 row(s) have NaN confidence, tabulated across 7 model(s) x 5 cer_target level(s). Cells with zero missing rows are included explicitly."
+    },
+    "predicted_drift_grid": {
+      "cer_grid": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4
+      ],
+      "predicted_drift_probability": {
+        "0.0": 0.056170938495461675,
+        "0.1": 0.1272589277917223,
+        "0.2": 0.2632228128562252,
+        "0.3": 0.4667605470462628,
+        "0.4": 0.6819995614387966
+      },
+      "coefficients": {
+        "const": {
+          "est": -2.8215455563028566,
+          "se": 0.020748174587650534
+        },
+        "realized_cer": {
+          "est": 8.961304522979967,
+          "se": 0.08159195217361159
+        }
+      },
+      "n_obs": 1701000,
+      "converged": true,
+      "seed": 0,
+      "notes": "engine=statsmodels.api.Logit (label=='drift' ~ 1 + realized_cer), cov_type='cluster', cov_kwds={'groups': message_id}. Deliberately univariate (realized_cer only, no covariates or random effects) for a single quotable number per CER grid point; see idrift.analysis.mixed_models for the covariate-adjusted models. `seed` is accepted for interface consistency but unused -- this fit's Newton-Raphson MLE is already deterministic."
+    }
+  },
+  "dependence_sensitivity": {
+    "task": "C4 v3 dependence-structure sensitivity (was B9)",
+    "description": "Alternative estimators of the realized_cer -> drift log-odds slope under different dependence assumptions, to show the slope is stable across dependence structures (only 7 models, so a model-clustered SE is not credible). All estimators fit realized_cer ONLY (plus intercept) for mutual comparability.",
+    "n_obs": 1701000,
+    "n_messages": 2299,
+    "n_models": 7,
+    "drift_rate": 0.3101981187536743,
+    "reference_slopes": {
+      "primary_message_clustered_ADJUSTED": 5.408133519826228,
+      "univariate_message_clustered_anchor": {
+        "slope": 8.961304522979967,
+        "se": 0.08159195217361159,
+        "ci": [
+          8.801384296719688,
+          9.121224749240247
+        ]
+      },
+      "note": "The 5.41 headline is the ADJUSTED message-clustered logit slope (adjusts n_errors, char_len, corrupted_negation, corrupted_numeral, C(family)) from this run's mixed_model.drift.coefficients.realized_cer. The dependence estimators here are UNIVARIATE, so their natural reference is the univariate message-clustered anchor (8.96, from confidence_analysis.predicted_drift_grid). That gap is ADJUSTMENT, not dependence; this digest's question is only about dependence."
+    },
+    "estimators": {
+      "per_model_pooled_dl": {
+        "method": "per_model_pooled_dl",
+        "label": "Per-model message-clustered cluster-robust logit (drift ~ realized_cer), pooled across models by DerSimonian-Laird random-effects meta-analysis (preferred model-level estimator; 7 models is too few for a model-clustered SE)",
+        "slope": 9.414974258669432,
+        "se": 0.6095338742999022,
+        "ci": [
+          8.220287865041623,
+          10.60966065229724
+        ],
+        "tau2": 2.5886914799466845,
+        "i2": 99.56338645712621,
+        "q": 1374.2129848991922,
+        "k_models": 7,
+        "per_model": {
+          "gemma4:12b": {
+            "slope": 9.636212385345031,
+            "se": 0.11580000913142707,
+            "ci": [
+              9.409244367447434,
+              9.863180403242628
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "gemma4:31b": {
+            "slope": 10.781453578886506,
+            "se": 0.11674222829428983,
+            "ci": [
+              10.552638811429699,
+              11.010268346343313
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "gemma4:e4b": {
+            "slope": 6.718667436011122,
+            "se": 0.08034354914057959,
+            "ci": [
+              6.5611940796955865,
+              6.876140792326658
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "mistral-small:24b": {
+            "slope": 9.636703619571543,
+            "se": 0.11667014798584868,
+            "ci": [
+              9.408030129519279,
+              9.865377109623807
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "phi4:14b": {
+            "slope": 10.393406263681294,
+            "se": 0.11301881978504418,
+            "ci": [
+              10.171889376902607,
+              10.614923150459981
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "phi4:mini": {
+            "slope": 8.527880883130695,
+            "se": 0.0971668715112555,
+            "ci": [
+              8.337433814968634,
+              8.718327951292757
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          },
+          "qwen3.5:27b-q4": {
+            "slope": 10.219431425462849,
+            "se": 0.12208954912029012,
+            "ci": [
+              9.98013590918708,
+              10.458726941738618
+            ],
+            "n": 243000,
+            "n_messages": 2299
+          }
+        },
+        "n_models_dropped": 0,
+        "models_dropped": [],
+        "primary_slope": 4.79
+      },
+      "gee": {
+        "method": "gee",
+        "label": "GEE population-averaged logit (drift ~ realized_cer; Binomial family, independence fallback working correlation, groups=message_id, robust sandwich SE)",
+        "slope": 8.961304522979951,
+        "se": 0.08157418116825835,
+        "ci": [
+          8.801419127890165,
+          9.121189918069737
+        ],
+        "cov_struct_used": "independence_fallback",
+        "exchangeable_converged": false,
+        "n_obs": 1701000,
+        "n_groups": 2299,
+        "converged": true,
+        "notes": "FALLBACK: exchangeable working correlation returned an implausible or degenerate fit (non-finite parameters, a log-odds slope beyond 50, or a collapsed standard error), in some runs while reporting convergence on this cohort (large ~700-row message clusters with strong within-message drift correlation); reverted to an independence working correlation with the same robust sandwich SE, which yields a consistent slope and a valid cluster-robust SE regardless of the true correlation.",
+        "primary_slope": 4.79
+      },
+      "bootstrap_message": {
+        "method": "cluster_bootstrap_message",
+        "label": "Nonparametric cluster bootstrap of drift ~ realized_cer, resampling message-level clusters (2299) with replacement, 500 resamples",
+        "slope": 8.961304522979939,
+        "se": 0.07865913102840347,
+        "ci": [
+          8.810677107376588,
+          9.11932974782612
+        ],
+        "level": "message",
+        "n_clusters": 2299,
+        "n_boot": 500,
+        "n_valid": 500,
+        "unstable": false,
+        "primary_slope": 4.79
+      },
+      "bootstrap_model": {
+        "method": "cluster_bootstrap_model",
+        "label": "Nonparametric cluster bootstrap of drift ~ realized_cer, resampling model-level clusters (7) with replacement, 500 resamples -- UNSTABLE: too few clusters for a trustworthy cluster bootstrap; CI is wide/erratic and reported for honesty, not relied upon (see per_model_pooled_slope for the preferred model-level estimator)",
+        "slope": 8.961304522979939,
+        "se": 0.5202671021092832,
+        "ci": [
+          7.972841481803403,
+          10.011566763946275
+        ],
+        "level": "model",
+        "n_clusters": 7,
+        "n_boot": 500,
+        "n_valid": 500,
+        "unstable": true,
+        "primary_slope": 4.79
+      }
+    },
+    "agreement": {
+      "per_model_pooled_dl": {
+        "slope": 9.414974258669432,
+        "ci": [
+          8.220287865041623,
+          10.60966065229724
+        ],
+        "ci_covers_univariate_anchor": true,
+        "ci_covers_adjusted_5.41": false,
+        "abs_diff_from_univariate_anchor": 0.45366973568946456
+      },
+      "gee": {
+        "slope": 8.961304522979951,
+        "ci": [
+          8.801419127890165,
+          9.121189918069737
+        ],
+        "ci_covers_univariate_anchor": true,
+        "ci_covers_adjusted_5.41": false,
+        "abs_diff_from_univariate_anchor": 1.5987211554602254e-14
+      },
+      "bootstrap_message": {
+        "slope": 8.961304522979939,
+        "ci": [
+          8.810677107376588,
+          9.11932974782612
+        ],
+        "ci_covers_univariate_anchor": true,
+        "ci_covers_adjusted_5.41": false,
+        "abs_diff_from_univariate_anchor": 2.842170943040401e-14
+      },
+      "bootstrap_model": {
+        "slope": 8.961304522979939,
+        "ci": [
+          7.972841481803403,
+          10.011566763946275
+        ],
+        "ci_covers_univariate_anchor": true,
+        "ci_covers_adjusted_5.41": false,
+        "abs_diff_from_univariate_anchor": 2.842170943040401e-14
+      }
+    },
+    "slope_spread_across_estimators": 0.453669735689493,
+    "max_pct_deviation_from_anchor": 5.062541224060562,
+    "model_level_bootstrap_unstable": true,
+    "conclusion": {
+      "stable_across_dependence_assumptions": true,
+      "summary": "The realized_cer log-odds slope is STABLE across dependence assumptions: all four estimators lie in 8.96-9.41 (spread 0.45, 5.1% max deviation from the univariate anchor 8.96). The preferred model-level estimator is the DerSimonian-Laird per-model pool (7 models is too few for a model-clustered SE); it shows between-model heterogeneity (tau^2=2.59, I^2=100%) but every model's slope is positive (range 6.7-10.8). The model-level cluster bootstrap is reported honestly as UNSTABLE (7 clusters: much wider CI than the message-level bootstrap). The exchangeable GEE diverged on this cohort and fell back to an independence working correlation (see its notes)."
+    }
+  },
+  "benefit_harm": {
+    "skipped": true,
+    "reason": "delta raw-decode labels pending"
+  },
+  "notes": {
+    "sensitivity": "The tau/tie-break recalibration table was not recomputed: it requires re-deriving labels via idrift.adjudicate.label_runner.derive_labels (a per-row Python loop, no vectorized path) at several tau/tie_break settings over the full 1.7M-row v3 corpus, which the Task C4 brief's module list did not include. Copied from v2 as a placeholder pending an explicit decision on whether to rerun it."
+  }
+}

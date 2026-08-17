@@ -1,0 +1,51 @@
+{
+  "by_cer": {
+    "0.0": {
+      "automated_rate": 0.01941743827160494,
+      "human_consensus_corrected_rate": 0.0,
+      "ci": [
+        0.0,
+        0.9677418407527647
+      ],
+      "validation_n": 526
+    },
+    "0.1": {
+      "automated_rate": 0.14423225308641976,
+      "human_consensus_corrected_rate": 0.12202322568600683,
+      "ci": [
+        0.029756613414138575,
+        0.21110519083260448
+      ],
+      "validation_n": 453
+    },
+    "0.2": {
+      "automated_rate": 0.3183860596707819,
+      "human_consensus_corrected_rate": 0.36227499659086443,
+      "ci": [
+        0.2675452217426878,
+        0.45753146761874564
+      ],
+      "validation_n": 435
+    },
+    "0.3": {
+      "automated_rate": 0.48489711934156376,
+      "human_consensus_corrected_rate": 0.4338753482364291,
+      "ci": [
+        0.29022026738124185,
+        0.5338408971241135
+      ],
+      "validation_n": 435
+    },
+    "0.4": {
+      "automated_rate": 0.6027559156378601,
+      "human_consensus_corrected_rate": 0.49281807270233197,
+      "ci": [
+        0.3132015131082353,
+        0.6291200143779042
+      ],
+      "validation_n": 432
+    }
+  },
+  "monotonic_increase_human": true,
+  "note": "automated_rate is the naive (uncorrected) drift prevalence from corrected_drift_by_cer_weighted's own cer_target-filtered cohort slice at that level; human_consensus_corrected_rate is the Rogan-Gladen misclassification-corrected drift prevalence at that same level, using the weighted physician-consensus confusion matrix (see analyze_panel16.corrected_drift_by_cer16). ci is the corrected rate's message-clustered bootstrap 95% CI."
+}

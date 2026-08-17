@@ -1,0 +1,36 @@
+{
+  "generation_weighted": {
+    "AUTH": 31.476071134484744,
+    "CRIT": 33.67168450025954,
+    "CTRL": 31.479308524791822
+  },
+  "model_weighted_equal": {
+    "AUTH": 30.78654692746946,
+    "CRIT": 32.86589066100646,
+    "CTRL": 30.607813150192506
+  },
+  "per_model_auth_rate": {
+    "command-r:latest": 28.19142066420664,
+    "deepseek-r1:32b": 35.12758067194332,
+    "gemma2:9b": 31.720940959409592,
+    "gemma3:27b": 27.061346863468632,
+    "gemma4:12b": 28.251845018450183,
+    "gemma4:31b": 23.054428044280442,
+    "gemma4:e4b": 24.13238007380074,
+    "gpt-oss:120b": 20.75053965793989,
+    "gpt-oss:20b": 22.010567296996662,
+    "granite3.3:8b": 37.53966789667897,
+    "llama3.1:8b": 40.10424354243543,
+    "llama4:17b-scout-16e-instruct-q4_K_M": 27.349169741697416,
+    "mistral-small:24b": 32.26983394833948,
+    "phi3:mini": 49.25138376383764,
+    "phi4:14b": 36.36992619926199,
+    "phi4:mini": 43.32333948339483,
+    "qwen2.5:7b": 23.569649446494463,
+    "qwen3.5:27b-q4": 28.671586715867157,
+    "qwen3.6:27b": 28.0179889298893,
+    "qwen3.6:35b-a3b": 28.963099630996307
+  },
+  "n_models": 20,
+  "notes": "generation_weighted pools all labeled generations regardless of model (each model contributes proportional to its own generation count, 243,000 for 17 models vs 40,500/40,326 for the 3 reduced-replicate reasoning models); model_weighted_equal is the unweighted mean of the 20 per-model rates, one vote per model regardless of how many generations it contributed. Reported as a sensitivity check on panel composition, not a claim that either weighting is more correct."
+}

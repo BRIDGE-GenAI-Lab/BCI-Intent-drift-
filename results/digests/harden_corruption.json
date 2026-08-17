@@ -1,0 +1,88 @@
+{
+  "validation": {
+    "pooled_cer_reproduced": 0.21363815530153724,
+    "pooled_cer_target": 0.2136,
+    "pooled_cer_provenance": 0.21363815530153724,
+    "abs_diff_from_target": 3.8155301537223796e-05,
+    "abs_diff_from_provenance": 0.0,
+    "n_subjects": 29,
+    "n_selections": 2537,
+    "n_files_used": 425,
+    "n_files_skipped": 0,
+    "passed": true,
+    "source": "output/intermediate/provenance.json confusion_matrix block; idrift/data/materialize_confusion.py"
+  },
+  "per_study": {
+    "StudyF": {
+      "cer": 0.2211808809746954,
+      "provenance_cer": 0.2211808809746954,
+      "manuscript_cer_approx": 0.22,
+      "n_subjects": 10,
+      "n_selections": 1067
+    },
+    "StudyL": {
+      "cer": 0.1606060606060606,
+      "provenance_cer": 0.1606060606060606,
+      "manuscript_cer_approx": 0.16,
+      "n_subjects": 11,
+      "n_selections": 990
+    },
+    "StudyN": {
+      "cer": 0.30625,
+      "provenance_cer": 0.30625,
+      "manuscript_cer_approx": 0.31,
+      "n_subjects": 8,
+      "n_selections": 480
+    }
+  },
+  "als_participant_check": {
+    "method": "ALS status re-derived directly from each EDF's own patient-identification header via bigp3_als.edf.read_patient_identification, for every Test-phase F/L/N EDF (the same file set collect_eligible_rows uses) -- not taken from any pre-computed metadata table.",
+    "n_subjects_total": 29,
+    "n_subjects_als": 29,
+    "n_subjects_nonals": 0,
+    "n_rows_total": 2537,
+    "n_rows_als": 2537,
+    "n_rows_dropped_nonals": 0,
+    "per_study_als_subject_counts": {
+      "StudyF": 10,
+      "StudyL": 11,
+      "StudyN": 8
+    },
+    "finding": "All 29 of 29 participants across the three constituent studies (F, L, N) used to parameterize the confusion matrix are ALS-status; zero are non-ALS controls. bigP3BCI as a whole dataset does include non-ALS control sub-studies (e.g. StudyA/C/D/... per the companion's file_metadata_all20.csv), but none of those studies are among WANTED_STUDIES = (StudyF, StudyL, StudyN). The manuscript's phrasing ('ALS and control participants ... pooled across the three studies') describes the parent bigP3BCI corpus in general, not the specific constituent studies actually used to build this matrix -- within F/L/N there is no ALS-vs-control mixture to disentangle."
+  },
+  "als_only_cer": 0.21363815530153724,
+  "pooled_cer": 0.21363815530153724,
+  "als_only_vs_pooled_cer_diff": 0.0,
+  "cer_differs_materially": false,
+  "auth_validation": {
+    "auth_by_target_cer_pct": {
+      "0.0": 1.1966262519768056,
+      "0.1": 12.783012651555087,
+      "0.2": 30.202622561939908,
+      "0.3": 48.152345809172374,
+      "0.4": 62.00349235635213
+    },
+    "manuscript_auth_by_target_cer_pct": {
+      "0.0": 1.2,
+      "0.1": 12.8,
+      "0.2": 30.2,
+      "0.3": 48.2,
+      "0.4": 62.0
+    },
+    "max_abs_diff_pct": 0.047654190827628895,
+    "passed": true
+  },
+  "auth_reweighted_drift": {
+    "pooled": 0.2882126916862354,
+    "als_only": 0.2882126916862354,
+    "by_study": {
+      "StudyF": 0.25852610083184857,
+      "StudyL": 0.24488753896954796,
+      "StudyN": 0.44356163675113425
+    }
+  },
+  "als_only_vs_pooled_reweighted_drift_diff": 0.0,
+  "drift_differs_materially": false,
+  "reweight_note": "Reweighting approach reused verbatim from scratchpad/harden/a3_cer_conditional.py (_weights_from_subject_cer + _reweight): the pooled AUTH drift-by-realized-CER curve is held fixed (it is a property of the 1.7M-row exposure panel, not of the reweighting population), and is reweighted by different selection-count-weighted per-subject CER distributions -- pooled (all 29 subjects), ALS-only (the ALS-status subset of those same 29 subjects), and each study's own subject subset (F: 10 subjects, L: 11 subjects, N: 8 subjects). Because zero non-ALS participants exist among F/L/N (see als_participant_check), the ALS-only reweighted estimate is mathematically identical to the pooled reweighted estimate here -- this is the requested ALS-only sensitivity, and it is a null-difference finding by construction, not an approximation. The per-study reweighted estimates DO differ from the pooled estimate (studies have different observed CERs), and are reported as the requested per-study sensitivity range around the pooled reweighted drift rate (0.288).",
+  "bounded_followup_note": "A full ALS-only (or per-study) regeneration of the 1.7M-row exposure panel -- redrawing all corruption exposures from an ALS-only-restricted or per-study confusion matrix rather than the pooled one, then re-fitting every downstream model -- was judged too expensive to run as part of this hardening pass (per the task brief) and is left as a bounded follow-up. Because the ALS-only confusion matrix is numerically identical to the pooled one here (zero non-ALS rows), that particular regeneration would reproduce the existing 30.9% pooled AUTH figure exactly and add no new information; a genuine per-study regeneration (drawing corruption from only study F's, L's, or N's confusion matrix) would be the more informative version of that follow-up, and the per-study reweighting reported here is offered as its cheap, defensible proxy in the meantime."
+}

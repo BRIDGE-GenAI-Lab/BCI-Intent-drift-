@@ -1,0 +1,370 @@
+{
+  "labeled_path": "output/intermediate/attempts_v3_labeled.parquet",
+  "scale_detected": "0-100",
+  "n_excluded_nan": 322,
+  "n_total_rows": 1701000,
+  "per_model": {
+    "gemma4:12b": {
+      "n": 242977,
+      "n_drift": 69185,
+      "n_faithful": 151663,
+      "n_degraded": 22129,
+      "auroc_drift_vs_nondrift": 0.8483916414717466,
+      "auroc_faithful_vs_rest": 0.8766685940163944,
+      "ece_faithful_vs_rest": 0.3038624643484773,
+      "brier": 0.2205425727537997,
+      "calib_intercept": 1.809756001358715,
+      "calib_slope": 0.8895467770170189,
+      "calib_converged": true,
+      "calib_reason": null,
+      "conf_dist_by_class": {
+        "faithful": {
+          "n": 151663,
+          "mean": 97.00377811331703,
+          "median": 98.0,
+          "std": 4.2171891818628415,
+          "q25": 95.0,
+          "q75": 100.0
+        },
+        "degraded": {
+          "n": 22129,
+          "mean": 84.61819332098152,
+          "median": 85.0,
+          "std": 15.022063063281125,
+          "q25": 85.0,
+          "q75": 95.0
+        },
+        "drift": {
+          "n": 69185,
+          "mean": 86.21896364818964,
+          "median": 85.0,
+          "std": 10.256983530388302,
+          "q25": 85.0,
+          "q75": 95.0
+        }
+      },
+      "drift_fnr_at_threshold": {
+        "0.7": 0.9229457252294573,
+        "0.9": 0.46991399869913997
+      },
+      "notes": "auroc_drift_vs_nondrift: AUROC of score_for_drift = (1 - confidence) predicting label == 'drift' (positive) against ALL non-drift rows (faithful + degraded pooled as negative). This is the reviewer's direct ask -- distinct from auroc_faithful_vs_rest, which tests faithful vs. {degraded OR drift} and so does not isolate drift specifically. AUROC > 0.5 means lower stated confidence is associated with drift. auroc_faithful_vs_rest / ece_faithful_vs_rest reproduce the existing manuscript framing (idrift.analysis.calibration_v2.ece) bit for bit, reported alongside for direct contrast. brier / calib_intercept / calib_slope are the Brier score and Cox logistic recalibration (intercept, slope) of the SAME score_for_drift against the observed label == 'drift' indicator; intercept 0 and slope 1 would indicate perfect calibration of that drift-risk proxy. drift_fnr_at_threshold[t] = P(confidence >= t | label == 'drift'): the fraction of true drift outputs a 'confidence < t flags for review' rule would MISS."
+    },
+    "gemma4:31b": {
+      "n": 242998,
+      "n_drift": 56341,
+      "n_faithful": 170582,
+      "n_degraded": 16075,
+      "auroc_drift_vs_nondrift": 0.9100869212540499,
+      "auroc_faithful_vs_rest": 0.8964089096491619,
+      "ece_faithful_vs_rest": 0.17342471954501681,
+      "brier": 0.12798459987324998,
+      "calib_intercept": 1.3649061346381641,
+      "calib_slope": 1.1690257784764757,
+      "calib_converged": true,
+      "calib_reason": null,
+      "conf_dist_by_class": {
+        "faithful": {
+          "n": 170582,
+          "mean": 95.00668300289597,
+          "median": 95.0,
+          "std": 8.01003965408069,
+          "q25": 95.0,
+          "q75": 100.0
+        },
+        "degraded": {
+          "n": 16075,
+          "mean": 76.10842923794712,
+          "median": 80.0,
+          "std": 21.351476059374416,
+          "q25": 60.0,
+          "q75": 95.0
+        },
+        "drift": {
+          "n": 56341,
+          "mean": 68.20100814682026,
+          "median": 70.0,
+          "std": 17.490485563460002,
+          "q25": 60.0,
+          "q75": 85.0
+        }
+      },
+      "drift_fnr_at_threshold": {
+        "0.7": 0.541878915887187,
+        "0.9": 0.18191015423936388
+      },
+      "notes": "auroc_drift_vs_nondrift: AUROC of score_for_drift = (1 - confidence) predicting label == 'drift' (positive) against ALL non-drift rows (faithful + degraded pooled as negative). This is the reviewer's direct ask -- distinct from auroc_faithful_vs_rest, which tests faithful vs. {degraded OR drift} and so does not isolate drift specifically. AUROC > 0.5 means lower stated confidence is associated with drift. auroc_faithful_vs_rest / ece_faithful_vs_rest reproduce the existing manuscript framing (idrift.analysis.calibration_v2.ece) bit for bit, reported alongside for direct contrast. brier / calib_intercept / calib_slope are the Brier score and Cox logistic recalibration (intercept, slope) of the SAME score_for_drift against the observed label == 'drift' indicator; intercept 0 and slope 1 would indicate perfect calibration of that drift-risk proxy. drift_fnr_at_threshold[t] = P(confidence >= t | label == 'drift'): the fraction of true drift outputs a 'confidence < t flags for review' rule would MISS."
+    },
+    "gemma4:e4b": {
+      "n": 242999,
+      "n_drift": 58752,
+      "n_faithful": 138511,
+      "n_degraded": 45736,
+      "auroc_drift_vs_nondrift": 0.7734774064941334,
+      "auroc_faithful_vs_rest": 0.8758741857313028,
+      "ece_faithful_vs_rest": 0.3245685784715163,
+      "brier": 0.1855727686122165,
+      "calib_intercept": 0.7634184375078692,
+      "calib_slope": 0.79261218305962,
+      "calib_converged": true,
+      "calib_reason": null,
+      "conf_dist_by_class": {
+        "faithful": {
+          "n": 138511,
+          "mean": 94.99950906426204,
+          "median": 95.0,
+          "std": 5.049095449580364,
+          "q25": 95.0,
+          "q75": 98.0
+        },
+        "degraded": {
+          "n": 45736,
+          "mean": 79.89155151303132,
+          "median": 85.0,
+          "std": 13.323183051964605,
+          "q25": 70.0,
+          "q75": 90.0
+        },
+        "drift": {
+          "n": 58752,
+          "mean": 83.8386267701525,
+          "median": 85.0,
+          "std": 8.625437513156687,
+          "q25": 80.0,
+          "q75": 90.0
+        }
+      },
+      "drift_fnr_at_threshold": {
+        "0.7": 0.9564099945533769,
+        "0.9": 0.34480528322440085
+      },
+      "notes": "auroc_drift_vs_nondrift: AUROC of score_for_drift = (1 - confidence) predicting label == 'drift' (positive) against ALL non-drift rows (faithful + degraded pooled as negative). This is the reviewer's direct ask -- distinct from auroc_faithful_vs_rest, which tests faithful vs. {degraded OR drift} and so does not isolate drift specifically. AUROC > 0.5 means lower stated confidence is associated with drift. auroc_faithful_vs_rest / ece_faithful_vs_rest reproduce the existing manuscript framing (idrift.analysis.calibration_v2.ece) bit for bit, reported alongside for direct contrast. brier / calib_intercept / calib_slope are the Brier score and Cox logistic recalibration (intercept, slope) of the SAME score_for_drift against the observed label == 'drift' indicator; intercept 0 and slope 1 would indicate perfect calibration of that drift-risk proxy. drift_fnr_at_threshold[t] = P(confidence >= t | label == 'drift'): the fraction of true drift outputs a 'confidence < t flags for review' rule would MISS."
+    },
+    "mistral-small:24b": {
+      "n": 242998,
+      "n_drift": 78861,
+      "n_faithful": 138068,
+      "n_degraded": 26069,
+      "auroc_drift_vs_nondrift": 0.7839296883321593,
+      "auroc_faithful_vs_rest": 0.8154457872605828,
+      "ece_faithful_vs_rest": 0.3227391171943802,
+      "brier": 0.24091092107753972,
+      "calib_intercept": 2.765148397580083,
+      "calib_slope": 1.6053391509218975,
+      "calib_converged": true,
+      "calib_reason": null,
+      "conf_dist_by_class": {
+        "faithful": {
+          "n": 138068,
+          "mean": 92.66278210736738,
+          "median": 95.0,
+          "std": 4.840496916220983,
+          "q25": 95.0,
+          "q75": 95.0
+        },
+        "degraded": {
+          "n": 26069,
+          "mean": 84.34527599831218,
+          "median": 85.0,
+          "std": 10.909231096024126,
+          "q25": 80.0,
+          "q75": 95.0
+        },
+        "drift": {
+          "n": 78861,
+          "mean": 84.4109762747112,
+          "median": 85.0,
+          "std": 6.516091651057294,
+          "q25": 80.0,
+          "q75": 85.0
+        }
+      },
+      "drift_fnr_at_threshold": {
+        "0.7": 0.9919732187012592,
+        "0.9": 0.2037382229492398
+      },
+      "notes": "auroc_drift_vs_nondrift: AUROC of score_for_drift = (1 - confidence) predicting label == 'drift' (positive) against ALL non-drift rows (faithful + degraded pooled as negative). This is the reviewer's direct ask -- distinct from auroc_faithful_vs_rest, which tests faithful vs. {degraded OR drift} and so does not isolate drift specifically. AUROC > 0.5 means lower stated confidence is associated with drift. auroc_faithful_vs_rest / ece_faithful_vs_rest reproduce the existing manuscript framing (idrift.analysis.calibration_v2.ece) bit for bit, reported alongside for direct contrast. brier / calib_intercept / calib_slope are the Brier score and Cox logistic recalibration (intercept, slope) of the SAME score_for_drift against the observed label == 'drift' indicator; intercept 0 and slope 1 would indicate perfect calibration of that drift-risk proxy. drift_fnr_at_threshold[t] = P(confidence >= t | label == 'drift'): the fraction of true drift outputs a 'confidence < t flags for review' rule would MISS."
+    },
+    "phi4:14b": {
+      "n": 242979,
+      "n_drift": 88788,
+      "n_faithful": 133192,
+      "n_degraded": 20999,
+      "auroc_drift_vs_nondrift": 0.8362647013966471,
+      "auroc_faithful_vs_rest": 0.8725192978241434,
+      "ece_faithful_vs_rest": 0.35117993736084196,
+      "brier": 0.2723896200906251,
+      "calib_intercept": 3.7438743189538504,
+      "calib_slope": 1.8383491828025567,
+      "calib_converged": true,
+      "calib_reason": null,
+      "conf_dist_by_class": {
+        "faithful": {
+          "n": 133192,
+          "mean": 94.17724037479728,
+          "median": 95.0,
+          "std": 4.15265037750557,
+          "q25": 90.0,
+          "q75": 95.0
+        },
+        "degraded": {
+          "n": 20999,
+          "mean": 83.95780751464355,
+          "median": 90.0,
+          "std": 10.667472158684497,
+          "q25": 70.0,
+          "q75": 90.0
+        },
+        "drift": {
+          "n": 88788,
+          "mean": 84.98276794161373,
+          "median": 90.0,
+          "std": 8.227483348796856,
+          "q25": 80.0,
+          "q75": 90.0
+        }
+      },
+      "drift_fnr_at_threshold": {
+        "0.7": 0.9989075100238771,
+        "0.9": 0.5826800919043114
+      },
+      "notes": "auroc_drift_vs_nondrift: AUROC of score_for_drift = (1 - confidence) predicting label == 'drift' (positive) against ALL non-drift rows (faithful + degraded pooled as negative). This is the reviewer's direct ask -- distinct from auroc_faithful_vs_rest, which tests faithful vs. {degraded OR drift} and so does not isolate drift specifically. AUROC > 0.5 means lower stated confidence is associated with drift. auroc_faithful_vs_rest / ece_faithful_vs_rest reproduce the existing manuscript framing (idrift.analysis.calibration_v2.ece) bit for bit, reported alongside for direct contrast. brier / calib_intercept / calib_slope are the Brier score and Cox logistic recalibration (intercept, slope) of the SAME score_for_drift against the observed label == 'drift' indicator; intercept 0 and slope 1 would indicate perfect calibration of that drift-risk proxy. drift_fnr_at_threshold[t] = P(confidence >= t | label == 'drift'): the fraction of true drift outputs a 'confidence < t flags for review' rule would MISS."
+    },
+    "phi4:mini": {
+      "n": 242727,
+      "n_drift": 105370,
+      "n_faithful": 98148,
+      "n_degraded": 39209,
+      "auroc_drift_vs_nondrift": 0.6745816920961911,
+      "auroc_faithful_vs_rest": 0.7338269691855546,
+      "ece_faithful_vs_rest": 0.5018164439885138,
+      "brier": 0.3485889225343699,
+      "calib_intercept": 2.5128393311821178,
+      "calib_slope": 1.0892450930841173,
+      "calib_converged": true,
+      "calib_reason": null,
+      "conf_dist_by_class": {
+        "faithful": {
+          "n": 98148,
+          "mean": 94.33997636222847,
+          "median": 95.0,
+          "std": 2.349407807146761,
+          "q25": 95.0,
+          "q75": 95.0
+        },
+        "degraded": {
+          "n": 39209,
+          "mean": 89.9678900252493,
+          "median": 90.0,
+          "std": 7.473223939118933,
+          "q25": 90.0,
+          "q75": 95.0
+        },
+        "drift": {
+          "n": 105370,
+          "mean": 87.38957008636234,
+          "median": 90.0,
+          "std": 17.315804959661214,
+          "q25": 90.0,
+          "q75": 95.0
+        }
+      },
+      "drift_fnr_at_threshold": {
+        "0.7": 0.9548922843314036,
+        "0.9": 0.8573123279870931
+      },
+      "notes": "auroc_drift_vs_nondrift: AUROC of score_for_drift = (1 - confidence) predicting label == 'drift' (positive) against ALL non-drift rows (faithful + degraded pooled as negative). This is the reviewer's direct ask -- distinct from auroc_faithful_vs_rest, which tests faithful vs. {degraded OR drift} and so does not isolate drift specifically. AUROC > 0.5 means lower stated confidence is associated with drift. auroc_faithful_vs_rest / ece_faithful_vs_rest reproduce the existing manuscript framing (idrift.analysis.calibration_v2.ece) bit for bit, reported alongside for direct contrast. brier / calib_intercept / calib_slope are the Brier score and Cox logistic recalibration (intercept, slope) of the SAME score_for_drift against the observed label == 'drift' indicator; intercept 0 and slope 1 would indicate perfect calibration of that drift-risk proxy. drift_fnr_at_threshold[t] = P(confidence >= t | label == 'drift'): the fraction of true drift outputs a 'confidence < t flags for review' rule would MISS."
+    },
+    "qwen3.5:27b-q4": {
+      "n": 243000,
+      "n_drift": 70072,
+      "n_faithful": 153856,
+      "n_degraded": 19072,
+      "auroc_drift_vs_nondrift": 0.8611738299919005,
+      "auroc_faithful_vs_rest": 0.8838410502406074,
+      "ece_faithful_vs_rest": 0.22041008230452674,
+      "brier": 0.17573630658436215,
+      "calib_intercept": 1.6843587829282651,
+      "calib_slope": 1.312895126310092,
+      "calib_converged": true,
+      "calib_reason": null,
+      "conf_dist_by_class": {
+        "faithful": {
+          "n": 153856,
+          "mean": 93.01588498336106,
+          "median": 95.0,
+          "std": 6.596991453239943,
+          "q25": 95.0,
+          "q75": 95.0
+        },
+        "degraded": {
+          "n": 19072,
+          "mean": 70.57571308724832,
+          "median": 65.0,
+          "std": 22.749504717333092,
+          "q25": 45.0,
+          "q75": 95.0
+        },
+        "drift": {
+          "n": 70072,
+          "mean": 72.56098013471858,
+          "median": 75.0,
+          "std": 15.81263898807753,
+          "q25": 65.0,
+          "q75": 85.0
+        }
+      },
+      "drift_fnr_at_threshold": {
+        "0.7": 0.5326806713095102,
+        "0.9": 0.13217833085968717
+      },
+      "notes": "auroc_drift_vs_nondrift: AUROC of score_for_drift = (1 - confidence) predicting label == 'drift' (positive) against ALL non-drift rows (faithful + degraded pooled as negative). This is the reviewer's direct ask -- distinct from auroc_faithful_vs_rest, which tests faithful vs. {degraded OR drift} and so does not isolate drift specifically. AUROC > 0.5 means lower stated confidence is associated with drift. auroc_faithful_vs_rest / ece_faithful_vs_rest reproduce the existing manuscript framing (idrift.analysis.calibration_v2.ece) bit for bit, reported alongside for direct contrast. brier / calib_intercept / calib_slope are the Brier score and Cox logistic recalibration (intercept, slope) of the SAME score_for_drift against the observed label == 'drift' indicator; intercept 0 and slope 1 would indicate perfect calibration of that drift-risk proxy. drift_fnr_at_threshold[t] = P(confidence >= t | label == 'drift'): the fraction of true drift outputs a 'confidence < t flags for review' rule would MISS."
+    }
+  },
+  "pooled": {
+    "n": 1700678,
+    "n_drift": 527369,
+    "n_faithful": 984020,
+    "n_degraded": 189289,
+    "auroc_drift_vs_nondrift": 0.805651461035062,
+    "auroc_faithful_vs_rest": 0.8421276215370342,
+    "ece_faithful_vs_rest": 0.31396887006241037,
+    "brier": 0.22451191060271253,
+    "calib_intercept": 1.7018797840462445,
+    "calib_slope": 1.03717883679748,
+    "calib_converged": true,
+    "calib_reason": null,
+    "conf_dist_by_class": {
+      "faithful": {
+        "n": 984020,
+        "mean": 94.49456616735432,
+        "median": 95.0,
+        "std": 5.684100996680621,
+        "q25": 95.0,
+        "q75": 98.0
+      },
+      "degraded": {
+        "n": 189289,
+        "mean": 82.33588322617796,
+        "median": 85.0,
+        "std": 15.261064795338417,
+        "q25": 75.0,
+        "q75": 95.0
+      },
+      "drift": {
+        "n": 527369,
+        "mean": 81.96950332689255,
+        "median": 85.0,
+        "std": 14.446811766603352,
+        "q25": 75.0,
+        "q75": 90.0
+      }
+    },
+    "drift_fnr_at_threshold": {
+      "0.7": 0.8636021457461474,
+      "0.9": 0.4369179834233715
+    },
+    "notes": "auroc_drift_vs_nondrift: AUROC of score_for_drift = (1 - confidence) predicting label == 'drift' (positive) against ALL non-drift rows (faithful + degraded pooled as negative). This is the reviewer's direct ask -- distinct from auroc_faithful_vs_rest, which tests faithful vs. {degraded OR drift} and so does not isolate drift specifically. AUROC > 0.5 means lower stated confidence is associated with drift. auroc_faithful_vs_rest / ece_faithful_vs_rest reproduce the existing manuscript framing (idrift.analysis.calibration_v2.ece) bit for bit, reported alongside for direct contrast. brier / calib_intercept / calib_slope are the Brier score and Cox logistic recalibration (intercept, slope) of the SAME score_for_drift against the observed label == 'drift' indicator; intercept 0 and slope 1 would indicate perfect calibration of that drift-risk proxy. drift_fnr_at_threshold[t] = P(confidence >= t | label == 'drift'): the fraction of true drift outputs a 'confidence < t flags for review' rule would MISS.",
+    "pooled_note": "POOLED ACROSS MODELS: verbalized confidence is not on a comparable scale across models -- an '80% confident' statement from one model is not the same probability claim as from another (see idrift.analysis.calibration_v2 module docstring). This block pools raw confidence across every model's rows for descriptive context only; it is NOT a claim that models share one confidence scale. Report per-model numbers (per_model) as primary."
+  },
+  "notes": "Drift-focused calibration companion to idrift.analysis.calibration_v2 (reviewer #9): reports AUROC(confidence -> drift specifically), not only AUROC(confidence -> faithful). Computed per model; raw confidence is never pooled across models except in the explicitly labeled 'pooled' block. See per-block 'notes' for exact metric definitions."
+}

@@ -1,0 +1,291 @@
+{
+  "scope_note": "Audited set is realized_cer == 0 (the decoder's actual character error on that attempt), NOT cer_target == 0 (the noise arm the attempt was sampled from). Of the 22010 realized_cer==0 & label=='drift' rows audited here, 18509 (84.1%) also came from the cer_target==0 arm (the expected/typical case: no noise was injected, so zero realized error is unsurprising), and 3501 came from a NONZERO-target-CER arm where injected noise happened not to survive to realized_cer (e.g. a corruption that round-tripped losslessly through decode/repair and left zero measured character error despite a nonzero noise target). The audited set is therefore BROADER than 'the target-0% arm' and must not be described as limited to it.",
+  "overall": {
+    "total_zero_cer_drift": 22010,
+    "by_cause": {
+      "critical_substitution": 9780,
+      "formatting": 301,
+      "paraphrase": 421,
+      "overgenerative": 1397,
+      "unresolved_or_mixed": 10111
+    }
+  },
+  "by_model": {
+    "command-r:latest": {
+      "total_zero_cer_drift": 1232,
+      "by_cause": {
+        "critical_substitution": 280,
+        "formatting": 9,
+        "paraphrase": 40,
+        "overgenerative": 26,
+        "unresolved_or_mixed": 877
+      }
+    },
+    "deepseek-r1:32b": {
+      "total_zero_cer_drift": 1240,
+      "by_cause": {
+        "critical_substitution": 770,
+        "formatting": 10,
+        "paraphrase": 2,
+        "overgenerative": 25,
+        "unresolved_or_mixed": 433
+      }
+    },
+    "gemma2:9b": {
+      "total_zero_cer_drift": 522,
+      "by_cause": {
+        "critical_substitution": 105,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 417
+      }
+    },
+    "gemma3:27b": {
+      "total_zero_cer_drift": 253,
+      "by_cause": {
+        "critical_substitution": 42,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 211
+      }
+    },
+    "gemma4:12b": {
+      "total_zero_cer_drift": 474,
+      "by_cause": {
+        "critical_substitution": 154,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 320
+      }
+    },
+    "gemma4:31b": {
+      "total_zero_cer_drift": 40,
+      "by_cause": {
+        "critical_substitution": 20,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 20
+      }
+    },
+    "gemma4:e4b": {
+      "total_zero_cer_drift": 585,
+      "by_cause": {
+        "critical_substitution": 182,
+        "formatting": 61,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 342
+      }
+    },
+    "gpt-oss:120b": {
+      "total_zero_cer_drift": 75,
+      "by_cause": {
+        "critical_substitution": 39,
+        "formatting": 1,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 35
+      }
+    },
+    "gpt-oss:20b": {
+      "total_zero_cer_drift": 47,
+      "by_cause": {
+        "critical_substitution": 23,
+        "formatting": 11,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 13
+      }
+    },
+    "granite3.3:8b": {
+      "total_zero_cer_drift": 2677,
+      "by_cause": {
+        "critical_substitution": 1444,
+        "formatting": 0,
+        "paraphrase": 23,
+        "overgenerative": 408,
+        "unresolved_or_mixed": 802
+      }
+    },
+    "llama3.1:8b": {
+      "total_zero_cer_drift": 5817,
+      "by_cause": {
+        "critical_substitution": 2909,
+        "formatting": 26,
+        "paraphrase": 125,
+        "overgenerative": 348,
+        "unresolved_or_mixed": 2409
+      }
+    },
+    "llama4:17b-scout-16e-instruct-q4_K_M": {
+      "total_zero_cer_drift": 104,
+      "by_cause": {
+        "critical_substitution": 81,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 23
+      }
+    },
+    "mistral-small:24b": {
+      "total_zero_cer_drift": 1040,
+      "by_cause": {
+        "critical_substitution": 429,
+        "formatting": 61,
+        "paraphrase": 1,
+        "overgenerative": 37,
+        "unresolved_or_mixed": 512
+      }
+    },
+    "phi3:mini": {
+      "total_zero_cer_drift": 3223,
+      "by_cause": {
+        "critical_substitution": 1302,
+        "formatting": 61,
+        "paraphrase": 105,
+        "overgenerative": 368,
+        "unresolved_or_mixed": 1387
+      }
+    },
+    "phi4:14b": {
+      "total_zero_cer_drift": 508,
+      "by_cause": {
+        "critical_substitution": 247,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 261
+      }
+    },
+    "phi4:mini": {
+      "total_zero_cer_drift": 1672,
+      "by_cause": {
+        "critical_substitution": 816,
+        "formatting": 61,
+        "paraphrase": 20,
+        "overgenerative": 148,
+        "unresolved_or_mixed": 627
+      }
+    },
+    "qwen2.5:7b": {
+      "total_zero_cer_drift": 1090,
+      "by_cause": {
+        "critical_substitution": 552,
+        "formatting": 0,
+        "paraphrase": 105,
+        "overgenerative": 37,
+        "unresolved_or_mixed": 396
+      }
+    },
+    "qwen3.5:27b-q4": {
+      "total_zero_cer_drift": 570,
+      "by_cause": {
+        "critical_substitution": 215,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 355
+      }
+    },
+    "qwen3.6:27b": {
+      "total_zero_cer_drift": 422,
+      "by_cause": {
+        "critical_substitution": 108,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 314
+      }
+    },
+    "qwen3.6:35b-a3b": {
+      "total_zero_cer_drift": 419,
+      "by_cause": {
+        "critical_substitution": 62,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 357
+      }
+    }
+  },
+  "by_corpus": {
+    "AUTH": {
+      "total_zero_cer_drift": 19289,
+      "by_cause": {
+        "critical_substitution": 8492,
+        "formatting": 170,
+        "paraphrase": 379,
+        "overgenerative": 1181,
+        "unresolved_or_mixed": 9067
+      }
+    },
+    "CRIT": {
+      "total_zero_cer_drift": 1676,
+      "by_cause": {
+        "critical_substitution": 912,
+        "formatting": 131,
+        "paraphrase": 1,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 632
+      }
+    },
+    "CTRL": {
+      "total_zero_cer_drift": 1045,
+      "by_cause": {
+        "critical_substitution": 376,
+        "formatting": 0,
+        "paraphrase": 41,
+        "overgenerative": 216,
+        "unresolved_or_mixed": 412
+      }
+    }
+  },
+  "unresolved_breakdown": {
+    "total_unresolved": 10111,
+    "diagnostic_split": {
+      "nli_contradiction_driven": 5686,
+      "cosine_driven_low_similarity": 4425,
+      "entailment_gate_failed_high_cosine": 0
+    },
+    "overlay_flags": {
+      "borderline_cosine_near_threshold": 3220,
+      "empty_or_near_empty_output": 385
+    },
+    "examples": {
+      "nli_contradiction_driven": [
+        "costello_1119",
+        "costello_0882",
+        "costello_0882",
+        "costello_0882",
+        "costello_1119",
+        "costello_0882",
+        "costello_0882",
+        "costello_0882",
+        "costello_1119",
+        "costello_0882"
+      ],
+      "cosine_driven_low_similarity": [
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121"
+      ],
+      "entailment_gate_failed_high_cosine": []
+    },
+    "categorization_method": "automated_rule_based",
+    "exploratory": true,
+    "notes": "EXPLORATORY. Scoped to the realized_cer==0 & label=='drift' rows categorize_zero_cer_drift assigns to the residual 'other' cause ('unresolved_or_mixed' in zero_cer_breakdown's renamed output) -- rows that already failed critical_substitution, formatting, and overgenerative, and then failed the paraphrase gate too. diagnostic_split is exclusive and sums to total_unresolved: nli_contradiction_driven > cosine_driven_low_similarity > entailment_gate_failed_high_cosine. overlay_flags are independent counts, not a partition, and may overlap each other or any diagnostic_split cause: borderline_cosine_near_threshold = at least one of cos_mpnet/cos_minilm within 0.05 of nli_metric.COS_HI (currently 0.75); empty_or_near_empty_output = output_message normalized (lowercased, punctuation stripped, whitespace collapsed) to <= 3 characters. Neither diagnostic layer resolves the residual cause -- both only describe it further using signals already computed upstream. Categorization is fully automated / rule-based, not a human adjudication or a model judgment call."
+  },
+  "categorization_method": "automated_rule_based",
+  "notes": "Categorization throughout this digest is fully automated / rule-based (deterministic string normalization and threshold comparisons on precomputed cos_*/nli_*/crit_* signal columns) -- it is NOT a human adjudication and NOT a model/LLM judgment call. See idrift.analysis.zero_cer_audit's module docstring and categorize_zero_cer_drift for the exact rules and precedence."
+}

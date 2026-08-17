@@ -1,0 +1,330 @@
+{
+  "labeled_path": "output/intermediate/attempts_v3plus_labeled.parquet",
+  "dropped_nan_confidence": 15814,
+  "per_model": {
+    "command-r:latest": {
+      "ece": 0.3458313064592463,
+      "ece_ci": [
+        0.33975051248550125,
+        0.35295087377332407
+      ],
+      "auroc": 0.7419085205885299,
+      "auroc_ci": [
+        0.7362113635066265,
+        0.7477940687098101
+      ],
+      "n": 242985,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "deepseek-r1:32b": {
+      "ece": 0.3400330894221456,
+      "ece_ci": [
+        0.33327979014975584,
+        0.34610298144437496
+      ],
+      "auroc": 0.841337757781823,
+      "auroc_ci": [
+        0.8357207722552558,
+        0.8471803030736287
+      ],
+      "n": 37172,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "gemma2:9b": {
+      "ece": 0.3460790873961406,
+      "ece_ci": [
+        0.3404367386891913,
+        0.3523064436847648
+      ],
+      "auroc": 0.7845921679018556,
+      "auroc_ci": [
+        0.7789310099333707,
+        0.7895936620288008
+      ],
+      "n": 242997,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "gemma3:27b": {
+      "ece": 0.32943904657259127,
+      "ece_ci": [
+        0.3234015774881323,
+        0.33618568899953344
+      ],
+      "auroc": 0.7408956571023414,
+      "auroc_ci": [
+        0.7347581734459342,
+        0.7469643934017793
+      ],
+      "n": 242997,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "gemma4:12b": {
+      "ece": 0.3038624643484773,
+      "ece_ci": [
+        0.29728080633904375,
+        0.310184376327746
+      ],
+      "auroc": 0.8766685940163944,
+      "auroc_ci": [
+        0.8701991668407318,
+        0.8825462413914851
+      ],
+      "n": 242977,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "gemma4:31b": {
+      "ece": 0.17342471954501681,
+      "ece_ci": [
+        0.16690147443986392,
+        0.17953366672882246
+      ],
+      "auroc": 0.8964089096491619,
+      "auroc_ci": [
+        0.8882063061903401,
+        0.9051409489323804
+      ],
+      "n": 242998,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "gemma4:e4b": {
+      "ece": 0.3245685784715163,
+      "ece_ci": [
+        0.3186575201092562,
+        0.33074545979000797
+      ],
+      "auroc": 0.8758741857313028,
+      "auroc_ci": [
+        0.8686473405028337,
+        0.882777432929489
+      ],
+      "n": 242999,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "gpt-oss:120b": {
+      "ece": 0.11964579473879211,
+      "ece_ci": [
+        0.11514096695972192,
+        0.12458842288067185
+      ],
+      "auroc": 0.8990658500529238,
+      "auroc_ci": [
+        0.8919638189105192,
+        0.9059714376392778
+      ],
+      "n": 40485,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "gpt-oss:20b": {
+      "ece": 0.1930313742819267,
+      "ece_ci": [
+        0.18666452880010773,
+        0.2005301875852967
+      ],
+      "auroc": 0.8817684407263612,
+      "auroc_ci": [
+        0.8749275311122975,
+        0.8882026805738681
+      ],
+      "n": 36208,
+      "n_messages": 2290,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "granite3.3:8b": {
+      "ece": 0.3972930046866862,
+      "ece_ci": [
+        0.3911705499602838,
+        0.40368673566813623
+      ],
+      "auroc": 0.7973239330209042,
+      "auroc_ci": [
+        0.7926052660242865,
+        0.8024895553556327
+      ],
+      "n": 241962,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "llama3.1:8b": {
+      "ece": 0.3996317898597017,
+      "ece_ci": [
+        0.39300713272616994,
+        0.40561335391939013
+      ],
+      "auroc": 0.8342786086602502,
+      "auroc_ci": [
+        0.8279816884627509,
+        0.8401297181647619
+      ],
+      "n": 241058,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "llama4:17b-scout-16e-instruct-q4_K_M": {
+      "ece": 0.2714987445976537,
+      "ece_ci": [
+        0.2661212585747472,
+        0.2770523848664104
+      ],
+      "auroc": 0.7662025216045718,
+      "auroc_ci": [
+        0.7613521615487093,
+        0.7712048263977074
+      ],
+      "n": 242950,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "mistral-small:24b": {
+      "ece": 0.3227391171943802,
+      "ece_ci": [
+        0.3159405902975149,
+        0.32891340730819796
+      ],
+      "auroc": 0.8154457872605828,
+      "auroc_ci": [
+        0.8099912631672643,
+        0.8213091345134935
+      ],
+      "n": 242998,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "phi3:mini": {
+      "ece": 0.5778150113983035,
+      "ece_ci": [
+        0.5723185397284039,
+        0.5835105383138399
+      ],
+      "auroc": 0.7095186109907698,
+      "auroc_ci": [
+        0.7035029851530666,
+        0.7149893055933358
+      ],
+      "n": 238632,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "phi4:14b": {
+      "ece": 0.35117993736084196,
+      "ece_ci": [
+        0.34527267972293313,
+        0.3572960676500895
+      ],
+      "auroc": 0.8725192978241434,
+      "auroc_ci": [
+        0.8676242531731952,
+        0.8776120579085207
+      ],
+      "n": 242979,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "phi4:mini": {
+      "ece": 0.5018164439885138,
+      "ece_ci": [
+        0.49587142550866325,
+        0.5075873444343564
+      ],
+      "auroc": 0.7338269691855546,
+      "auroc_ci": [
+        0.7300000214039513,
+        0.7376913211076771
+      ],
+      "n": 242727,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "qwen2.5:7b": {
+      "ece": 0.4167267078951602,
+      "ece_ci": [
+        0.4115018900485396,
+        0.4221740538773935
+      ],
+      "auroc": 0.8266540193168211,
+      "auroc_ci": [
+        0.821890452413291,
+        0.8311593852936048
+      ],
+      "n": 242389,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "qwen3.5:27b-q4": {
+      "ece": 0.22041008230452674,
+      "ece_ci": [
+        0.2147771004245357,
+        0.226730754058091
+      ],
+      "auroc": 0.8838410502406074,
+      "auroc_ci": [
+        0.8775617418284577,
+        0.889277403541246
+      ],
+      "n": 243000,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "qwen3.6:27b": {
+      "ece": 0.2646179835390946,
+      "ece_ci": [
+        0.25833022160633057,
+        0.2708456356034606
+      ],
+      "auroc": 0.8525244127893955,
+      "auroc_ci": [
+        0.8459477232887943,
+        0.8586364200975546
+      ],
+      "n": 243000,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "qwen3.6:35b-a3b": {
+      "ece": 0.2798473656270191,
+      "ece_ci": [
+        0.2736006147090913,
+        0.2856481935488548
+      ],
+      "auroc": 0.8703108065051195,
+      "auroc_ci": [
+        0.8649208900031092,
+        0.8755286166370599
+      ],
+      "n": 242999,
+      "n_messages": 2299,
+      "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    }
+  },
+  "meta_ece": {
+    "pooled": 0.32397532193371065,
+    "ci": [
+      0.2735952568316205,
+      0.3743553870358008
+    ],
+    "tau2": 0.01320438056724248,
+    "q": 26720.961348895682,
+    "i2": 99.92889477383723,
+    "k_models": 20,
+    "caveat": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+  },
+  "meta_auroc": {
+    "pooled": 0.825021142913701,
+    "ci": [
+      0.7985918530469361,
+      0.8514504327804658
+    ],
+    "tau2": 0.0036274440687068268,
+    "q": 8438.327579821425,
+    "i2": 99.77483689960751,
+    "k_models": 20,
+    "caveat": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+  }
+}

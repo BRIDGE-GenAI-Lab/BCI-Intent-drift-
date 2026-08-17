@@ -1,0 +1,37 @@
+{
+  "or_original_manuscript": 1.16,
+  "or_original_reproduced": 1.1552312047498117,
+  "ci_original_reproduced": [
+    1.1250954593033062,
+    1.1861741378408026
+  ],
+  "n_pairs_original": 27812,
+  "n_obs_original": 55624,
+  "or_rulefree": 1.1004411291857938,
+  "ci_rulefree": [
+    1.0713379293308207,
+    1.130334925750367
+  ],
+  "n_pairs": 27237,
+  "n_obs": 54474,
+  "holds": true,
+  "original_label_distribution": {
+    "faithful": 0.5677,
+    "drift": 0.3201,
+    "degraded": 0.1122
+  },
+  "rulefree_label_distribution": {
+    "faithful": 0.5769,
+    "drift": 0.3109,
+    "degraded": 0.1122
+  },
+  "n_rows_relabeled_to_drift": 0,
+  "n_rows_relabeled_from_drift": 4917,
+  "notes": "Rule-free label = taxonomy.label's meaning channel only (bidirectional NLI contradiction, else cosine < COS_HI threshold; gated by fluency >= tau=0.5), with the five crit_* rule detectors (negation_flip, numeral_change, recipient_change, urgency_change, actionable_omission) forced off via label_runner.derive_labels(..., use_critical_rules=False) -- see that function's docstring. Matched design: identical to the shipped analysis (build_matched_frame + composite pair_id x cer_target x replicate_idx x model + matched_drift's conditional logistic regression on drift ~ critical + char_len + n_errors + corrupted_negation + corrupted_numeral + realized_cer), only the drift/critical outcome DEFINITION differs between the two runs.",
+  "source": {
+    "labeled_path": "output/intermediate/attempts_v2_labeled.parquet",
+    "ctrl_matched_path": "output/intermediate/ctrl_matched.csv",
+    "exposure_path": "output/intermediate/exposure_v2_full.parquet",
+    "why_v2_not_v3": "output/stats_v3_digest.json's matched_compare entry is verbatim 'reused_from': 'v2 (CRIT/CTRL unchanged)' (byte-identical to stats_v2_digest.json) -- the shipped OR was never recomputed on the v3 corpus. Attempting build_matched_frame on attempts_v3_labeled.parquet + exposure_v3_full.parquet raises a pandas MergeError (duplicate (message_id, cer_target, replicate_idx) keys for a subset of the 262 matched messages in v3's exposure frame), confirming v2 is the only directly reproducible source for this design."
+  }
+}

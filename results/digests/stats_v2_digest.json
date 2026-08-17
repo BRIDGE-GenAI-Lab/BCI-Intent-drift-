@@ -1,0 +1,616 @@
+{
+  "_meta": {
+    "labeled": "output/intermediate/attempts_v2_labeled.parquet",
+    "tau_primary": 0.5,
+    "tie_primary": "primary"
+  },
+  "drift_curve": {
+    "drift_by_corpus_x_targetcer": {
+      "AUTH": {
+        "0.0": 1.01,
+        "0.1": 13.67,
+        "0.2": 31.46,
+        "0.3": 49.86,
+        "0.4": 63.36
+      },
+      "CRIT": {
+        "0.0": 2.36,
+        "0.1": 15.57,
+        "0.2": 34.09,
+        "0.3": 51.44,
+        "0.4": 63.36
+      },
+      "CTRL": {
+        "0.0": 0.58,
+        "0.1": 14.1,
+        "0.2": 30.87,
+        "0.3": 48.41,
+        "0.4": 62.0
+      }
+    },
+    "overall_by_corpus": {
+      "AUTH": {
+        "faithful": 0.5817,
+        "degraded": 0.0996,
+        "drift": 0.3187
+      },
+      "CRIT": {
+        "faithful": 0.5303,
+        "degraded": 0.1361,
+        "drift": 0.3337
+      },
+      "CTRL": {
+        "faithful": 0.5517,
+        "degraded": 0.1363,
+        "drift": 0.3119
+      }
+    },
+    "per_model_auth_drift": {
+      "gemma4:31b": 0.2395,
+      "gemma4:e4b": 0.2493,
+      "gemma4:12b": 0.2916,
+      "qwen3.5:27b-q4": 0.2969,
+      "mistral-small:24b": 0.3341,
+      "phi4:14b": 0.3759,
+      "phi4:mini": 0.4437
+    },
+    "n_by_corpus": {
+      "AUTH": 350000,
+      "CRIT": 91700,
+      "CTRL": 91700
+    }
+  },
+  "zero_cer_audit": {
+    "total_zero_cer_drift": 1462,
+    "by_cause": {
+      "critical_substitution": 640,
+      "formatting": 90,
+      "paraphrase": 20,
+      "overgenerative": 52,
+      "other": 660
+    },
+    "examples": {
+      "critical_substitution": [
+        "costello_1965",
+        "costello_1965",
+        "costello_1965",
+        "probe_0048",
+        "probe_0048",
+        "probe_0048",
+        "probe_0050",
+        "probe_0050",
+        "probe_0050",
+        "costello_1965"
+      ],
+      "formatting": [
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056",
+        "probe_0056"
+      ],
+      "paraphrase": [
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751",
+        "costello_1751"
+      ],
+      "overgenerative": [
+        "costello_0620",
+        "costello_0620",
+        "costello_0620",
+        "costello_0620",
+        "costello_0620",
+        "costello_0296",
+        "costello_0296",
+        "costello_0296",
+        "costello_0620",
+        "costello_0620"
+      ],
+      "other": [
+        "costello_1119",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "costello_0882",
+        "costello_0882",
+        "costello_0882",
+        "costello_1119",
+        "probe_0121"
+      ]
+    },
+    "notes": "Filtered to realized_cer == 0 and label == 'drift' (a clean input the ensemble nonetheless called drift on). Precedence: critical_substitution > formatting > paraphrase > overgenerative > other -- each row is assigned the first cause it matches, not summed across causes. critical_substitution = any of ['crit_negation_flip', 'crit_numeral_change', 'crit_recipient_change', 'crit_urgency_change', 'crit_actionable_omission'] is True. formatting = output_message equals intended_text after lowercasing, punctuation removal, and whitespace collapse. paraphrase = cos_mpnet and cos_minilm both >= nli_metric.COS_HI (currently 0.75) and bidirectional entailment ('entail' both directions) on at least one of the two NLI models (deberta or roberta), reached only when no crit_* flag is set. overgenerative = output_message at least 1.5x intended_text's character length, reached only when none of the above matched. other = residual. Examples are capped at 10 message_id(s) per cause."
+  },
+  "calibration": {
+    "dropped_nan_confidence": 119,
+    "per_model": {
+      "gemma4:12b": {
+        "ece": 0.31161464759154733,
+        "ece_ci": [
+          0.3024127924469388,
+          0.3222363444123123
+        ],
+        "auroc": 0.8824066636126998,
+        "auroc_ci": [
+          0.872793145389147,
+          0.891694496307564
+        ],
+        "n": 76190,
+        "n_messages": 762,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "gemma4:31b": {
+        "ece": 0.17602257217847767,
+        "ece_ci": [
+          0.1662085465879265,
+          0.1854670078740158
+        ],
+        "auroc": 0.9042674196328877,
+        "auroc_ci": [
+          0.8913901510023289,
+          0.9173478929458684
+        ],
+        "n": 76200,
+        "n_messages": 762,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "gemma4:e4b": {
+        "ece": 0.3323728346456692,
+        "ece_ci": [
+          0.32294900918635167,
+          0.3423046817585301
+        ],
+        "auroc": 0.8742786372216976,
+        "auroc_ci": [
+          0.8614894551612987,
+          0.8856023292478107
+        ],
+        "n": 76200,
+        "n_messages": 762,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "mistral-small:24b": {
+        "ece": 0.33464172287986566,
+        "ece_ci": [
+          0.32454546947890595,
+          0.3465628789469539
+        ],
+        "auroc": 0.8199522650686979,
+        "auroc_ci": [
+          0.8111914274425206,
+          0.8280370851664081
+        ],
+        "n": 76198,
+        "n_messages": 762,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "phi4:14b": {
+        "ece": 0.3604784092400577,
+        "ece_ci": [
+          0.35069113970133675,
+          0.3689427080732844
+        ],
+        "auroc": 0.8747227102703619,
+        "auroc_ci": [
+          0.866760189541471,
+          0.8812077581652693
+        ],
+        "n": 76190,
+        "n_messages": 762,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "phi4:mini": {
+        "ece": 0.5149170203539939,
+        "ece_ci": [
+          0.5043059282771978,
+          0.5257309635509149
+        ],
+        "auroc": 0.736857702546215,
+        "auroc_ci": [
+          0.7306344852913991,
+          0.7430003216081965
+        ],
+        "n": 76103,
+        "n_messages": 762,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      },
+      "qwen3.5:27b-q4": {
+        "ece": 0.2260923884514435,
+        "ece_ci": [
+          0.21665075787401555,
+          0.23609275918635153
+        ],
+        "auroc": 0.8889417434345195,
+        "auroc_ci": [
+          0.8798481210153076,
+          0.8968098463315879
+        ],
+        "n": 76200,
+        "n_messages": 762,
+        "notes": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+      }
+    },
+    "meta_ece": {
+      "pooled": 0.32229211859940604,
+      "ci": [
+        0.2445081282033419,
+        0.4000761089954702
+      ],
+      "tau2": 0.01099872006267421,
+      "q": 2578.548254300869,
+      "i2": 99.76731092815531,
+      "k_models": 7,
+      "caveat": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    },
+    "meta_auroc": {
+      "pooled": 0.854410449855205,
+      "ci": [
+        0.8027774213726805,
+        0.9060434783377295
+      ],
+      "tau2": 0.004834178355937551,
+      "q": 1498.4839826334646,
+      "i2": 99.59959531970068,
+      "k_models": 7,
+      "caveat": "Verbalized model confidence is not calibrated on a common scale across models -- an '80% confident' statement from one model is not the same probability claim as from another. Calibration is reported per model; any cross-model pooling uses random-effects meta-analysis (DerSimonian-Laird), and the pooled estimate is descriptive, not a claim of one shared calibration scale."
+    }
+  },
+  "matched_compare": {
+    "engine": "conditional_logit",
+    "coef": {
+      "critical": {
+        "est": 0.14430050121352414,
+        "se": 0.01348627661088455,
+        "ci_lo": 0.11786788477064553,
+        "ci_hi": 0.17073311765640276,
+        "p": 1.0199496699461806e-26
+      },
+      "char_len": {
+        "est": 0.0010026615378743696,
+        "se": 0.0090584366813727,
+        "ci_lo": -0.01675154811385265,
+        "ci_hi": 0.018756871189601388,
+        "p": 0.9118636484406797
+      },
+      "n_errors": {
+        "est": 0.13815673586464516,
+        "se": 0.01059240333300885,
+        "ci_lo": 0.11739600682222578,
+        "ci_hi": 0.15891746490706454,
+        "p": 6.965944345399715e-39
+      },
+      "corrupted_negation": {
+        "est": 0.040951151194252196,
+        "se": 0.07894289972220765,
+        "ci_lo": -0.11377408909643186,
+        "ci_hi": 0.19567639148493624,
+        "p": 0.6039393126823634
+      },
+      "corrupted_numeral": {
+        "est": 0.6791997102122747,
+        "se": 0.28717763137065255,
+        "ci_lo": 0.11634189556027563,
+        "ci_hi": 1.2420575248642738,
+        "p": 0.018025898978658292
+      },
+      "realized_cer": {
+        "est": 4.742783502728306,
+        "se": 0.21733720761591394,
+        "ci_lo": 4.316810403300611,
+        "ci_hi": 5.168756602156002,
+        "p": 1.4271315063537616e-105
+      }
+    },
+    "n_obs": 55624,
+    "n_pairs": 27812,
+    "converged": true,
+    "notes": "engine=conditional_logit (statsmodels.discrete.conditional_models.ConditionalLogit, endog=drift, exog=[critical + char_len + n_errors + corrupted_negation + corrupted_numeral + realized_cer], groups=pair_id). Conditioning is on the matched pair (pair_id, the Task-1.3 CRIT-CTRL match): every pair's group-specific intercept is differenced out of the conditional likelihood, so any confounder constant within a matched pair is controlled for without being named. coef['critical'] is the adjusted CRIT-vs-CTRL contrast; the other five entries are the adjusters' own coefficients. 63888 of 91700 input pairs dropped for having no within-group outcome variance (fully concordant -- same drift/non-drift outcome on every row in that pair, contributing nothing to a conditional likelihood; standard for conditional logistic regression, not a bug). Fit warnings: Dropped 63888 groups and 127776 observations for having no within-group variance. converged=True (fit raised no exception and every reported est/se is finite; ConditionalLogit's own .fit() does not expose the underlying optimizer's convergence flag on its returned result, see module docstring).",
+    "_strata": "pair_id x cer_target x replicate_idx x model (matched pair at identical corruption cell)",
+    "_note": "Coarse message-pair-level conditioning did not converge on the full cohort (huge strata); finer identical-corruption strata is the classic discordant-matched-pair conditional logistic and converges.",
+    "risk_difference": {
+      "estimand": "risk_difference_crit_minus_ctrl",
+      "rd": 0.021723009814612837,
+      "ci_lo": 0.0039212104689204195,
+      "ci_hi": 0.041480643402399105,
+      "additional_drifts_per_1000": {
+        "est": 21.723009814612837,
+        "ci_lo": 3.9212104689204197,
+        "ci_hi": 41.4806434023991
+      },
+      "p_crit": 0.33365321701199563,
+      "p_ctrl": 0.3119302071973828,
+      "n_crit": 91700,
+      "n_ctrl": 91700,
+      "n_pairs": 131,
+      "n_boot": 1000,
+      "seed": 0,
+      "boot_se": 0.00968169469922145,
+      "notes": "estimand=risk_difference RD = P(drift|CRIT) - P(drift|CTRL) on the matched CRIT-vs-CTRL design (the absolute-scale companion to matched_drift's odds-ratio contrast). CI is a pair-clustered percentile bootstrap (1000 of 1000 replicates finite): whole matched pairs (pair_id) are resampled with replacement, preserving within-pair correlation across the many attempt-level rows a pair spans (models x CER targets x replicates). additional_drifts_per_1000 = RD*1000 (a pure rescale of RD and its CI). n_pairs=131, n_crit=91700, n_ctrl=91700, seed=0."
+    },
+    "risk_difference_by_cer": {
+      "estimand": "risk_difference_crit_minus_ctrl_by_cer_target",
+      "interaction_form": "stratified",
+      "by_cer": [
+        {
+          "cer_target": 0.0,
+          "rd": 0.01777535441657579,
+          "ci_lo": 0.005013631406761178,
+          "ci_hi": 0.03272355507088331,
+          "additional_drifts_per_1000": 17.77535441657579,
+          "p_crit": 0.023555070883315158,
+          "p_ctrl": 0.0057797164667393675,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        },
+        {
+          "cer_target": 0.1,
+          "rd": 0.014721919302071979,
+          "ci_lo": -0.007580425299890925,
+          "ci_hi": 0.03841330425299888,
+          "additional_drifts_per_1000": 14.721919302071978,
+          "p_crit": 0.15572519083969466,
+          "p_ctrl": 0.14100327153762268,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        },
+        {
+          "cer_target": 0.2,
+          "rd": 0.03222464558342425,
+          "ci_lo": 0.0049604689203925885,
+          "ci_hi": 0.061190021810250766,
+          "additional_drifts_per_1000": 32.22464558342425,
+          "p_crit": 0.340948745910578,
+          "p_ctrl": 0.30872410032715375,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        },
+        {
+          "cer_target": 0.3,
+          "rd": 0.030316248636859333,
+          "ci_lo": 0.0033233369683750517,
+          "ci_hi": 0.05927071973827692,
+          "additional_drifts_per_1000": 30.316248636859335,
+          "p_crit": 0.5144492911668485,
+          "p_ctrl": 0.4841330425299891,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        },
+        {
+          "cer_target": 0.4,
+          "rd": 0.013576881134133023,
+          "ci_lo": -0.010850599781897508,
+          "ci_hi": 0.03855507088331523,
+          "additional_drifts_per_1000": 13.576881134133023,
+          "p_crit": 0.6335877862595419,
+          "p_ctrl": 0.6200109051254089,
+          "n_crit": 18340,
+          "n_ctrl": 18340,
+          "n_pairs": 131
+        }
+      ],
+      "n_boot": 1000,
+      "seed": 0,
+      "notes": "criticality-by-CER interaction on the absolute scale: CRIT-vs-CTRL risk difference within each cer_target level, each with its own pair-clustered percentile-bootstrap 95% CI. Reported as stratum-specific RDs (interaction_form=stratified), not a critical x cer product term, because the coarse pair-level conditional logit does not converge on the full cohort (see module docstring / digest _note); the stratified RD shows whether the absolute gap changes with corruption without optimizer fragility. Each stratum uses a distinct deterministic bootstrap stream (seed+i, base seed=0); 1000 replicates per stratum."
+    }
+  },
+  "sensitivity": {
+    "tie_at_tau0.5": {
+      "primary": 0.3201,
+      "drift_averse": 0.287,
+      "severity": 0.3265
+    },
+    "tau_at_tie_primary": {
+      "0.3": 0.3587,
+      "0.4": 0.3426,
+      "0.5": 0.3201,
+      "0.6": 0.2926
+    }
+  },
+  "mixed_model": {
+    "drift": {
+      "engine": "clustered_logit_fallback",
+      "converged": true,
+      "n_obs": 533400,
+      "coefficients": {
+        "Intercept": {
+          "est": -3.1474137873234755,
+          "se": 0.08175801837078082,
+          "ci_lo": -3.30765655877757,
+          "ci_hi": -2.987171015869381
+        },
+        "corrupted_negation[T.True]": {
+          "est": 0.1147261271440722,
+          "se": 0.0637036479794145,
+          "ci_lo": -0.010130728579398007,
+          "ci_hi": 0.2395829828675424
+        },
+        "corrupted_numeral[T.True]": {
+          "est": 1.6782419950451561,
+          "se": 0.026343774830891478,
+          "ci_lo": 1.6266091451597762,
+          "ci_hi": 1.7298748449305361
+        },
+        "C(family)[T.mistral-small]": {
+          "est": 0.547192101628283,
+          "se": 0.016461197352850187,
+          "ci_lo": 0.5149287476742905,
+          "ci_hi": 0.5794554555822755
+        },
+        "C(family)[T.phi4]": {
+          "est": 1.042062455579525,
+          "se": 0.01728706692728883,
+          "ci_lo": 1.0081804270037054,
+          "ci_hi": 1.0759444841553447
+        },
+        "C(family)[T.qwen3.5]": {
+          "est": 0.2815867477326859,
+          "se": 0.014370602835427107,
+          "ci_lo": 0.2534208837391196,
+          "ci_hi": 0.3097526117262522
+        },
+        "realized_cer": {
+          "est": 4.7917094635172575,
+          "se": 0.3223954913509527,
+          "ci_lo": 4.1598259116912955,
+          "ci_hi": 5.4235930153432195
+        },
+        "n_errors": {
+          "est": 0.21996458158997373,
+          "se": 0.015140141908314432,
+          "ci_lo": 0.19029044872885192,
+          "ci_hi": 0.24963871445109553
+        },
+        "char_len": {
+          "est": -0.01072931835442346,
+          "se": 0.0037341294827433116,
+          "ci_lo": -0.01804807765420953,
+          "ci_hi": -0.003410559054637387
+        }
+      },
+      "variance_components": {},
+      "notes": "FALLBACK LADDER FIRED: primary VB fit ran but did not converge (engine=glmm_vb (BinomialBayesMixedGLM.fit_vb, scale_fe=True). scipy optimizer did NOT converge (Desired error not necessarily achieved due to precision loss.). warnings: VB fitting did not converge. variance_components are posterior-median random-intercept SDs (exp[posterior mean log-SD]), not variances.). engine=clustered_logit_fallback (smf.logit with cov_type='cluster', cov_kwds={'groups': message_id}). variance_components are unavailable with this engine (no random-effects structure is fit); coefficients/CIs are the message-clustered cluster-robust point estimates instead."
+    },
+    "faithful": {
+      "engine": "clustered_logit_fallback",
+      "converged": true,
+      "n_obs": 533400,
+      "coefficients": {
+        "Intercept": {
+          "est": 1.9188001506664307,
+          "se": 0.23726732637378065,
+          "ci_lo": 1.4537647362657102,
+          "ci_hi": 2.383835565067151
+        },
+        "corrupted_negation[T.True]": {
+          "est": 0.2855772385665046,
+          "se": 0.09105450175121471,
+          "ci_lo": 0.10711369450388447,
+          "ci_hi": 0.4640407826291247
+        },
+        "corrupted_numeral[T.True]": {
+          "est": -3.319938697862378,
+          "se": 0.04387901527167036,
+          "ci_lo": -3.405939987471935,
+          "ci_hi": -3.2339374082528214
+        },
+        "C(family)[T.mistral-small]": {
+          "est": -0.5050507088861431,
+          "se": 0.026345272077926682,
+          "ci_lo": -0.5566864933217881,
+          "ci_hi": -0.45341492445049814
+        },
+        "C(family)[T.phi4]": {
+          "est": -1.155995878464328,
+          "se": 0.03234851960378047,
+          "ci_lo": -1.2193978118409257,
+          "ci_hi": -1.0925939450877304
+        },
+        "C(family)[T.qwen3.5]": {
+          "est": 0.013171946702470419,
+          "se": 0.017284367288912188,
+          "ci_lo": -0.020704790679359687,
+          "ci_hi": 0.047048684084300525
+        },
+        "realized_cer": {
+          "est": -6.644594690621026,
+          "se": 0.7516795858225113,
+          "ci_lo": -8.117859606747132,
+          "ci_hi": -5.171329774494919
+        },
+        "n_errors": {
+          "est": -0.2647590897278291,
+          "se": 0.03246854170986017,
+          "ci_lo": -0.32839626210969153,
+          "ci_hi": -0.2011219173459666
+        },
+        "char_len": {
+          "est": 0.057520755883554105,
+          "se": 0.009666026139754653,
+          "ci_lo": 0.038575692776012256,
+          "ci_hi": 0.07646581899109595
+        }
+      },
+      "variance_components": {},
+      "notes": "FALLBACK LADDER FIRED: primary VB fit ran but did not converge (engine=glmm_vb (BinomialBayesMixedGLM.fit_vb, scale_fe=True). scipy optimizer did NOT converge (Desired error not necessarily achieved due to precision loss.). warnings: VB fitting did not converge. variance_components are posterior-median random-intercept SDs (exp[posterior mean log-SD]), not variances.). engine=clustered_logit_fallback (smf.logit with cov_type='cluster', cov_kwds={'groups': message_id}). variance_components are unavailable with this engine (no random-effects structure is fit); coefficients/CIs are the message-clustered cluster-robust point estimates instead."
+    },
+    "degraded": {
+      "engine": "clustered_logit_fallback",
+      "converged": true,
+      "n_obs": 533400,
+      "coefficients": {
+        "Intercept": {
+          "est": -0.4419137131288572,
+          "se": 0.25684945371457846,
+          "ci_lo": -0.9453293918582185,
+          "ci_hi": 0.06150196560050414
+        },
+        "corrupted_negation[T.True]": {
+          "est": -0.5184784063020194,
+          "se": 0.1303104126216365,
+          "ci_lo": -0.7738821218509806,
+          "ci_hi": -0.2630746907530581
+        },
+        "corrupted_numeral[T.True]": {
+          "est": 0.523384122198619,
+          "se": 0.03824231282772243,
+          "ci_lo": 0.4484305663707689,
+          "ci_hi": 0.5983376780264691
+        },
+        "C(family)[T.mistral-small]": {
+          "est": -0.06968991104362256,
+          "se": 0.03338624660194153,
+          "ci_lo": -0.13512575196240073,
+          "ci_hi": -0.004254070124844397
+        },
+        "C(family)[T.phi4]": {
+          "est": 0.11250173013948135,
+          "se": 0.030391541782206388,
+          "ci_lo": 0.052935402811712585,
+          "ci_hi": 0.17206805746725012
+        },
+        "C(family)[T.qwen3.5]": {
+          "est": -0.49436579785211077,
+          "se": 0.0332429901513556,
+          "ci_lo": -0.5595208612871875,
+          "ci_hi": -0.42921073441703406
+        },
+        "realized_cer": {
+          "est": 0.608906392303222,
+          "se": 0.5020237623758953,
+          "ci_lo": -0.375042101336827,
+          "ci_hi": 1.592854885943271
+        },
+        "n_errors": {
+          "est": 0.18640802933484318,
+          "se": 0.02906864436030923,
+          "ci_lo": 0.12943453330923374,
+          "ci_hi": 0.24338152536045263
+        },
+        "char_len": {
+          "est": -0.1332218146248662,
+          "se": 0.013981002424759616,
+          "ci_lo": -0.16062407584516222,
+          "ci_hi": -0.1058195534045702
+        }
+      },
+      "variance_components": {},
+      "notes": "FALLBACK LADDER FIRED: primary VB fit ran but did not converge (engine=glmm_vb (BinomialBayesMixedGLM.fit_vb, scale_fe=True). scipy optimizer did NOT converge (Desired error not necessarily achieved due to precision loss.). warnings: VB fitting did not converge. variance_components are posterior-median random-intercept SDs (exp[posterior mean log-SD]), not variances.). engine=clustered_logit_fallback (smf.logit with cov_type='cluster', cov_kwds={'groups': message_id}). variance_components are unavailable with this engine (no random-effects structure is fit); coefficients/CIs are the message-clustered cluster-robust point estimates instead."
+    }
+  }
+}

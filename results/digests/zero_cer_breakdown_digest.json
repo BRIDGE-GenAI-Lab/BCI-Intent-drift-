@@ -1,0 +1,161 @@
+{
+  "scope_note": "Audited set is realized_cer == 0 (the decoder's actual character error on that attempt), NOT cer_target == 0 (the noise arm the attempt was sampled from). Of the 1462 realized_cer==0 & label=='drift' rows audited here, 1246 (85.2%) also came from the cer_target==0 arm (the expected/typical case: no noise was injected, so zero realized error is unsurprising), and 216 came from a NONZERO-target-CER arm where injected noise happened not to survive to realized_cer (e.g. a corruption that round-tripped losslessly through decode/repair and left zero measured character error despite a nonzero noise target). The audited set is therefore BROADER than 'the target-0% arm' and must not be described as limited to it.",
+  "overall": {
+    "total_zero_cer_drift": 1462,
+    "by_cause": {
+      "critical_substitution": 640,
+      "formatting": 90,
+      "paraphrase": 20,
+      "overgenerative": 52,
+      "unresolved_or_mixed": 660
+    }
+  },
+  "by_model": {
+    "gemma4:12b": {
+      "total_zero_cer_drift": 114,
+      "by_cause": {
+        "critical_substitution": 64,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 50
+      }
+    },
+    "gemma4:31b": {
+      "total_zero_cer_drift": 0,
+      "by_cause": {
+        "critical_substitution": 0,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 0
+      }
+    },
+    "gemma4:e4b": {
+      "total_zero_cer_drift": 134,
+      "by_cause": {
+        "critical_substitution": 63,
+        "formatting": 30,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 41
+      }
+    },
+    "mistral-small:24b": {
+      "total_zero_cer_drift": 364,
+      "by_cause": {
+        "critical_substitution": 154,
+        "formatting": 30,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 180
+      }
+    },
+    "phi4:14b": {
+      "total_zero_cer_drift": 184,
+      "by_cause": {
+        "critical_substitution": 131,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 53
+      }
+    },
+    "phi4:mini": {
+      "total_zero_cer_drift": 459,
+      "by_cause": {
+        "critical_substitution": 122,
+        "formatting": 30,
+        "paraphrase": 20,
+        "overgenerative": 52,
+        "unresolved_or_mixed": 235
+      }
+    },
+    "qwen3.5:27b-q4": {
+      "total_zero_cer_drift": 207,
+      "by_cause": {
+        "critical_substitution": 106,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 101
+      }
+    }
+  },
+  "by_corpus": {
+    "AUTH": {
+      "total_zero_cer_drift": 817,
+      "by_cause": {
+        "critical_substitution": 412,
+        "formatting": 0,
+        "paraphrase": 20,
+        "overgenerative": 30,
+        "unresolved_or_mixed": 355
+      }
+    },
+    "CRIT": {
+      "total_zero_cer_drift": 519,
+      "by_cause": {
+        "critical_substitution": 202,
+        "formatting": 90,
+        "paraphrase": 0,
+        "overgenerative": 0,
+        "unresolved_or_mixed": 227
+      }
+    },
+    "CTRL": {
+      "total_zero_cer_drift": 126,
+      "by_cause": {
+        "critical_substitution": 26,
+        "formatting": 0,
+        "paraphrase": 0,
+        "overgenerative": 22,
+        "unresolved_or_mixed": 78
+      }
+    }
+  },
+  "unresolved_breakdown": {
+    "total_unresolved": 660,
+    "diagnostic_split": {
+      "nli_contradiction_driven": 432,
+      "cosine_driven_low_similarity": 228,
+      "entailment_gate_failed_high_cosine": 0
+    },
+    "overlay_flags": {
+      "borderline_cosine_near_threshold": 152,
+      "empty_or_near_empty_output": 0
+    },
+    "examples": {
+      "nli_contradiction_driven": [
+        "costello_1119",
+        "costello_0882",
+        "costello_0882",
+        "costello_0882",
+        "costello_1119",
+        "costello_0882",
+        "costello_0882",
+        "costello_0882",
+        "costello_1119",
+        "costello_0882"
+      ],
+      "cosine_driven_low_similarity": [
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121",
+        "probe_0121"
+      ],
+      "entailment_gate_failed_high_cosine": []
+    },
+    "categorization_method": "automated_rule_based",
+    "exploratory": true,
+    "notes": "EXPLORATORY. Scoped to the realized_cer==0 & label=='drift' rows categorize_zero_cer_drift assigns to the residual 'other' cause ('unresolved_or_mixed' in zero_cer_breakdown's renamed output) -- rows that already failed critical_substitution, formatting, and overgenerative, and then failed the paraphrase gate too. diagnostic_split is exclusive and sums to total_unresolved: nli_contradiction_driven > cosine_driven_low_similarity > entailment_gate_failed_high_cosine. overlay_flags are independent counts, not a partition, and may overlap each other or any diagnostic_split cause: borderline_cosine_near_threshold = at least one of cos_mpnet/cos_minilm within 0.05 of nli_metric.COS_HI (currently 0.75); empty_or_near_empty_output = output_message normalized (lowercased, punctuation stripped, whitespace collapsed) to <= 3 characters. Neither diagnostic layer resolves the residual cause -- both only describe it further using signals already computed upstream. Categorization is fully automated / rule-based, not a human adjudication or a model judgment call."
+  },
+  "categorization_method": "automated_rule_based",
+  "notes": "Categorization throughout this digest is fully automated / rule-based (deterministic string normalization and threshold comparisons on precomputed cos_*/nli_*/crit_* signal columns) -- it is NOT a human adjudication and NOT a model/LLM judgment call. See idrift.analysis.zero_cer_audit's module docstring and categorize_zero_cer_drift for the exact rules and precedence."
+}

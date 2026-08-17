@@ -1,0 +1,299 @@
+{
+  "task": "C4 v3 dependence-structure sensitivity (was B9)",
+  "description": "Alternative estimators of the realized_cer -> drift log-odds slope under different dependence assumptions across 16 models. All estimators fit realized_cer ONLY (plus intercept) for mutual comparability.",
+  "n_obs": 3888000,
+  "n_messages": 2299,
+  "n_models": 16,
+  "drift_rate": 0.3139377572016461,
+  "reference_slopes": {
+    "primary_message_clustered_ADJUSTED": 4.768564381404142,
+    "univariate_message_clustered_anchor": {
+      "slope": 8.121424129517052,
+      "se": 0.0721808139393047,
+      "ci": [
+        7.9799497341960155,
+        8.26289852483809
+      ]
+    },
+    "note": "The 4.77 headline is the ADJUSTED message-clustered logit slope (adjusts n_errors, char_len, corrupted_negation, corrupted_numeral, C(family)) from this run's mixed_model.drift.coefficients.realized_cer. The dependence estimators here are UNIVARIATE, so their natural reference is the univariate message-clustered anchor (8.12, from confidence_analysis.predicted_drift_grid). That gap is ADJUSTMENT, not dependence; this digest's question is only about dependence."
+  },
+  "estimators": {
+    "per_model_pooled_dl": {
+      "method": "per_model_pooled_dl",
+      "label": "Per-model message-clustered cluster-robust logit (drift ~ realized_cer), pooled across models by DerSimonian-Laird random-effects meta-analysis (preferred model-level estimator; 7 models is too few for a model-clustered SE)",
+      "slope": 8.635121056681154,
+      "se": 0.5464753929105375,
+      "ci": [
+        7.5640292865765,
+        9.706212826785807
+      ],
+      "tau2": 4.767101046944264,
+      "i2": 99.80247609920463,
+      "q": 7594.017706008838,
+      "k_models": 16,
+      "per_model": {
+        "command-r:latest": {
+          "slope": 7.444781008465879,
+          "se": 0.10102935693102533,
+          "ci": [
+            7.24676346888107,
+            7.642798548050689
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "gemma2:9b": {
+          "slope": 10.008424471262055,
+          "se": 0.11746238952696926,
+          "ci": [
+            9.778198187789195,
+            10.238650754734914
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "gemma3:27b": {
+          "slope": 9.033094316246798,
+          "se": 0.10062953725168151,
+          "ci": [
+            8.835860423233502,
+            9.230328209260094
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "gemma4:12b": {
+          "slope": 9.636212385345031,
+          "se": 0.11580000913142707,
+          "ci": [
+            9.409244367447434,
+            9.863180403242628
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "gemma4:31b": {
+          "slope": 10.781453578886506,
+          "se": 0.11674222829428983,
+          "ci": [
+            10.552638811429699,
+            11.010268346343313
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "gemma4:e4b": {
+          "slope": 6.718667436011122,
+          "se": 0.08034354914057959,
+          "ci": [
+            6.5611940796955865,
+            6.876140792326658
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "llama3.1:8b": {
+          "slope": 7.453581626867114,
+          "se": 0.11991293263225622,
+          "ci": [
+            7.218552278907891,
+            7.688610974826336
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "llama4:17b-scout-16e-instruct-q4_K_M": {
+          "slope": 7.367102476062046,
+          "se": 0.06988809669142629,
+          "ci": [
+            7.23012180654685,
+            7.504083145577241
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "mistral-small:24b": {
+          "slope": 9.636703619571543,
+          "se": 0.11667014798584868,
+          "ci": [
+            9.408030129519279,
+            9.865377109623807
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "phi3:mini": {
+          "slope": 7.682690466731486,
+          "se": 0.09850915029261936,
+          "ci": [
+            7.4896125321579525,
+            7.87576840130502
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "phi4:14b": {
+          "slope": 10.393406263681294,
+          "se": 0.11301881978504418,
+          "ci": [
+            10.171889376902607,
+            10.614923150459981
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "phi4:mini": {
+          "slope": 8.527880883130695,
+          "se": 0.0971668715112555,
+          "ci": [
+            8.337433814968634,
+            8.718327951292757
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "qwen2.5:7b": {
+          "slope": 4.096035953012289,
+          "se": 0.057089216429974256,
+          "ci": [
+            3.9841410888095394,
+            4.207930817215039
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "qwen3.5:27b-q4": {
+          "slope": 10.219431425462849,
+          "se": 0.12208954912029012,
+          "ci": [
+            9.98013590918708,
+            10.458726941738618
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "qwen3.6:27b": {
+          "slope": 10.237413216257396,
+          "se": 0.12174574324062556,
+          "ci": [
+            9.99879155950577,
+            10.476034873009022
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        },
+        "qwen3.6:35b-a3b": {
+          "slope": 8.941761764227495,
+          "se": 0.10802703958742141,
+          "ci": [
+            8.73002876663615,
+            9.153494761818841
+          ],
+          "n": 243000,
+          "n_messages": 2299
+        }
+      },
+      "n_models_dropped": 0,
+      "models_dropped": [],
+      "primary_slope": 4.79
+    },
+    "gee": {
+      "method": "gee",
+      "label": "GEE population-averaged logit (drift ~ realized_cer; Binomial family, independence fallback working correlation, groups=message_id, robust sandwich SE)",
+      "slope": 8.121424129517022,
+      "se": 0.07216510464468481,
+      "ci": [
+        7.97998052441344,
+        8.262867734620604
+      ],
+      "cov_struct_used": "independence_fallback",
+      "exchangeable_converged": false,
+      "n_obs": 3888000,
+      "n_groups": 2299,
+      "converged": true,
+      "notes": "FALLBACK: exchangeable working correlation returned an implausible or degenerate fit (non-finite parameters, a log-odds slope beyond 50, or a collapsed standard error), in some runs while reporting convergence on this cohort (large ~700-row message clusters with strong within-message drift correlation); reverted to an independence working correlation with the same robust sandwich SE, which yields a consistent slope and a valid cluster-robust SE regardless of the true correlation.",
+      "primary_slope": 4.79
+    },
+    "bootstrap_message": {
+      "method": "cluster_bootstrap_message",
+      "label": "Nonparametric cluster bootstrap of drift ~ realized_cer, resampling message-level clusters (2299) with replacement, 500 resamples",
+      "slope": 8.121424129516974,
+      "se": 0.06831244201208764,
+      "ci": [
+        7.99614879520934,
+        8.25682125342631
+      ],
+      "level": "message",
+      "n_clusters": 2299,
+      "n_boot": 500,
+      "n_valid": 500,
+      "unstable": false,
+      "primary_slope": 4.79
+    },
+    "bootstrap_model": {
+      "method": "cluster_bootstrap_model",
+      "label": "Nonparametric cluster bootstrap of drift ~ realized_cer, resampling model-level clusters (16) with replacement, 500 resamples",
+      "slope": 8.121424129516974,
+      "se": 0.45828204379092174,
+      "ci": [
+        7.257234815271992,
+        8.991599365792686
+      ],
+      "level": "model",
+      "n_clusters": 16,
+      "n_boot": 500,
+      "n_valid": 500,
+      "unstable": false,
+      "primary_slope": 4.79
+    }
+  },
+  "agreement": {
+    "per_model_pooled_dl": {
+      "slope": 8.635121056681154,
+      "ci": [
+        7.5640292865765,
+        9.706212826785807
+      ],
+      "ci_covers_univariate_anchor": true,
+      "ci_covers_adjusted_4.77": false,
+      "abs_diff_from_univariate_anchor": 0.5136969271641014
+    },
+    "gee": {
+      "slope": 8.121424129517022,
+      "ci": [
+        7.97998052441344,
+        8.262867734620604
+      ],
+      "ci_covers_univariate_anchor": true,
+      "ci_covers_adjusted_4.77": false,
+      "abs_diff_from_univariate_anchor": 3.019806626980426e-14
+    },
+    "bootstrap_message": {
+      "slope": 8.121424129516974,
+      "ci": [
+        7.99614879520934,
+        8.25682125342631
+      ],
+      "ci_covers_univariate_anchor": true,
+      "ci_covers_adjusted_4.77": false,
+      "abs_diff_from_univariate_anchor": 7.815970093361102e-14
+    },
+    "bootstrap_model": {
+      "slope": 8.121424129516974,
+      "ci": [
+        7.257234815271992,
+        8.991599365792686
+      ],
+      "ci_covers_univariate_anchor": true,
+      "ci_covers_adjusted_4.77": false,
+      "abs_diff_from_univariate_anchor": 7.815970093361102e-14
+    }
+  },
+  "slope_spread_across_estimators": 0.5136969271641796,
+  "max_pct_deviation_from_anchor": 6.325207487897186,
+  "model_level_bootstrap_unstable": false,
+  "conclusion": {
+    "stable_across_dependence_assumptions": true,
+    "summary": "The realized_cer log-odds slope is STABLE across dependence assumptions: all four estimators lie in 8.12-8.64 (spread 0.51, 6.3% max deviation from the univariate anchor 8.12). The preferred model-level estimator is the DerSimonian-Laird per-model pool (16 models; a model-clustered SE is not used because the model count is too small for that purpose); it shows between-model heterogeneity (tau^2=4.77, I^2=100%) but every model's slope is positive (range 4.1-10.8). The model-level cluster bootstrap is reported honestly as UNSTABLE (16 clusters: much wider CI than the message-level bootstrap). The exchangeable GEE diverged on this cohort and fell back to an independence working correlation (see its notes)."
+  }
+}

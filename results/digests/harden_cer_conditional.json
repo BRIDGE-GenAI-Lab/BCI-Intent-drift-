@@ -1,0 +1,392 @@
+{
+  "validation": {
+    "auth_by_target_cer_pct": {
+      "0.0": 1.1966262519768056,
+      "0.1": 12.783012651555087,
+      "0.2": 30.202622561939908,
+      "0.3": 48.152345809172374,
+      "0.4": 62.00349235635213
+    },
+    "manuscript_auth_by_target_cer_pct": {
+      "0.0": 1.2,
+      "0.1": 12.8,
+      "0.2": 30.2,
+      "0.3": 48.2,
+      "0.4": 62.0
+    },
+    "max_abs_diff_pct": 0.047654190827628895,
+    "passed": true,
+    "source": "docs/facts_v3.md L13-20; manuscript/30_results.md eTable / L17; manuscript/manuscript.md L126"
+  },
+  "drift_by_cer_bin": {
+    "AUTH": {
+      "0.00-0.05": {
+        "drift_rate": 0.014765860274027242,
+        "n": 401128
+      },
+      "0.05-0.10": {
+        "drift_rate": 0.08214758077409415,
+        "n": 137606
+      },
+      "0.10-0.15": {
+        "drift_rate": 0.1617238799186031,
+        "n": 143003
+      },
+      "0.15-0.20": {
+        "drift_rate": 0.26172806785051683,
+        "n": 158466
+      },
+      "0.20-0.25": {
+        "drift_rate": 0.38450984102952307,
+        "n": 147952
+      },
+      "0.25-0.30": {
+        "drift_rate": 0.5032602920577676,
+        "n": 124222
+      },
+      "0.30-0.35": {
+        "drift_rate": 0.5826333777443087,
+        "n": 120841
+      },
+      "0.35-0.40": {
+        "drift_rate": 0.6584651593140558,
+        "n": 111321
+      },
+      "0.40-0.45": {
+        "drift_rate": 0.7134031656008565,
+        "n": 69118
+      },
+      "0.45-0.50": {
+        "drift_rate": 0.7136630597580061,
+        "n": 59423
+      },
+      "0.50-0.55": {
+        "drift_rate": 0.7736168292820483,
+        "n": 17731
+      },
+      "0.55-0.60": {
+        "drift_rate": 0.6913189156259518,
+        "n": 16415
+      },
+      "0.60-0.65": {
+        "drift_rate": 0.7240024808765764,
+        "n": 4837
+      },
+      "0.65-0.70": {
+        "drift_rate": 0.6172947706690038,
+        "n": 3423
+      },
+      "0.70-0.75": {
+        "drift_rate": 0.5537918871252204,
+        "n": 1134
+      },
+      "0.75-0.80": {
+        "drift_rate": 0.5271629778672032,
+        "n": 497
+      },
+      "0.80-0.85": {
+        "drift_rate": 0.5172413793103449,
+        "n": 203
+      },
+      "0.85-0.90": {
+        "drift_rate": 0.5714285714285714,
+        "n": 91
+      },
+      "0.90-0.95": {
+        "drift_rate": null,
+        "n": 0
+      },
+      "0.95-1.00": {
+        "drift_rate": 0.328042328042328,
+        "n": 189
+      }
+    },
+    "CRIT": {
+      "0.00-0.05": {
+        "drift_rate": 0.026231929115498213,
+        "n": 25732
+      },
+      "0.05-0.10": {
+        "drift_rate": 0.10926750303520842,
+        "n": 7413
+      },
+      "0.10-0.15": {
+        "drift_rate": 0.21470765521398433,
+        "n": 8295
+      },
+      "0.15-0.20": {
+        "drift_rate": 0.3071686436307375,
+        "n": 9695
+      },
+      "0.20-0.25": {
+        "drift_rate": 0.4338937946050562,
+        "n": 8267
+      },
+      "0.25-0.30": {
+        "drift_rate": 0.5671776375112714,
+        "n": 7763
+      },
+      "0.30-0.35": {
+        "drift_rate": 0.6207518796992482,
+        "n": 6650
+      },
+      "0.35-0.40": {
+        "drift_rate": 0.6730224936690005,
+        "n": 6713
+      },
+      "0.40-0.45": {
+        "drift_rate": 0.7514236197078484,
+        "n": 4039
+      },
+      "0.45-0.50": {
+        "drift_rate": 0.6605551311433664,
+        "n": 3927
+      },
+      "0.50-0.55": {
+        "drift_rate": 0.7747589833479404,
+        "n": 1141
+      },
+      "0.55-0.60": {
+        "drift_rate": 0.62320230105465,
+        "n": 1043
+      },
+      "0.60-0.65": {
+        "drift_rate": 0.7413127413127413,
+        "n": 259
+      },
+      "0.65-0.70": {
+        "drift_rate": 0.42857142857142855,
+        "n": 343
+      },
+      "0.70-0.75": {
+        "drift_rate": 0.5428571428571428,
+        "n": 140
+      },
+      "0.75-0.80": {
+        "drift_rate": 0.5408163265306123,
+        "n": 98
+      },
+      "0.80-0.85": {
+        "drift_rate": 0.39285714285714285,
+        "n": 28
+      },
+      "0.85-0.90": {
+        "drift_rate": 0.5714285714285714,
+        "n": 14
+      },
+      "0.90-0.95": {
+        "drift_rate": null,
+        "n": 0
+      },
+      "0.95-1.00": {
+        "drift_rate": 0.4714285714285714,
+        "n": 140
+      }
+    },
+    "CTRL": {
+      "0.00-0.05": {
+        "drift_rate": 0.008857221588001417,
+        "n": 25403
+      },
+      "0.05-0.10": {
+        "drift_rate": 0.10357841766843724,
+        "n": 7154
+      },
+      "0.10-0.15": {
+        "drift_rate": 0.18029029793735676,
+        "n": 9163
+      },
+      "0.15-0.20": {
+        "drift_rate": 0.29089197458225463,
+        "n": 8498
+      },
+      "0.20-0.25": {
+        "drift_rate": 0.378290446613428,
+        "n": 10143
+      },
+      "0.25-0.30": {
+        "drift_rate": 0.5507853403141362,
+        "n": 6685
+      },
+      "0.30-0.35": {
+        "drift_rate": 0.5942964756524078,
+        "n": 7434
+      },
+      "0.35-0.40": {
+        "drift_rate": 0.6770421014753508,
+        "n": 5558
+      },
+      "0.40-0.45": {
+        "drift_rate": 0.7265675500969618,
+        "n": 4641
+      },
+      "0.45-0.50": {
+        "drift_rate": 0.6274417510002354,
+        "n": 4249
+      },
+      "0.50-0.55": {
+        "drift_rate": 0.7647690655209453,
+        "n": 931
+      },
+      "0.55-0.60": {
+        "drift_rate": 0.6585956416464891,
+        "n": 826
+      },
+      "0.60-0.65": {
+        "drift_rate": 0.7272727272727273,
+        "n": 308
+      },
+      "0.65-0.70": {
+        "drift_rate": 0.4839650145772595,
+        "n": 343
+      },
+      "0.70-0.75": {
+        "drift_rate": 0.36607142857142855,
+        "n": 224
+      },
+      "0.75-0.80": {
+        "drift_rate": 0.5,
+        "n": 28
+      },
+      "0.80-0.85": {
+        "drift_rate": 0.42857142857142855,
+        "n": 21
+      },
+      "0.85-0.90": {
+        "drift_rate": 0.21428571428571427,
+        "n": 14
+      },
+      "0.90-0.95": {
+        "drift_rate": null,
+        "n": 0
+      },
+      "0.95-1.00": {
+        "drift_rate": 0.2857142857142857,
+        "n": 77
+      }
+    },
+    "ALL": {
+      "0.00-0.05": {
+        "drift_rate": 0.015086354621094363,
+        "n": 452263
+      },
+      "0.05-0.10": {
+        "drift_rate": 0.08447622114304114,
+        "n": 152173
+      },
+      "0.10-0.15": {
+        "drift_rate": 0.16552308660671441,
+        "n": 160461
+      },
+      "0.15-0.20": {
+        "drift_rate": 0.2656247346582965,
+        "n": 176659
+      },
+      "0.20-0.25": {
+        "drift_rate": 0.3865846767891706,
+        "n": 166362
+      },
+      "0.25-0.30": {
+        "drift_rate": 0.5091295882310521,
+        "n": 138670
+      },
+      "0.30-0.35": {
+        "drift_rate": 0.5851547155827311,
+        "n": 134925
+      },
+      "0.35-0.40": {
+        "drift_rate": 0.660091268043239,
+        "n": 123592
+      },
+      "0.40-0.45": {
+        "drift_rate": 0.7161623692125761,
+        "n": 77798
+      },
+      "0.45-0.50": {
+        "drift_rate": 0.7051583603307742,
+        "n": 67599
+      },
+      "0.50-0.55": {
+        "drift_rate": 0.7732666767661466,
+        "n": 19803
+      },
+      "0.55-0.60": {
+        "drift_rate": 0.6859549332749946,
+        "n": 18284
+      },
+      "0.60-0.65": {
+        "drift_rate": 0.725018504811251,
+        "n": 5404
+      },
+      "0.65-0.70": {
+        "drift_rate": 0.5904112922852276,
+        "n": 4109
+      },
+      "0.70-0.75": {
+        "drift_rate": 0.5246995994659546,
+        "n": 1498
+      },
+      "0.75-0.80": {
+        "drift_rate": 0.5280898876404494,
+        "n": 623
+      },
+      "0.80-0.85": {
+        "drift_rate": 0.49603174603174605,
+        "n": 252
+      },
+      "0.85-0.90": {
+        "drift_rate": 0.5294117647058824,
+        "n": 119
+      },
+      "0.90-0.95": {
+        "drift_rate": null,
+        "n": 0
+      },
+      "0.95-1.00": {
+        "drift_rate": 0.3694581280788177,
+        "n": 406
+      }
+    }
+  },
+  "pooled_uniform": 0.30867619926199263,
+  "pooled_uniform_manuscript_pct": 30.9,
+  "pooled_uniform_by_corpus": {
+    "AUTH": 0.30867619926199263,
+    "CRIT": 0.33365321701199563,
+    "CTRL": 0.3119302071973828,
+    "ALL": 0.3101981187536743
+  },
+  "reweighted_empirical": 0.2882126916862354,
+  "reweighted_empirical_by_corpus": {
+    "AUTH": 0.2882126916862354,
+    "CRIT": 0.306796646639988,
+    "CTRL": 0.29297406498100853,
+    "ALL": 0.2891583347071087
+  },
+  "realistic_cer_weights": {
+    "0.00-0.05": 0.14899487583760346,
+    "0.05-0.10": 0.30744974379188017,
+    "0.10-0.15": 0.09459992116673237,
+    "0.15-0.20": 0.04256996452502956,
+    "0.20-0.25": 0.059124950729207724,
+    "0.25-0.30": 0.08277493102089081,
+    "0.30-0.35": 0.059124950729207724,
+    "0.40-0.45": 0.04256996452502956,
+    "0.45-0.50": 0.023649980291683092,
+    "0.55-0.60": 0.07765076862435948,
+    "0.65-0.70": 0.023649980291683092,
+    "0.75-0.80": 0.03783996846669294
+  },
+  "reweight_source": {
+    "method": "Selection-count-weighted empirical CER across the 29 real bigP3BCI Studies F/L/N participants (2,537 eligible Test-phase selections, 425 EDF files), re-derived directly via idrift.data.materialize_confusion.collect_eligible_rows -- NOT the simulated exposure realized_cer.",
+    "n_subjects": 29,
+    "n_selections": 2537,
+    "n_files_used": 425,
+    "n_files_skipped": 0,
+    "weighted_mean_cer": 0.21363815530153724,
+    "sensitivity_unweighted_subject_mean_cer": 0.22393181329895795,
+    "sensitivity_unweighted_subject_mean_reweighted_auth": 0.3055645832332113,
+    "provenance_overall_cer_reference": "output/intermediate/provenance.json"
+  },
+  "reweight_note": "SECONDARY, APPROXIMATE number -- do not treat as a precise clinical incidence rate. The manuscript's headline pooled AUTH drift rate (30.9%) equally weights five synthetic target-CER conditions (0/10/20/30/40%), including CER=0 (no corruption), a condition a real BCI essentially never operates at, and CER=40%, an upper stress-test bound. Reweighting instead by the REAL, selection-count- weighted operating-CER distribution of the 29 bigP3BCI Studies F/L/N participants (2,537 eligible selections, weighted mean CER 0.2136, concentrated near the anchor's published operating point ~0.2136) gives a reweighted AUTH drift estimate of 0.288 (28.8%), versus the naive uniform-grid pooled 0.309 (30.9%). This reweighting is NOT computed from the exposures' own simulated realized_cer (that distribution is ~uniform across 0-0.4 by construction of the experimental design and reweighting by it would be circular); it comes from re-deriving the real per-subject selection-level CER directly from the bigP3BCI EDF source (idrift.data.materialize_confusion.collect_eligible_rows), independent of the simulated corruption pipeline. Caveats: N=29 subjects is small and the resulting weight histogram is lumpy (a handful of subjects set several bins' weight); an unweighted one-subject-one-vote sensitivity version gives 0.306 (30.6%) instead, a materially different number, illustrating that the reweighted point estimate is sensitive to the (defensible but not unique) choice of weighting and should be reported as an approximate, directionally-informative complement to the CER-conditional curve above, not a replacement for it."
+}

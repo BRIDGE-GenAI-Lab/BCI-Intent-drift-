@@ -1,0 +1,79 @@
+{
+  "by_corpus": {
+    "AUTH": {
+      "0.0": 0.021570493220589165,
+      "0.1": 0.1443319077711808,
+      "0.2": 0.31922790018477465,
+      "0.3": 0.4859436057277286,
+      "0.4": 0.6027296881260148
+    },
+    "CRIT": {
+      "0.0": 0.030097489694881244,
+      "0.1": 0.1716105391729192,
+      "0.2": 0.3546705633464919,
+      "0.3": 0.5142526880547862,
+      "0.4": 0.6129602163671262
+    },
+    "CTRL": {
+      "0.0": 0.016620136101901935,
+      "0.1": 0.1550020719286384,
+      "0.2": 0.32352620444483216,
+      "0.3": 0.48141685569708603,
+      "0.4": 0.5973915508931102
+    }
+  },
+  "ordinal_model": {
+    "beta": 8.311123812402421,
+    "se": 0.04762010101770259,
+    "ci": [
+      8.217790129467565,
+      8.404457495337278
+    ],
+    "or_per_10pp": 2.29587120440216,
+    "n_obs": 4252326,
+    "n_clusters": 2299,
+    "converged": true,
+    "notes": "engine=statsmodels.api.Logit (label=='drift' ~ 1 + cer_target), cov_type='cluster', cov_kwds={'groups': message_id}, fit on the full pooled panel (all corpora). beta/ci are on the log-odds scale; or_per_10pp = exp(beta * 0.1) is a derived point estimate, not separately re-fit."
+  },
+  "categorical_model": {
+    "0.1": {
+      "or": 7.707752481353727,
+      "ci": [
+        7.003129799873554,
+        8.483271053306366
+      ],
+      "p": 0.0
+    },
+    "0.2": {
+      "or": 21.285880760520826,
+      "ci": [
+        19.215363569632345,
+        23.579502834240664
+      ],
+      "p": 0.0
+    },
+    "0.3": {
+      "or": 42.7093097666146,
+      "ci": [
+        38.46102541424863,
+        47.42684629684558
+      ],
+      "p": 0.0
+    },
+    "0.4": {
+      "or": 68.27053473211228,
+      "ci": [
+        61.351409542052345,
+        75.96998907439664
+      ],
+      "p": 0.0
+    },
+    "reference_level": 0.0,
+    "n_obs": 4252326,
+    "n_clusters": 2299,
+    "converged": true,
+    "notes": "engine=statsmodels.formula.api.logit (drift ~ C(cer_target, Treatment(reference=0.0))), cov_type='cluster', cov_kwds={'groups': message_id}, fit on the full pooled panel (all corpora). or/ci are on the odds-ratio scale, each non-reference level vs. the 0.0 reference."
+  },
+  "n_rows": 4252326,
+  "notes": "Realized CER (the corruption rate actually realized in a message's generated output, a post-generation quantity) is reported separately as the secondary dose-response; this module treats only the experimentally assigned target CER as the primary exposure (reviewer major #3)."
+}

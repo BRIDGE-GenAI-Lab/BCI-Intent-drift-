@@ -1,0 +1,294 @@
+{
+  "confidently_wrong_rate": {
+    "conf_threshold": 0.9,
+    "effective_threshold": 90.0,
+    "n_excluded_nan": 119,
+    "notes": "confidence scale detected as 0-100 from df['confidence'].max() on 533281 non-NaN row(s); conf_threshold=0.9 rescaled to effective_threshold=90.0 for comparison (>= is inclusive). 119 NaN-confidence row(s) excluded from every denominator below. frac_drift_at_high_confidence = P(confidence >= threshold | label == 'drift'). confidently_wrong_rate = P(label != 'faithful' | confidence >= threshold). Report per-model, not just pooled -- confidence scales differ across models.",
+    "per_model": {
+      "gemma4:12b": {
+        "confidently_wrong_rate": 0.22940315218327448,
+        "frac_drift_at_high_confidence": 0.45698304181834326,
+        "n": 76190,
+        "n_drift": 22526,
+        "n_drift_at_high_confidence": 10294,
+        "n_high_confidence": 58055,
+        "n_high_confidence_not_faithful": 13318
+      },
+      "gemma4:31b": {
+        "confidently_wrong_rate": 0.09579236825253325,
+        "frac_drift_at_high_confidence": 0.17590269444747464,
+        "n": 76200,
+        "n_drift": 18334,
+        "n_drift_at_high_confidence": 3225,
+        "n_high_confidence": 53094,
+        "n_high_confidence_not_faithful": 5086
+      },
+      "gemma4:e4b": {
+        "confidently_wrong_rate": 0.21285173270350613,
+        "frac_drift_at_high_confidence": 0.33405639913232105,
+        "n": 76200,
+        "n_drift": 18901,
+        "n_drift_at_high_confidence": 6314,
+        "n_high_confidence": 49114,
+        "n_high_confidence_not_faithful": 10454
+      },
+      "mistral-small:24b": {
+        "confidently_wrong_rate": 0.18178491265736313,
+        "frac_drift_at_high_confidence": 0.19799273636115125,
+        "n": 76198,
+        "n_drift": 25607,
+        "n_drift_at_high_confidence": 5070,
+        "n_high_confidence": 40988,
+        "n_high_confidence_not_faithful": 7451
+      },
+      "phi4:14b": {
+        "confidently_wrong_rate": 0.3360260368855879,
+        "frac_drift_at_high_confidence": 0.5716572144323441,
+        "n": 76190,
+        "n_drift": 28741,
+        "n_drift_at_high_confidence": 16430,
+        "n_high_confidence": 59915,
+        "n_high_confidence_not_faithful": 20133
+      },
+      "phi4:mini": {
+        "confidently_wrong_rate": 0.5726403544569463,
+        "frac_drift_at_high_confidence": 0.8495619746655617,
+        "n": 76103,
+        "n_drift": 33788,
+        "n_drift_at_high_confidence": 28705,
+        "n_high_confidence": 68612,
+        "n_high_confidence_not_faithful": 39290
+      },
+      "qwen3.5:27b-q4": {
+        "confidently_wrong_rate": 0.10234797002962188,
+        "frac_drift_at_high_confidence": 0.13344171536534996,
+        "n": 76200,
+        "n_drift": 22759,
+        "n_drift_at_high_confidence": 3037,
+        "n_high_confidence": 45912,
+        "n_high_confidence_not_faithful": 4699
+      }
+    },
+    "pooled": {
+      "confidently_wrong_rate": 0.2673241236125529,
+      "frac_drift_at_high_confidence": 0.42820059066191635,
+      "n": 533281,
+      "n_drift": 170656,
+      "n_drift_at_high_confidence": 73075,
+      "n_high_confidence": 375690,
+      "n_high_confidence_not_faithful": 100431
+    },
+    "scale_detected": "0-100"
+  },
+  "missing_confidence_audit": {
+    "notes": "119 of 533400 row(s) have NaN confidence, tabulated across 7 model(s) x 5 cer_target level(s). Cells with zero missing rows are included explicitly.",
+    "table": [
+      {
+        "cer_target": 0.0,
+        "model": "gemma4:12b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.1,
+        "model": "gemma4:12b",
+        "n_missing": 1
+      },
+      {
+        "cer_target": 0.2,
+        "model": "gemma4:12b",
+        "n_missing": 1
+      },
+      {
+        "cer_target": 0.3,
+        "model": "gemma4:12b",
+        "n_missing": 3
+      },
+      {
+        "cer_target": 0.4,
+        "model": "gemma4:12b",
+        "n_missing": 5
+      },
+      {
+        "cer_target": 0.0,
+        "model": "gemma4:31b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.1,
+        "model": "gemma4:31b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.2,
+        "model": "gemma4:31b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.3,
+        "model": "gemma4:31b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.4,
+        "model": "gemma4:31b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.0,
+        "model": "gemma4:e4b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.1,
+        "model": "gemma4:e4b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.2,
+        "model": "gemma4:e4b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.3,
+        "model": "gemma4:e4b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.4,
+        "model": "gemma4:e4b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.0,
+        "model": "mistral-small:24b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.1,
+        "model": "mistral-small:24b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.2,
+        "model": "mistral-small:24b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.3,
+        "model": "mistral-small:24b",
+        "n_missing": 2
+      },
+      {
+        "cer_target": 0.4,
+        "model": "mistral-small:24b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.0,
+        "model": "phi4:14b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.1,
+        "model": "phi4:14b",
+        "n_missing": 1
+      },
+      {
+        "cer_target": 0.2,
+        "model": "phi4:14b",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.3,
+        "model": "phi4:14b",
+        "n_missing": 2
+      },
+      {
+        "cer_target": 0.4,
+        "model": "phi4:14b",
+        "n_missing": 7
+      },
+      {
+        "cer_target": 0.0,
+        "model": "phi4:mini",
+        "n_missing": 14
+      },
+      {
+        "cer_target": 0.1,
+        "model": "phi4:mini",
+        "n_missing": 9
+      },
+      {
+        "cer_target": 0.2,
+        "model": "phi4:mini",
+        "n_missing": 16
+      },
+      {
+        "cer_target": 0.3,
+        "model": "phi4:mini",
+        "n_missing": 27
+      },
+      {
+        "cer_target": 0.4,
+        "model": "phi4:mini",
+        "n_missing": 31
+      },
+      {
+        "cer_target": 0.0,
+        "model": "qwen3.5:27b-q4",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.1,
+        "model": "qwen3.5:27b-q4",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.2,
+        "model": "qwen3.5:27b-q4",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.3,
+        "model": "qwen3.5:27b-q4",
+        "n_missing": 0
+      },
+      {
+        "cer_target": 0.4,
+        "model": "qwen3.5:27b-q4",
+        "n_missing": 0
+      }
+    ],
+    "total_missing": 119
+  },
+  "predicted_drift_grid": {
+    "cer_grid": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4
+    ],
+    "coefficients": {
+      "const": {
+        "est": -2.7210150122616708,
+        "se": 0.035821477296547506
+      },
+      "realized_cer": {
+        "est": 8.788681772292223,
+        "se": 0.14794356749890686
+      }
+    },
+    "converged": true,
+    "n_obs": 533400,
+    "notes": "engine=statsmodels.api.Logit (label=='drift' ~ 1 + realized_cer), cov_type='cluster', cov_kwds={'groups': message_id}. Deliberately univariate (realized_cer only, no covariates or random effects) for a single quotable number per CER grid point; see idrift.analysis.mixed_models for the covariate-adjusted models. `seed` is accepted for interface consistency but unused -- this fit's Newton-Raphson MLE is already deterministic.",
+    "predicted_drift_probability": {
+      "0.0": 0.061744638168129876,
+      "0.1": 0.13679758796545413,
+      "0.2": 0.27622223341040086,
+      "0.3": 0.478909900843179,
+      "0.4": 0.6887876821629039
+    },
+    "seed": 0
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "n_unique_messages": 2299,
+  "n_unique_by_corpus": {
+    "AUTH": 2168,
+    "CRIT": 131,
+    "CTRL": 131
+  },
+  "n_byte_identical_input_dupes": 92106,
+  "ctrl_are_auth_twins": true,
+  "crit_distinct": true,
+  "n_ctrl_twin_rows": 91700,
+  "primary_slope_full": 5.408133519826372,
+  "primary_slope_full_ci": [
+    5.0065011719875345,
+    5.809765867665209
+  ],
+  "primary_slope_full_engine": "clustered_logit_fallback",
+  "primary_slope_full_n_obs": 1701000,
+  "primary_slope_dedup": 5.587198311380146,
+  "primary_slope_dedup_ci": [
+    5.225846397627058,
+    5.948550225133235
+  ],
+  "primary_slope_dedup_engine": "clustered_logit_fallback",
+  "primary_slope_dedup_n_obs": 1609300,
+  "slope_delta": 0.17906479155377486,
+  "n_unique_messages_dedup": 2299,
+  "dedup_is_count_balanced_700_rows_per_message": true,
+  "byte_identical_audit_note": "n_byte_identical_input_dupes counts rows whose exact noisy_text string recurs under >1 corpus ANYWHERE in the table (global check, not paired by message/cer_target/replicate/model key). A stricter paired check (same key, AUTH vs CTRL) finds only 19838 of 91700 CTRL rows are byte-identical to their AUTH twin -- almost entirely a cer_target=0.0 artifact (0 realized errors always yields noisy_text == intended_text). Most CTRL rows use an INDEPENDENT corruption draw from AUTH for the same underlying message: CTRL and AUTH are twins in MESSAGE IDENTITY, not in literal corrupted-input bytes.",
+  "n_ctrl_keys_matched_in_auth": 91700,
+  "n_ctrl_rows_byte_identical_to_auth_twin": 19838
+}

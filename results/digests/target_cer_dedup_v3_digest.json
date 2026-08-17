@@ -1,0 +1,36 @@
+{
+  "or_per_10pp_full": 2.29587120440216,
+  "or_per_10pp_deduplicated": 2.297142193927302,
+  "or_ci_full": [
+    2.274542681208343,
+    2.3173997264376736
+  ],
+  "or_ci_deduplicated": [
+    2.2761277019079644,
+    2.3183507035645703
+  ],
+  "beta_full": 8.311123812402421,
+  "beta_deduplicated": 8.31665825982226,
+  "ci_full": [
+    8.217790129467565,
+    8.404457495337278
+  ],
+  "ci_deduplicated": [
+    8.22475622734008,
+    8.40856029230444
+  ],
+  "n_obs_full": 4252326,
+  "n_obs_deduplicated": 4023077,
+  "n_unique_messages": 2299,
+  "rows_per_message_dedup": null,
+  "dedup_is_count_balanced": false,
+  "rows_per_message_distribution": {
+    "1751": 1525,
+    "1748": 763,
+    "1739": 2,
+    "1734": 6,
+    "1732": 3
+  },
+  "or_delta": 0.001270989525141708,
+  "notes": "Deduplication drops all CTRL-corpus rows (131 message ids, a full subset of AUTH's 2,168) from the current 20-model target-CER primary panel (idrift.analysis.target_cer_primary.fit_ordinal_model), leaving the 2,299 unique AUTH+CRIT messages. Mirrors eTable 8's method (a1_dedup.py), applied to the current primary exposure (target CER) and current 20-model panel, not the old realized-CER 7-model analysis eTable 8 Panel A already reports. Unlike the old 7-model panel, the current panel is only NEAR count-balanced (not exactly, see rows_per_message_distribution) because 3 of the 20 models are reduced-replicate reasoning models with far fewer generations per message than the other 17 full-grid models."
+}

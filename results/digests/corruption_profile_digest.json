@@ -1,0 +1,125 @@
+{
+  "insertion_frac": 0.05,
+  "deletion_frac": 0.05,
+  "substitution_frac": 0.9,
+  "ins_del_rate": 0.1,
+  "allocation_source": "idrift.data.noise_model.inject / inject_with_metadata (ins_del_rate default parameter)",
+  "allocation_note": "inject()/inject_with_metadata() split cer_target into indel_budget = cer_target * ins_del_rate and sub_budget = cer_target * (1 - ins_del_rate); within the indel budget, a structural (non-parametric) 50/50 coin flip in the algorithm itself chooses deletion vs. insertion. insertion_frac and deletion_frac are therefore each ins_del_rate / 2, and substitution_frac is 1 - ins_del_rate; the three sum to 1.0 by construction.",
+  "n_participants": 29,
+  "n_studies": 3,
+  "studies": [
+    "StudyF",
+    "StudyL",
+    "StudyN"
+  ],
+  "per_study_n_participants": {
+    "StudyF": 10,
+    "StudyL": 11,
+    "StudyN": 8
+  },
+  "confusion_matrix_provenance": {
+    "n_total_eligible_selections": 2537,
+    "per_study_eligible_selections": {
+      "StudyF": 1067,
+      "StudyL": 990,
+      "StudyN": 480
+    },
+    "n_subjects": 29,
+    "overall_cer": 0.21363815530153724,
+    "per_study_cer": {
+      "StudyF": 0.2211808809746954,
+      "StudyL": 0.1606060606060606,
+      "StudyN": 0.30625
+    },
+    "n_files_used": 425,
+    "n_files_skipped": 0,
+    "n_pairs_out_of_grid": 0,
+    "grid": "6x6",
+    "charmap": "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789 ",
+    "studies": [
+      "StudyF",
+      "StudyL",
+      "StudyN"
+    ]
+  },
+  "grid_passthrough": {
+    "description": "Out-of-grid characters (not in the 36-cell alphabet, in practice ordinary punctuation) can never be SUBSTITUTED (the substitution branch requires grid membership), but they are NOT otherwise protected: the indel branch fires before any grid-membership check, so an out-of-grid character can still be deleted, or preceded by an inserted grid character.",
+    "alphabet_size": 36,
+    "n_messages": 500,
+    "mean_structural_oog_char_frac": 0.03570106261748383,
+    "median_structural_oog_char_frac": 0.03333333333333333,
+    "empirical_check_available": true,
+    "empirical_mean_oog_passthrough_frac": 0.03187054972431641,
+    "empirical_source": "output/intermediate/exposure_v2.parquet",
+    "note": "mean_structural_oog_char_frac is the exact, corruption-draw-independent fraction of characters in the cached message sample that are outside the 36-cell grid. empirical_mean_oog_passthrough_frac (when available) is the fraction of characters the cached exposure artifact recorded as passing through COMPLETELY untouched (n_passthrough_chars); it is expected to sit slightly BELOW the structural figure, since some out-of-grid characters are unlucky enough to be touched by the indel branch even though they can never be substituted.",
+    "empirical_n_rows_checked": 50480
+  },
+  "row_column_confusion_structure": {
+    "off_diag_mass_same_row_frac": 0.18587541394696705,
+    "off_diag_mass_same_col_frac": 0.23458719343124984,
+    "off_diag_mass_neither_frac": 0.5795373926217832,
+    "uniform_expected_same_row_frac": 0.14285714285714285,
+    "uniform_expected_same_col_frac": 0.14285714285714285,
+    "uniform_expected_neither_frac": 0.7142857142857143,
+    "grid_shape": [
+      6,
+      6
+    ],
+    "note": "off_diag_mass_* partitions the empirical pooled confusion matrix's off-diagonal probability mass by grid adjacency; uniform_expected_* is the same partition's null (structure-free/uniform-over-other-cells) expectation. same_row/same_col enrichment above the uniform expectation is evidence the per-character substitution step already encodes empirical P300 row/column confusability; it does not address independence ACROSS character positions within a message (see independence_assumption_note)."
+  },
+  "independence_assumption_note": "The per-character SUBSTITUTION step is not independent of grid geometry: the substitution target is drawn from that character's own row of the empirical confusion matrix, and the row_column_confusion_structure check below shows the matrix's off-diagonal mass is enriched for same-row/same-column grid neighbors relative to a structure-free (uniform) null, consistent with known P300 row/column confusability. What IS an independence assumption is ACROSS character positions within a message: inject()/inject_with_metadata() draw a fresh, uncorrelated random number for every position in sequence, with no mechanism coupling one position's corruption outcome to its neighbors'. This does not model within-message phenomena such as attentional fatigue or drift-related error runs that would correlate consecutive positions' error probability; it is reported here as a genuine simplifying limitation, not resolved by this module.",
+  "heldout_matrix_sensitivity": {
+    "compute_gated": false,
+    "method": "Re-applied idrift.data.noise_model.inject (unmodified) to the cached AUTH message sample, once per participant's cached confusion matrix (output/intermediate/confusion_by_subject.npz) and once with the pooled matrix (confusion_overall.npy), at matched cer_target levels with the same n_rep replicate count; message texts and cer_target levels are identical across matrices, only the confusion matrix varies. Reports the spread of per-participant mean realized CER around the pooled-matrix mean as a descriptive bound on matrix sensitivity.",
+    "n_participants": 29,
+    "n_messages": 500,
+    "cer_grid": [
+      0.1,
+      0.2,
+      0.3,
+      0.4
+    ],
+    "n_rep": 5,
+    "by_cer_target": {
+      "0.1": {
+        "pooled_mean_realized_cer": 0.09568802955091553,
+        "heldout_participant_mean_realized_cer": 0.09702234683220631,
+        "heldout_participant_min": 0.0928285815660126,
+        "heldout_participant_max": 0.09939088833718956,
+        "heldout_participant_sd": 0.0013731467570476047,
+        "max_abs_diff_vs_pooled": 0.0037028587862740353,
+        "max_rel_diff_vs_pooled_pct": 3.8697199677455445
+      },
+      "0.2": {
+        "pooled_mean_realized_cer": 0.19164254709243234,
+        "heldout_participant_mean_realized_cer": 0.19324714804409304,
+        "heldout_participant_min": 0.18947932176977716,
+        "heldout_participant_max": 0.19708912914503254,
+        "heldout_participant_sd": 0.0018238927272341892,
+        "max_abs_diff_vs_pooled": 0.005446582052600207,
+        "max_rel_diff_vs_pooled_pct": 2.8420526314405703
+      },
+      "0.3": {
+        "pooled_mean_realized_cer": 0.28898171484584595,
+        "heldout_participant_mean_realized_cer": 0.289263300109852,
+        "heldout_participant_min": 0.284890436354346,
+        "heldout_participant_max": 0.2940313334786744,
+        "heldout_participant_sd": 0.002102716848330115,
+        "max_abs_diff_vs_pooled": 0.005049618632828434,
+        "max_rel_diff_vs_pooled_pct": 1.747383441032626
+      },
+      "0.4": {
+        "pooled_mean_realized_cer": 0.38811956657219737,
+        "heldout_participant_mean_realized_cer": 0.3854637385874261,
+        "heldout_participant_min": 0.38110474665435323,
+        "heldout_participant_max": 0.39164504330047295,
+        "heldout_participant_sd": 0.0022597986365402683,
+        "max_abs_diff_vs_pooled": 0.0070148199178441395,
+        "max_rel_diff_vs_pooled_pct": 1.8073863113364201
+      }
+    },
+    "overall_max_abs_diff_vs_pooled": 0.0070148199178441395,
+    "note": "Descriptive bound only (reviewer major #10): this quantifies how differently the SAME messages would have been corrupted had a single held-out participant's own selection-error profile been used instead of the cohort-pooled matrix; it does not re-run the labeling/exposure pipeline itself, which would require full regeneration and is out of scope for this task."
+  },
+  "notes": "Reviewer major #10 (corruption-model transparency + sensitivity). Reads cached confusion-matrix artifacts, the cached AUTH message sample, and idrift.data.noise_model's source directly; no new LLM inference and no re-materialization of any confusion matrix from the source EDFs is performed here."
+}

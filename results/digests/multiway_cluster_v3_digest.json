@@ -1,0 +1,237 @@
+{
+  "realized_cer": {
+    "beta": 8.03672795994393,
+    "se_message_only": 0.07135011895898233,
+    "se_model_only": 0.4236019111515483,
+    "se_twoway": 0.4288408192591465,
+    "ci_twoway": [
+      7.196215399095352,
+      8.877240520792508
+    ],
+    "n_obs": 4252326,
+    "n_message_clusters": 2299,
+    "n_model_clusters": 20,
+    "n_intersection_clusters": 45971,
+    "twoway_fallback": false,
+    "note": "Two-way (message x model) Cameron-Gelbach-Miller cluster-robust SE; wider than the message-only SE because it adds the model-level dependence axis that message clustering cannot see.",
+    "validation": {
+      "one_way_matches_statsmodels_uncorrected": true,
+      "se_message_one_way_sandwich": 0.07135011895898233,
+      "se_message_statsmodels_default": 0.0713656500567146,
+      "rel_diff_vs_statsmodels_default": 0.00021762707576997165,
+      "note": "The one-way message meat, sandwiched, reproduces statsmodels' cov_cluster(use_correction=False) exactly and its finite-sample-corrected default clustered SE to ~1e-4 (correction factor ~1.0 with thousands of message clusters). This validates the sandwich algebra used for the two-way SE."
+    }
+  },
+  "per_model": {
+    "command-r:latest": {
+      "slope": 7.4447810084658785,
+      "se": 0.10102935693102509,
+      "ci": [
+        7.246767107499827,
+        7.64279490943193
+      ],
+      "n": 243000
+    },
+    "deepseek-r1:32b": {
+      "slope": 5.112791294163601,
+      "se": 0.10888449987206394,
+      "ci": [
+        4.899381595939699,
+        5.326200992387502
+      ],
+      "n": 40500
+    },
+    "gemma2:9b": {
+      "slope": 10.008424471262034,
+      "se": 0.11746238952696915,
+      "ci": [
+        9.778202418251158,
+        10.238646524272909
+      ],
+      "n": 243000
+    },
+    "gemma3:27b": {
+      "slope": 9.03309431624683,
+      "se": 0.10062953725168099,
+      "ci": [
+        8.835864047452603,
+        9.230324585041057
+      ],
+      "n": 243000
+    },
+    "gemma4:12b": {
+      "slope": 9.63621238534503,
+      "se": 0.11580000913142677,
+      "ci": [
+        9.409248538038023,
+        9.863176232652036
+      ],
+      "n": 243000
+    },
+    "gemma4:31b": {
+      "slope": 10.78145357888646,
+      "se": 0.11674222829428939,
+      "ci": [
+        10.5526430159547,
+        11.010264141818219
+      ],
+      "n": 243000
+    },
+    "gemma4:e4b": {
+      "slope": 6.718667436011144,
+      "se": 0.08034354914057969,
+      "ci": [
+        6.561196973305483,
+        6.876137898716804
+      ],
+      "n": 243000
+    },
+    "gpt-oss:120b": {
+      "slope": 6.802193192907452,
+      "se": 0.1095524149143474,
+      "ci": [
+        6.587474405255942,
+        7.0169119805589615
+      ],
+      "n": 40500
+    },
+    "gpt-oss:20b": {
+      "slope": 5.086534643755201,
+      "se": 0.08235012803412321,
+      "ci": [
+        4.925131358686057,
+        5.247937928824344
+      ],
+      "n": 40326
+    },
+    "granite3.3:8b": {
+      "slope": 8.43520922981256,
+      "se": 0.12157318645855365,
+      "ci": [
+        8.196930162868023,
+        8.673488296757098
+      ],
+      "n": 243000
+    },
+    "llama3.1:8b": {
+      "slope": 7.453581626867106,
+      "se": 0.11991293263225611,
+      "ci": [
+        7.218556597627305,
+        7.688606656106906
+      ],
+      "n": 243000
+    },
+    "llama4:17b-scout-16e-instruct-q4_K_M": {
+      "slope": 7.367102476062093,
+      "se": 0.06988809669142625,
+      "ci": [
+        7.230124323598845,
+        7.504080628525341
+      ],
+      "n": 243000
+    },
+    "mistral-small:24b": {
+      "slope": 9.636703619571513,
+      "se": 0.11667014798584849,
+      "ci": [
+        9.408034331448292,
+        9.865372907694734
+      ],
+      "n": 243000
+    },
+    "phi3:mini": {
+      "slope": 7.682690466731503,
+      "se": 0.0985091502926197,
+      "ci": [
+        7.489616080010325,
+        7.875764853452681
+      ],
+      "n": 243000
+    },
+    "phi4:14b": {
+      "slope": 10.393406263681332,
+      "se": 0.11301881978505401,
+      "ci": [
+        10.171893447327403,
+        10.61491908003526
+      ],
+      "n": 243000
+    },
+    "phi4:mini": {
+      "slope": 8.527880883130667,
+      "se": 0.09716687151125282,
+      "ci": [
+        8.33743731447818,
+        8.718324451783154
+      ],
+      "n": 243000
+    },
+    "qwen2.5:7b": {
+      "slope": 4.0960359530122705,
+      "se": 0.057089216429974325,
+      "ci": [
+        3.9841431449039084,
+        4.207928761120632
+      ],
+      "n": 243000
+    },
+    "qwen3.5:27b-q4": {
+      "slope": 10.219431425462854,
+      "se": 0.12208954912028987,
+      "ci": [
+        9.980140306298352,
+        10.458722544627356
+      ],
+      "n": 243000
+    },
+    "qwen3.6:27b": {
+      "slope": 10.23741321625741,
+      "se": 0.12174574324062533,
+      "ci": [
+        9.998795944234724,
+        10.476030488280097
+      ],
+      "n": 243000
+    },
+    "qwen3.6:35b-a3b": {
+      "slope": 8.941761764227504,
+      "se": 0.10802703958742149,
+      "ci": [
+        8.730032657279676,
+        9.153490871175332
+      ],
+      "n": 243000
+    }
+  },
+  "per_model_summary": {
+    "min": 4.0960359530122705,
+    "median": 8.481545056471614,
+    "max": 10.78145357888646,
+    "k_models": 20
+  },
+  "message_aggregated": {
+    "beta": 3.600071758832786,
+    "se": 0.09199063006124908,
+    "ci": [
+      3.4197734369975903,
+      3.780370080667982
+    ],
+    "n_messages": 2299,
+    "note": "Grouped binomial GLM of per-message drift proportion on message-mean realized_cer, weighted by message size via the binomial counts (one row per message). Ecological/aggregated sensitivity; the log-odds slope is comparable to but not identical to the row-level realized_cer slope."
+  },
+  "model_bootstrap": {
+    "n_clusters": 20,
+    "point": 8.18076846259302,
+    "ci": [
+      7.27175667561804,
+      8.963819899330884
+    ],
+    "se": 0.42758038068694487,
+    "n_boot": 2000,
+    "unstable": true,
+    "note": "Only 16 model clusters -- far too few for a trustworthy cluster bootstrap or a model-clustered SE (the usual rule of thumb wants 30-50+). With so few clusters the resampling distribution is coarse and its tails are unstable, so this CI is reported for honesty, not relied upon; the two-way sandwich (realized_cer.se_twoway) and the per-model summary are the preferred reads of model-level uncertainty."
+  },
+  "n_rows": 4252326,
+  "notes": "The full crossed (message x model) variational-Bayes mixed model is known not to converge at this study's 3,888,000-row scale and is not attempted here; the Cameron-Gelbach-Miller two-way cluster-robust sandwich is the tractable closed-form substitute (see realized_cer.se_twoway)."
+}

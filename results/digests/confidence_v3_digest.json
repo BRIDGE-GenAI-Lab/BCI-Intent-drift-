@@ -1,0 +1,736 @@
+{
+  "confidently_wrong_rate": {
+    "conf_threshold": 0.9,
+    "scale_detected": "0-100",
+    "effective_threshold": 90.0,
+    "n_excluded_nan": 15814,
+    "pooled": {
+      "n": 4236512,
+      "n_drift": 1332765,
+      "n_drift_at_high_confidence": 575510,
+      "frac_drift_at_high_confidence": 0.4318165618094713,
+      "n_high_confidence": 2849121,
+      "n_high_confidence_not_faithful": 809303,
+      "confidently_wrong_rate": 0.28405357301427353
+    },
+    "per_model": {
+      "command-r:latest": {
+        "n": 242985,
+        "n_drift": 68628,
+        "n_drift_at_high_confidence": 29566,
+        "frac_drift_at_high_confidence": 0.4308154106195722,
+        "n_high_confidence": 161387,
+        "n_high_confidence_not_faithful": 49995,
+        "confidently_wrong_rate": 0.30978331588046126
+      },
+      "deepseek-r1:32b": {
+        "n": 37172,
+        "n_drift": 10889,
+        "n_drift_at_high_confidence": 3658,
+        "frac_drift_at_high_confidence": 0.3359353475984939,
+        "n_high_confidence": 21288,
+        "n_high_confidence_not_faithful": 5322,
+        "confidently_wrong_rate": 0.25
+      },
+      "gemma2:9b": {
+        "n": 242997,
+        "n_drift": 77465,
+        "n_drift_at_high_confidence": 52499,
+        "frac_drift_at_high_confidence": 0.6777125153295036,
+        "n_high_confidence": 203206,
+        "n_high_confidence_not_faithful": 65832,
+        "confidently_wrong_rate": 0.32396681200358257
+      },
+      "gemma3:27b": {
+        "n": 242997,
+        "n_drift": 66018,
+        "n_drift_at_high_confidence": 52787,
+        "frac_drift_at_high_confidence": 0.7995849616771183,
+        "n_high_confidence": 220472,
+        "n_high_confidence_not_faithful": 72241,
+        "confidently_wrong_rate": 0.3276651910446678
+      },
+      "gemma4:12b": {
+        "n": 242977,
+        "n_drift": 69185,
+        "n_drift_at_high_confidence": 32511,
+        "frac_drift_at_high_confidence": 0.46991399869913997,
+        "n_high_confidence": 188475,
+        "n_high_confidence_not_faithful": 42877,
+        "confidently_wrong_rate": 0.22749436264756598
+      },
+      "gemma4:31b": {
+        "n": 242998,
+        "n_drift": 56341,
+        "n_drift_at_high_confidence": 10249,
+        "frac_drift_at_high_confidence": 0.18191015423936388,
+        "n_high_confidence": 171835,
+        "n_high_confidence_not_faithful": 17128,
+        "confidently_wrong_rate": 0.09967701574184537
+      },
+      "gemma4:e4b": {
+        "n": 242999,
+        "n_drift": 58752,
+        "n_drift_at_high_confidence": 20258,
+        "frac_drift_at_high_confidence": 0.34480528322440085,
+        "n_high_confidence": 159161,
+        "n_high_confidence_not_faithful": 33151,
+        "confidently_wrong_rate": 0.20828594944741488
+      },
+      "gpt-oss:120b": {
+        "n": 40485,
+        "n_drift": 8455,
+        "n_drift_at_high_confidence": 313,
+        "frac_drift_at_high_confidence": 0.03701951507983442,
+        "n_high_confidence": 17929,
+        "n_high_confidence_not_faithful": 962,
+        "confidently_wrong_rate": 0.05365608790228122
+      },
+      "gpt-oss:20b": {
+        "n": 36208,
+        "n_drift": 8806,
+        "n_drift_at_high_confidence": 1083,
+        "frac_drift_at_high_confidence": 0.12298432886668181,
+        "n_high_confidence": 19811,
+        "n_high_confidence_not_faithful": 1971,
+        "confidently_wrong_rate": 0.09949018222199787
+      },
+      "granite3.3:8b": {
+        "n": 241962,
+        "n_drift": 90880,
+        "n_drift_at_high_confidence": 25023,
+        "frac_drift_at_high_confidence": 0.2753411091549296,
+        "n_high_confidence": 124424,
+        "n_high_confidence_not_faithful": 33725,
+        "confidently_wrong_rate": 0.2710489937632611
+      },
+      "llama3.1:8b": {
+        "n": 241058,
+        "n_drift": 95752,
+        "n_drift_at_high_confidence": 25875,
+        "frac_drift_at_high_confidence": 0.2702293424680424,
+        "n_high_confidence": 135013,
+        "n_high_confidence_not_faithful": 33696,
+        "confidently_wrong_rate": 0.24957596675875657
+      },
+      "llama4:17b-scout-16e-instruct-q4_K_M": {
+        "n": 242950,
+        "n_drift": 66744,
+        "n_drift_at_high_confidence": 590,
+        "frac_drift_at_high_confidence": 0.008839745894762076,
+        "n_high_confidence": 69479,
+        "n_high_confidence_not_faithful": 5666,
+        "confidently_wrong_rate": 0.08154982080916535
+      },
+      "mistral-small:24b": {
+        "n": 242998,
+        "n_drift": 78861,
+        "n_drift_at_high_confidence": 16067,
+        "frac_drift_at_high_confidence": 0.2037382229492398,
+        "n_high_confidence": 133312,
+        "n_high_confidence_not_faithful": 23779,
+        "confidently_wrong_rate": 0.1783710393662986
+      },
+      "phi3:mini": {
+        "n": 238632,
+        "n_drift": 115626,
+        "n_drift_at_high_confidence": 106429,
+        "frac_drift_at_high_confidence": 0.9204590662999671,
+        "n_high_confidence": 225891,
+        "n_high_confidence_not_faithful": 144537,
+        "confidently_wrong_rate": 0.6398528493831096
+      },
+      "phi4:14b": {
+        "n": 242979,
+        "n_drift": 88788,
+        "n_drift_at_high_confidence": 51735,
+        "frac_drift_at_high_confidence": 0.5826800919043114,
+        "n_high_confidence": 193948,
+        "n_high_confidence_not_faithful": 64090,
+        "confidently_wrong_rate": 0.3304493988079279
+      },
+      "phi4:mini": {
+        "n": 242727,
+        "n_drift": 105370,
+        "n_drift_at_high_confidence": 90335,
+        "frac_drift_at_high_confidence": 0.8573123279870931,
+        "n_high_confidence": 220606,
+        "n_high_confidence_not_faithful": 123341,
+        "confidently_wrong_rate": 0.5591008404123188
+      },
+      "qwen2.5:7b": {
+        "n": 242389,
+        "n_drift": 56792,
+        "n_drift_at_high_confidence": 8941,
+        "frac_drift_at_high_confidence": 0.15743414565431751,
+        "n_high_confidence": 100967,
+        "n_high_confidence_not_faithful": 19599,
+        "confidently_wrong_rate": 0.19411292798637178
+      },
+      "qwen3.5:27b-q4": {
+        "n": 243000,
+        "n_drift": 70072,
+        "n_drift_at_high_confidence": 9262,
+        "frac_drift_at_high_confidence": 0.13217833085968717,
+        "n_high_confidence": 148416,
+        "n_high_confidence_not_faithful": 15332,
+        "confidently_wrong_rate": 0.10330422595946528
+      },
+      "qwen3.6:27b": {
+        "n": 243000,
+        "n_drift": 68503,
+        "n_drift_at_high_confidence": 24739,
+        "frac_drift_at_high_confidence": 0.3611374684320395,
+        "n_high_confidence": 182382,
+        "n_high_confidence_not_faithful": 33797,
+        "confidently_wrong_rate": 0.18530885723371823
+      },
+      "qwen3.6:35b-a3b": {
+        "n": 242999,
+        "n_drift": 70838,
+        "n_drift_at_high_confidence": 13590,
+        "frac_drift_at_high_confidence": 0.1918461842513905,
+        "n_high_confidence": 151119,
+        "n_high_confidence_not_faithful": 22262,
+        "confidently_wrong_rate": 0.14731436814695703
+      }
+    },
+    "notes": "confidence scale detected as 0-100 from df['confidence'].max() on 4236512 non-NaN row(s); conf_threshold=0.9 rescaled to effective_threshold=90.0 for comparison (>= is inclusive). 15814 NaN-confidence row(s) excluded from every denominator below. frac_drift_at_high_confidence = P(confidence >= threshold | label == 'drift'). confidently_wrong_rate = P(label != 'faithful' | confidence >= threshold). Report per-model, not just pooled -- confidence scales differ across models."
+  },
+  "missing_confidence_audit": {
+    "total_missing": 15814,
+    "table": [
+      {
+        "model": "command-r:latest",
+        "cer_target": 0.0,
+        "n_missing": 0
+      },
+      {
+        "model": "command-r:latest",
+        "cer_target": 0.1,
+        "n_missing": 4
+      },
+      {
+        "model": "command-r:latest",
+        "cer_target": 0.2,
+        "n_missing": 2
+      },
+      {
+        "model": "command-r:latest",
+        "cer_target": 0.3,
+        "n_missing": 3
+      },
+      {
+        "model": "command-r:latest",
+        "cer_target": 0.4,
+        "n_missing": 6
+      },
+      {
+        "model": "deepseek-r1:32b",
+        "cer_target": 0.0,
+        "n_missing": 430
+      },
+      {
+        "model": "deepseek-r1:32b",
+        "cer_target": 0.1,
+        "n_missing": 421
+      },
+      {
+        "model": "deepseek-r1:32b",
+        "cer_target": 0.2,
+        "n_missing": 595
+      },
+      {
+        "model": "deepseek-r1:32b",
+        "cer_target": 0.3,
+        "n_missing": 819
+      },
+      {
+        "model": "deepseek-r1:32b",
+        "cer_target": 0.4,
+        "n_missing": 1063
+      },
+      {
+        "model": "gemma2:9b",
+        "cer_target": 0.0,
+        "n_missing": 0
+      },
+      {
+        "model": "gemma2:9b",
+        "cer_target": 0.1,
+        "n_missing": 0
+      },
+      {
+        "model": "gemma2:9b",
+        "cer_target": 0.2,
+        "n_missing": 1
+      },
+      {
+        "model": "gemma2:9b",
+        "cer_target": 0.3,
+        "n_missing": 1
+      },
+      {
+        "model": "gemma2:9b",
+        "cer_target": 0.4,
+        "n_missing": 1
+      },
+      {
+        "model": "gemma3:27b",
+        "cer_target": 0.0,
+        "n_missing": 0
+      },
+      {
+        "model": "gemma3:27b",
+        "cer_target": 0.1,
+        "n_missing": 0
+      },
+      {
+        "model": "gemma3:27b",
+        "cer_target": 0.2,
+        "n_missing": 1
+      },
+      {
+        "model": "gemma3:27b",
+        "cer_target": 0.3,
+        "n_missing": 0
+      },
+      {
+        "model": "gemma3:27b",
+        "cer_target": 0.4,
+        "n_missing": 2
+      },
+      {
+        "model": "gemma4:12b",
+        "cer_target": 0.0,
+        "n_missing": 0
+      },
+      {
+        "model": "gemma4:12b",
+        "cer_target": 0.1,
+        "n_missing": 1
+      },
+      {
+        "model": "gemma4:12b",
+        "cer_target": 0.2,
+        "n_missing": 3
+      },
+      {
+        "model": "gemma4:12b",
+        "cer_target": 0.3,
+        "n_missing": 9
+      },
+      {
+        "model": "gemma4:12b",
+        "cer_target": 0.4,
+        "n_missing": 10
+      },
+      {
+        "model": "gemma4:31b",
+        "cer_target": 0.0,
+        "n_missing": 0
+      },
+      {
+        "model": "gemma4:31b",
+        "cer_target": 0.1,
+        "n_missing": 1
+      },
+      {
+        "model": "gemma4:31b",
+        "cer_target": 0.2,
+        "n_missing": 0
+      },
+      {
+        "model": "gemma4:31b",
+        "cer_target": 0.3,
+        "n_missing": 0
+      },
+      {
+        "model": "gemma4:31b",
+        "cer_target": 0.4,
+        "n_missing": 1
+      },
+      {
+        "model": "gemma4:e4b",
+        "cer_target": 0.0,
+        "n_missing": 0
+      },
+      {
+        "model": "gemma4:e4b",
+        "cer_target": 0.1,
+        "n_missing": 0
+      },
+      {
+        "model": "gemma4:e4b",
+        "cer_target": 0.2,
+        "n_missing": 1
+      },
+      {
+        "model": "gemma4:e4b",
+        "cer_target": 0.3,
+        "n_missing": 0
+      },
+      {
+        "model": "gemma4:e4b",
+        "cer_target": 0.4,
+        "n_missing": 0
+      },
+      {
+        "model": "gpt-oss:120b",
+        "cer_target": 0.0,
+        "n_missing": 0
+      },
+      {
+        "model": "gpt-oss:120b",
+        "cer_target": 0.1,
+        "n_missing": 0
+      },
+      {
+        "model": "gpt-oss:120b",
+        "cer_target": 0.2,
+        "n_missing": 1
+      },
+      {
+        "model": "gpt-oss:120b",
+        "cer_target": 0.3,
+        "n_missing": 5
+      },
+      {
+        "model": "gpt-oss:120b",
+        "cer_target": 0.4,
+        "n_missing": 9
+      },
+      {
+        "model": "gpt-oss:20b",
+        "cer_target": 0.0,
+        "n_missing": 3
+      },
+      {
+        "model": "gpt-oss:20b",
+        "cer_target": 0.1,
+        "n_missing": 95
+      },
+      {
+        "model": "gpt-oss:20b",
+        "cer_target": 0.2,
+        "n_missing": 458
+      },
+      {
+        "model": "gpt-oss:20b",
+        "cer_target": 0.3,
+        "n_missing": 1292
+      },
+      {
+        "model": "gpt-oss:20b",
+        "cer_target": 0.4,
+        "n_missing": 2270
+      },
+      {
+        "model": "granite3.3:8b",
+        "cer_target": 0.0,
+        "n_missing": 402
+      },
+      {
+        "model": "granite3.3:8b",
+        "cer_target": 0.1,
+        "n_missing": 250
+      },
+      {
+        "model": "granite3.3:8b",
+        "cer_target": 0.2,
+        "n_missing": 157
+      },
+      {
+        "model": "granite3.3:8b",
+        "cer_target": 0.3,
+        "n_missing": 126
+      },
+      {
+        "model": "granite3.3:8b",
+        "cer_target": 0.4,
+        "n_missing": 103
+      },
+      {
+        "model": "llama3.1:8b",
+        "cer_target": 0.0,
+        "n_missing": 917
+      },
+      {
+        "model": "llama3.1:8b",
+        "cer_target": 0.1,
+        "n_missing": 345
+      },
+      {
+        "model": "llama3.1:8b",
+        "cer_target": 0.2,
+        "n_missing": 276
+      },
+      {
+        "model": "llama3.1:8b",
+        "cer_target": 0.3,
+        "n_missing": 217
+      },
+      {
+        "model": "llama3.1:8b",
+        "cer_target": 0.4,
+        "n_missing": 187
+      },
+      {
+        "model": "llama4:17b-scout-16e-instruct-q4_K_M",
+        "cer_target": 0.0,
+        "n_missing": 0
+      },
+      {
+        "model": "llama4:17b-scout-16e-instruct-q4_K_M",
+        "cer_target": 0.1,
+        "n_missing": 4
+      },
+      {
+        "model": "llama4:17b-scout-16e-instruct-q4_K_M",
+        "cer_target": 0.2,
+        "n_missing": 17
+      },
+      {
+        "model": "llama4:17b-scout-16e-instruct-q4_K_M",
+        "cer_target": 0.3,
+        "n_missing": 15
+      },
+      {
+        "model": "llama4:17b-scout-16e-instruct-q4_K_M",
+        "cer_target": 0.4,
+        "n_missing": 14
+      },
+      {
+        "model": "mistral-small:24b",
+        "cer_target": 0.0,
+        "n_missing": 0
+      },
+      {
+        "model": "mistral-small:24b",
+        "cer_target": 0.1,
+        "n_missing": 0
+      },
+      {
+        "model": "mistral-small:24b",
+        "cer_target": 0.2,
+        "n_missing": 0
+      },
+      {
+        "model": "mistral-small:24b",
+        "cer_target": 0.3,
+        "n_missing": 2
+      },
+      {
+        "model": "mistral-small:24b",
+        "cer_target": 0.4,
+        "n_missing": 0
+      },
+      {
+        "model": "phi3:mini",
+        "cer_target": 0.0,
+        "n_missing": 326
+      },
+      {
+        "model": "phi3:mini",
+        "cer_target": 0.1,
+        "n_missing": 722
+      },
+      {
+        "model": "phi3:mini",
+        "cer_target": 0.2,
+        "n_missing": 991
+      },
+      {
+        "model": "phi3:mini",
+        "cer_target": 0.3,
+        "n_missing": 1116
+      },
+      {
+        "model": "phi3:mini",
+        "cer_target": 0.4,
+        "n_missing": 1213
+      },
+      {
+        "model": "phi4:14b",
+        "cer_target": 0.0,
+        "n_missing": 0
+      },
+      {
+        "model": "phi4:14b",
+        "cer_target": 0.1,
+        "n_missing": 2
+      },
+      {
+        "model": "phi4:14b",
+        "cer_target": 0.2,
+        "n_missing": 1
+      },
+      {
+        "model": "phi4:14b",
+        "cer_target": 0.3,
+        "n_missing": 6
+      },
+      {
+        "model": "phi4:14b",
+        "cer_target": 0.4,
+        "n_missing": 12
+      },
+      {
+        "model": "phi4:mini",
+        "cer_target": 0.0,
+        "n_missing": 54
+      },
+      {
+        "model": "phi4:mini",
+        "cer_target": 0.1,
+        "n_missing": 30
+      },
+      {
+        "model": "phi4:mini",
+        "cer_target": 0.2,
+        "n_missing": 45
+      },
+      {
+        "model": "phi4:mini",
+        "cer_target": 0.3,
+        "n_missing": 63
+      },
+      {
+        "model": "phi4:mini",
+        "cer_target": 0.4,
+        "n_missing": 81
+      },
+      {
+        "model": "qwen2.5:7b",
+        "cer_target": 0.0,
+        "n_missing": 98
+      },
+      {
+        "model": "qwen2.5:7b",
+        "cer_target": 0.1,
+        "n_missing": 132
+      },
+      {
+        "model": "qwen2.5:7b",
+        "cer_target": 0.2,
+        "n_missing": 156
+      },
+      {
+        "model": "qwen2.5:7b",
+        "cer_target": 0.3,
+        "n_missing": 128
+      },
+      {
+        "model": "qwen2.5:7b",
+        "cer_target": 0.4,
+        "n_missing": 97
+      },
+      {
+        "model": "qwen3.5:27b-q4",
+        "cer_target": 0.0,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.5:27b-q4",
+        "cer_target": 0.1,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.5:27b-q4",
+        "cer_target": 0.2,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.5:27b-q4",
+        "cer_target": 0.3,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.5:27b-q4",
+        "cer_target": 0.4,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.6:27b",
+        "cer_target": 0.0,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.6:27b",
+        "cer_target": 0.1,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.6:27b",
+        "cer_target": 0.2,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.6:27b",
+        "cer_target": 0.3,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.6:27b",
+        "cer_target": 0.4,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.6:35b-a3b",
+        "cer_target": 0.0,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.6:35b-a3b",
+        "cer_target": 0.1,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.6:35b-a3b",
+        "cer_target": 0.2,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.6:35b-a3b",
+        "cer_target": 0.3,
+        "n_missing": 0
+      },
+      {
+        "model": "qwen3.6:35b-a3b",
+        "cer_target": 0.4,
+        "n_missing": 1
+      }
+    ],
+    "notes": "15814 of 4252326 row(s) have NaN confidence, tabulated across 20 model(s) x 5 cer_target level(s). Cells with zero missing rows are included explicitly."
+  },
+  "predicted_drift_grid": {
+    "cer_grid": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4
+    ],
+    "predicted_drift_probability": {
+      "0.0": 0.07194037810393054,
+      "0.1": 0.14759553360937094,
+      "0.2": 0.27890238058184885,
+      "0.3": 0.4635050431522517,
+      "0.4": 0.6586834894143733
+    },
+    "coefficients": {
+      "const": {
+        "est": -2.5572582843782383,
+        "se": 0.017428877655913826
+      },
+      "realized_cer": {
+        "est": 8.036727959943864,
+        "se": 0.07136565005671468
+      }
+    },
+    "n_obs": 4252326,
+    "converged": true,
+    "seed": 0,
+    "notes": "engine=statsmodels.api.Logit (label=='drift' ~ 1 + realized_cer), cov_type='cluster', cov_kwds={'groups': message_id}. Deliberately univariate (realized_cer only, no covariates or random effects) for a single quotable number per CER grid point; see idrift.analysis.mixed_models for the covariate-adjusted models. `seed` is accepted for interface consistency but unused -- this fit's Newton-Raphson MLE is already deterministic."
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "balance_table": [
+    {
+      "covariate": "char_len",
+      "max_abs_smd_after": 0.12403473458920845,
+      "n_unmatched": 1419,
+      "note": "",
+      "smd_after": 0.0035978872932604287,
+      "smd_before": 0.05222774676120076
+    },
+    {
+      "covariate": "word_count",
+      "max_abs_smd_after": 0.12403473458920845,
+      "n_unmatched": 1419,
+      "note": "",
+      "smd_after": 0.00868369547336515,
+      "smd_before": 0.07307305632998075
+    },
+    {
+      "covariate": "has_numeral",
+      "max_abs_smd_after": 0.12403473458920845,
+      "n_unmatched": 1419,
+      "note": "",
+      "smd_after": 0.12403473458920845,
+      "smd_before": 0.12403473458920845
+    },
+    {
+      "covariate": "has_negation",
+      "max_abs_smd_after": 0.12403473458920845,
+      "n_unmatched": 1419,
+      "note": "",
+      "smd_after": 0.0,
+      "smd_before": -0.25441453940368536
+    },
+    {
+      "covariate": "mean_word_freq",
+      "max_abs_smd_after": 0.12403473458920845,
+      "n_unmatched": 1419,
+      "note": "",
+      "smd_after": -0.025310622122431573,
+      "smd_before": -0.5699980236595512
+    }
+  ],
+  "max_abs_smd_after": 0.12403473458920845,
+  "n_crit": 131,
+  "n_ctrl_candidate_pool_before_matching": 1550,
+  "n_matched_pairs": 131,
+  "n_unmatched": 1419,
+  "notes": "Before-matching pool IS recoverable for this real run: idrift.data.matched_controls._load_ctrl_candidate_pool(crit_df) reconstructs the exact CTRL candidate pool build_controls matched from (output/intermediate/corpus_costello.parquet, minus the Task 1.1 auth_sample.csv texts and the CRIT items' own texts), so smd_before reflects the real, non-fabricated pre-matching pool -- not a null placeholder. smd_after uses the realized matched pairs in output/intermediate/ctrl_matched.csv. |SMD| < 0.1 = good balance, < 0.25 = acceptable (Austin, 2009)."
+}

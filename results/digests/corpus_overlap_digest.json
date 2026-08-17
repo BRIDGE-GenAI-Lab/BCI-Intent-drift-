@@ -1,0 +1,11 @@
+{
+  "auth_n_unique": 2168,
+  "crit_n_unique": 131,
+  "ctrl_n_unique": 131,
+  "crit_subset_of_auth": false,
+  "ctrl_subset_of_auth": true,
+  "crit_overlap_with_auth_n": 0,
+  "ctrl_overlap_with_auth_n": 131,
+  "ctrl_overlap_with_crit_n": 0,
+  "total_unique_messages": 2299
+}
